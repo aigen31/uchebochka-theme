@@ -997,7 +997,8 @@ section.section-materials {
     position: relative;
     border-radius: 10px;
     overflow: hidden;
-    height: 180px;
+    aspect-ratio: 1 / 1;
+    width: 100%;
     background-color: #f4e0b2;
     display: flex;
     align-items: center;

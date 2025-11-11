@@ -192,7 +192,7 @@
 			<ul>
 				<li><a href="/"><img src="<?php echo get_template_directory_uri(); ?>/img/home.svg" alt=""></a></li>
 				<li class="filter-call"><a><img src="<?php echo get_template_directory_uri(); ?>/img/set2.svg" alt=""></a></li>
-				<li class="lk-button"><a href="" data-bs-toggle="modal" data-bs-target="#consultModal"><img src="<?php echo get_template_directory_uri(); ?>/img/lk.svg" alt=""></a></li>
+				<li class="lk-button"><a href="/lichnyj-kabinet"><img src="<?php echo get_template_directory_uri(); ?>/img/lk.svg" alt=""></a></li>
 				<li><a href="/favorites"><img src="<?php echo get_template_directory_uri(); ?>/img/star-top.svg" alt=""></a></li>
 				<li><a href="/cart">
 						<img src="<?php echo get_template_directory_uri(); ?>/img/cart2.svg" alt="">
@@ -200,4 +200,3 @@
 					</a></li>
 			</ul>
 		</div>
-	</div>

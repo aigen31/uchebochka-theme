@@ -146,3 +146,10 @@ add_action('profile_update', function ($user_id, $old_user_data) {
 	$work = isset($_POST['work']) ? $build_complex($_POST['work'], ['organization', 'specialization', 'year', 'experience']) : [];
 	carbon_set_user_meta($user_id, 'work', $work);
 }, 10, 2);
+
+add_filter('um_profile_query_make_posts', 'urok_profile_custom_post_types', 10, 2);
+function urok_profile_custom_post_types($args)
+{
+	$args['post_type'] = ['metodic_post', 'curses_post'];
+	return $args;
+}
