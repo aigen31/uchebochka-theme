@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ru-ru" dir="ltr" itemscope itemtype="https://schema.org/WebPage" prefix="og:http://ogp.me/ns#">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name='viewport' content='width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+
+    <title>Articles page</title>
+
+    <link rel="canonical" href="https://moderntemplate.site/" />
+    <link rel="amphtml" href="https://moderntemplate.site/amp/index.html" />
+    <link rel="icon" type="image/png" href="./img/icons/64x64.png" />
+    <link rel="manifest" href="./manifest.json" />
+
+    <!-- General -->
+    <meta name="application-name" content="HTML Template" />
+    <meta name="author" content="Igor Agapov" />
+    <meta name="description" content="Modern HTML Starter Template" />
+    <meta name="keywords" content="modern, useful, html, html5, css, css3, javascript, js, template, boilerplate" />
+    <meta name="referrer" content="strict-origin" />
+
+    <meta itemprop="name" content="HTML Template" />
+    <meta itemprop="description" content="Modern HTML Starter Template" />
+    <meta itemprop="image" content="./img/icons/128x128.png" />
+
+    <!-- Microsoft -->
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="msapplication-starturl" content="/" />
+    <meta name="msapplication-tooltip" content="Modern HTML Starter Template" />
+    <meta name="msapplication-TileColor" content="#3c3c3c" />
+    <meta name="msapplication-config" content="browserconfig.xml" />
+
+    <!-- Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://moderntemplate.site/" />
+    <meta property="og:title" content="HTML Template" />
+    <meta property="og:description" content="Modern HTML Starter Template" />
+    <meta property="og:image" content="./img/icons/600x600.png" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="app" />
+    <meta name="twitter:title" content="HTML Template" />
+    <meta name="twitter:description" content="Modern HTML Starter Template" />
+    <meta name="twitter:url" content="https://moderntemplate.site/" />
+    <meta name="twitter:image" content="./img/icons/512x512.png" />
+
+    <!-- iOS -->
+    <meta name="apple-mobile-web-app-title" content="HTML Template" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#3c3c3c" />
+    <link rel="apple-touch-icon" href="./img/icons/512x512.png" />
+
+    <!-- Android -->
+    <meta name="theme-color" content="#f0f0f0" />
+    <meta name="color-scheme" content="light" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./src/libs/bootstrap/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="./src/libs/bootstrap/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="./src/libs/bootstrap/css/bootstrap.min.css">
+
+
+    <link rel="preload" href="./src/css/style.css" as="style" />
+    <link rel="stylesheet" href="./src/css/style.css" />
+    <link rel="stylesheet" href="./src/css/tablet.css" />
+    <link rel="stylesheet" href="./src/css/mobile.css" />
+
+    <link rel="preload" href="./src/js/script.js" as="script" />
+
+
+    <style>
+        /* Critical CSS */
+    </style>
+</head>
+
+<body>
+    <div class="top">
+        <header class="header-main">
+            <div class="container header-main__container">
+                <div class="header-main__wrapper d-md-flex align-items-md-center">
+                    <a href="#" class="logo header-main__logo">
+                        <img src="img/header/logo.svg" alt="">
+                    </a>
+
+                    <div class="header-main__menu">
+                        <ul class="menu">
+                            <li class="menu-item"><a href="#">Главная</a></li>
+                            <li class="menu-item menu-item-has-children">
+                                <a href="#">Услуги</a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item"><a href="#">Дизайн</a></li>
+                                    <li class="menu-item"><a href="#">Разработка</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item"><a href="#">Контакты</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="header-main__buttons">
+                        <div class="btn btn--icon header-main__support-btn">
+                            <span>Техническая поддержка</span>
+                            <div class="header-main__support-icons">
+                                <img src="img/socials/vk.svg" alt="">
+                                <img src="img/socials/tg.svg" alt="">
+                            </div>
+                        </div>
+
+                        <div class="links d-flex">
+                            <a href="">
+                                <img src="img/star-top.svg" alt="">
+                            </a>
+                            <a href="">
+                                <img src="img/cart2.svg" alt="">
+                                <span class="count">1</span>
+                            </a>
+                            <a href="">
+                                <img src="img/lk.svg" alt="">
+                                <img src="img/download.svg" alt="">
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </header>
+       <header class="mob">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="img/logo.svg" alt="">
+                        </a>
+                    </div>
+                    <div class="pad">
+                        <ul>
+                            <li><a href="">Главная</a></li>
+                            <li><a href="">Видеокурсы</a></li>
+                            <li><a href="">Учебные материалы</a></li>
+                            <li class="parent"><a href="">Блог</a> <span class="arr"><img src="img/parent-down.svg" alt=""></span>
+                                <ul>
+                                    <li><a href="">Кейсы педагогов</a></li>
+                                    <li><a href="">Новости компании</a></li>
+                                    <li><a href="">Обновление платформы</a></li>
+                                    <li><a href="">Экспертные статьи</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="burg">
+                        <img src="img/burger.svg" alt="">
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+        <!--- burger menu -->
+
+        <div class="burger-menu" style="display:none;">
+            <div class="container">
+                <div class="item">
+                    <div class="close-burger">
+                        <img src="img/close-menu.svg" alt="">
+                    </div>
+
+                    <ul>
+                        <li><a href="">Главная</a></li>
+                        <li><a href="">Видеокурсы</a></li>
+                        <li><a href="">Учебные материалы</a></li>
+                        <li class="parent"><a href="">Блог</a> <span class="arr"><img src="img/parent-down.svg" alt=""></span>
+                            <ul>
+                                <li><a href="">Кейсы педагогов</a></li>
+                                <li><a href="">Новости компании</a></li>
+                                <li><a href="">Обновление платформы</a></li>
+                                <li><a href="">Экспертные статьи</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                    <ul>
+                        <li><a href="">Регистрация</a></li>
+                        <li><a href="">Вход</a></li>
+                        <li><a href="">Техническая помощь</a></li>
+                    </ul>
+
+                    <div class="header-main__support-icons">
+                        <a href="" target="_blank"><img src="img/socials/vk.svg" alt=""></a>
+                        <a href="" target="_blank"><img src="img/socials/tg.svg" alt=""></a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!--- pad menu -->
+
+        <div class="pad-menu" style="display:none;">
+            <ul>
+                <li><a href="">Регистрация</a></li>
+                <li><a href="">Вход</a></li>
+                <li><a href="">Техническая помощь</a></li>
+            </ul>
+            <div class="header-main__support-icons">
+                <a href="" target="_blank"><img src="img/socials/vk.svg" alt=""></a>
+                <a href="" target="_blank"><img src="img/socials/tg.svg" alt=""></a>
+            </div>
+        </div> 
+
+
+        <!-- bottom fixed menu -->
+
+        <div class="bottom-menu mob">
+            <ul>
+                <li><a href="/"><img src="img/home.svg" alt=""></a></li>
+                <li class="filter-call"><a><img src="img/set2.svg" alt=""></a></li>
+                <li class="lk-button"><a href="" data-bs-toggle="modal" data-bs-target="#consultModal"><img src="img/lk.svg" alt=""></a></li>
+                <li><a href=""><img src="img/star-top.svg" alt=""></a></li>
+                <li><a href="">
+                        <img src="img/cart2.svg" alt="">
+                        <span class="count">1</span>
+                    </a></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+
+    <section class="articles-page">
+        <div class="container">
+            <div class="bread">
+                <ul>
+                    <li><a href="">Главная</a></li>
+                    <li><a href="">Статьи</a></li>
+                    <li><span>Все категории</span></li>
+                </ul>
+            </div>
+
+            <h1>Статьи</h1>
+        </div>
+        <div class="container d-md-flex">
+
+            <!-- SIDEBAR -->
+
+            <div class="left-column">
+
+
+                <!-- left anv -->
+
+                <div class="left-menu">
+                    <nav>
+                        <ul>
+                            <li class="active"><a href="">Все категории</a></li>
+                            <li><a href="">Истории преподавателей</a></li>
+                            <li><a href="">Статьи от экспертов</a></li>
+                            <li><a href="">Новинки проекта</a></li>
+                            <li><a href="">Новинки на платформе: всё про обновления</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+                <!-- subscribe -->
+
+                <div class="subscribe">
+                    <div class="item">
+                        <h3>Подпишитесь на полезную рассылку!</h3>
+                        <p>Никакого спама и частых бесполезных рассылок – только самое нужное для вас!</p>
+                        <p>Отметьте галочкой, какие новости хотите получать от команды Учебочки:</p>
+
+                        <form action="">
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" name="opt[]" value="">
+                                    <span>Про обновления платформы</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="opt[]" value="">
+                                    <span>Бесплатные видео-курсы для педагогов</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="opt[]" value="">
+                                    <span>Добавление новых материалов в категории</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="opt[]" value="">
+                                    <span>Мне интересно всё!</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Введите эл. почту" value="">
+                            </div>
+                            <button class="btn" type="submit">Подписаться</button>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <!-- END SIDEBAR -->
+
+
+            <!-- CENTER COLUMN -->
+
+            <div class="articles-column">
+                <div class="article-bg" style="background-image:url(img/girla.jpeg)">
+                    <div class="overlay"></div>
+
+                    <div class="d-flex flex-column justify-content-end">
+                        <div class="subtitle">Статья от экспертов</div>
+                        <h2>Название статьи</h2>
+
+                        <div class="meta d-flex justify-content-between">
+                            <div class="meta-left">
+                                <div class="item">
+                                    <img src="img/see.svg" alt="">
+                                    <span>61</span>
+                                </div>
+                                <div class="item">
+                                    <img src="img/chat2.svg" alt="">
+                                    <span>0</span>
+                                </div>
+                                <div class="item">
+                                    <img src="img/cal.svg" alt="">
+                                    <span>09.07.2025</span>
+                                </div>
+                            </div>
+                            <div class="meta-right">
+                                <div class="item">
+                                    <img src="img/time.svg" alt="">
+                                    <span>Время чтения: 1 минута</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="articles">
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <div class="item">
+                                <img src="img/girla.jpeg" alt="">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="name">
+                                        <div class="subtitle">Статья от экспертов</div>
+                                        <div class="title"><a href="">Название</a></div>
+                                    </div>
+                                    <div class="meta-art">
+                                        <div class="read">
+                                            <img src="img/time.svg" alt="">
+                                            <span>1 минута</span>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="item">
+                                                <img src="img/see.svg" alt="">
+                                                <span>61</span>
+                                            </div>
+                                            <div class="item">
+                                                <img src="img/chat2.svg" alt="">
+                                                <span>0</span>
+                                            </div>
+                                            <div class="item">
+                                                <img src="img/cal.svg" alt="">
+                                                <span>09.07.2025</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="item">
+                                <img src="img/girla.jpeg" alt="">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="name">
+                                        <div class="subtitle">Статья от экспертов</div>
+                                        <div class="title"><a href="">Название</a></div>
+                                    </div>
+                                    <div class="meta-art">
+                                        <div class="read">
+                                            <img src="img/time.svg" alt="">
+                                            <span>1 минута</span>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="item">
+                                                <img src="img/see.svg" alt="">
+                                                <span>61</span>
+                                            </div>
+                                            <div class="item">
+                                                <img src="img/chat2.svg" alt="">
+                                                <span>0</span>
+                                            </div>
+                                            <div class="item">
+                                                <img src="img/cal.svg" alt="">
+                                                <span>09.07.2025</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            <!-- END CENTER COLUMN -->
+
+
+
+
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="logo">
+                        <img src="img/logo2.svg" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-12">
+                    <nav>
+                        <ul>
+                            <li><a href="">Разместить рекламу</a></li>
+                            <li><a href="">Главная</a></li>
+                            <li><a href="">Видеокурсы</a></li>
+                            <li><a href="">Учебные материалы</a></li>
+                            <li><a href="">Блог</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="copy">
+                        <p>Ответственность за разрешение любых спорных моментов, касающихся самих материалов и их содержания, берут на себя пользователи, разместившие материал на сайте. Однако администрация сайта готова оказать всяческую поддержку в решении любых вопросов, связанных с работой и содержанием сайта. Если Вы заметили, что на данном сайте незаконно используются материалы, сообщите об этом администрации сайта через форму обратной связи.</p>
+
+                        <p>Все материалы, размещенные на сайте, созданы авторами сайта либо размещены пользователями сайта и представлены на сайте исключительно для ознакомления. Авторские права на материалы принадлежат их законным авторам. Частичное или полное копирование материалов сайта без письменного разрешения администрации сайта запрещено! Мнение администрации может не совпадать с точкой зрения авторов.</p>
+                    </div>
+                </div>
+                <div class="offset-lg-1 col-lg-5 col-md-6 col-12">
+                    <div class="d-flex">
+                        <div class="menu col-md-6 col-12">
+                            <nav>
+                                <ul>
+                                    <li><a href="">Сведения об организации</a></li>
+                                    <li><a href="">Пользовательское соглашение</a></li>
+                                    <li><a href="">Политика конфиденциальности</a></li>
+                                    <li><a href="">Политика персональных данных</a></li>
+                                </ul>
+                            </nav>
+
+                            <div class="copyright">
+                                &copy; Все права защищены, 2025 г.
+                            </div>
+                        </div>
+                        <div class="marketing col-md-6 col-12">
+                            <p>По вопросам рекламы:</p>
+                            <p><a href="tel:">+7 999 999 99 99</a></p>
+                            <p><a href="mailto:">mail@mail.ru</a></p>
+                            <div class="soc">
+                                <a href="" target="_blank"><img src="img/socials/vk.svg" alt=""></a>
+                                <a href="" target="_blank"><img src="img/socials/tg.svg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="consultModal" tabindex="-1" aria-labelledby="consultModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="img/close.svg" alt="">
+                </button>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Ваше имя</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" id="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Ваш запрос или предложение</label>
+                            <textarea class="form-control" id="message" rows="3"></textarea>
+                        </div>
+                        <p>Мы открыты к обсуждению
+                            разных форматов сотрудничества!
+                            Оставьте заявку и мы свяжемся
+                            с вами в ближайшее время.</p>
+                        <button type="submit" class="btn btn-submit">Отправить</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="src/js/bootstrap.bundle.min.js"></script>
+    <script src="src/js/main.js"></script>
+</body>
+
+</html>
