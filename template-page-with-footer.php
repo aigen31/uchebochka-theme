@@ -1,13 +1,12 @@
-Template Name: Страница с футером (подвалом)uchebochka<?php
+<?php
+/**
+ * Template Name: Страница с футером (подвалом)
+ *
+ * @package uchebochka
+ */
 
-																											/**
-																											 * Template Name: Страница с футером (подвалом)
-																											 *
-																											 * @package uchebochka
-																											 */
-
-																											get_header();
-																											?>
+get_header();
+?>
 </div>
 
 <!-- TOP END -->
