@@ -10,6 +10,9 @@
 
 get_header();
 ?>
+</div>
+
+<!-- TOP END -->
 
 	<?php
 	switch (get_post_type()) {

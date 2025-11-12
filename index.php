@@ -15,6 +15,10 @@
 
 get_header();
 ?>
+</div>
+
+<!-- TOP END -->
+
 <section class="section-materials">
 	<div class="container d-md-flex">
 

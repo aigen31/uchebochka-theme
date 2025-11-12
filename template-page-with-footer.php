@@ -1,13 +1,16 @@
-<?php
+Template Name: Страница с футером (подвалом)uchebochka<?php
 
-/**
- * Template Name: Страница с футером (подвалом)
- *
- * @package uchebochka
- */
+																											/**
+																											 * Template Name: Страница с футером (подвалом)
+																											 *
+																											 * @package uchebochka
+																											 */
 
-get_header();
-?>
+																											get_header();
+																											?>
+</div>
+
+<!-- TOP END -->
 
 <section class="section-materials">
 	<div class="container d-md-flex">

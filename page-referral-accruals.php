@@ -1,6 +1,10 @@
 <?php
 get_header();
 ?>
+</div>
+
+<!-- TOP END -->
+
 <section class="section-materials">
 	<div class="container d-md-flex">
 		<?php get_template_part('template-parts/column', 'left'); ?>

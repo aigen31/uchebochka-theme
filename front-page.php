@@ -1,6 +1,7 @@
 <?php
 get_header();
 ?>
+
 <section class="section-hero">
   <div class="container">
     <div class="section-hero__row">

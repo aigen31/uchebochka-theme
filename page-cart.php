@@ -2,6 +2,9 @@
 get_header();
 $products = uchebka_plugin()->cart_queries()->get_products_in_cart(get_current_user_id());
 ?>
+</div>
+
+<!-- TOP END -->
 
 <section class="section-materials">
   <div class="container d-md-flex">
