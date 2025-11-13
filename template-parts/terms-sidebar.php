@@ -4,7 +4,7 @@
   $child_terms = get_terms([
     'taxonomy' => $args['taxonomy'],
     'parent' => $args['parent_id'],
-    'hide_empty' => false
+    'hide_empty' => true
   ]);
   ?>
   <div class="filter-options" id="<?php echo esc_attr($args['slug']); ?>-options">
