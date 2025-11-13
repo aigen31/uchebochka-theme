@@ -23,7 +23,6 @@ jQuery(function ($) {
     $(".burg").click(function () {
         $(this).toggleClass('active');
         $('.burger-menu').slideToggle();
-
     });
 
     $(".close-burger").click(function () {
@@ -518,6 +517,11 @@ jQuery(document).ready(function ($) {
         $('#accrual-history-pagination'),
         '/wp-json/urok/get_user_accrual_history',
     );
+
+    $('.section-materials__filter .show-more').click(function (e) {
+        e.preventDefault();
+        $(this).siblings('.filter-options').find('.filter-option.switch').toggleClass('hidden visible');
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -657,22 +661,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Инициализация
     updateIncome();
-});
-
-// Функционал кнопки "Показать еще"
-document.querySelectorAll('.show-more').forEach(button => {
-    button.addEventListener('click', function () {
-        const targetId = this.getAttribute('data-target');
-        const targetElement = document.getElementById(targetId);
-
-        if (targetElement.classList.contains('expanded')) {
-            targetElement.classList.remove('expanded');
-            this.textContent = 'Показать еще';
-        } else {
-            targetElement.classList.add('expanded');
-            this.textContent = 'Скрыть';
-        }
-    });
 });
 
 // Синхронизация полей цены и ползунка

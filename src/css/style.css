@@ -79,7 +79,8 @@ body {
     font-weight: 400;
 }
 
-.pagination-prev, .pagination-next {
+.pagination-prev,
+.pagination-next {
     font-size: 12px;
     padding: 4px 6px;
     border-radius: 10px;
@@ -93,7 +94,8 @@ body {
     margin-left: 10px;
 }
 
-.accrual-history-pagination, .payment-history-pagination {
+.accrual-history-pagination,
+.payment-history-pagination {
     margin-top: 20px;
     display: flex;
     justify-content: flex-start;
@@ -643,14 +645,14 @@ body.main .top {
 }
 
 .filter-options {
-    max-height: 130px;
+    /* max-height: 130px; */
     overflow: hidden;
     transition: max-height 0.3s ease;
 }
 
-.filter-options.expanded {
+/* .filter-options.expanded {
     max-height: 1000px;
-}
+} */
 
 .filter-option {
     margin-bottom: 8px;
@@ -672,6 +674,14 @@ body.main .top {
     font-size: 0.95rem;
     padding-left: 0px;
     line-height: 1.3;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
 }
 
 .show-more {

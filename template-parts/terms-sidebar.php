@@ -4,12 +4,12 @@
   $child_terms = get_terms([
     'taxonomy' => $args['taxonomy'],
     'parent' => $args['parent_id'],
-    'hide_empty' => true
+    'hide_empty' => false
   ]);
   ?>
   <div class="filter-options" id="<?php echo esc_attr($args['slug']); ?>-options">
     <?php foreach ($child_terms as $index => $term) : ?>
-      <label class="filter-option">
+      <label class="filter-option <?php echo ($index < $args['max_visible']) ? '' : 'switch hidden'; ?>">
         <div class="custom-checkbox">
           <input
             type="checkbox"
