@@ -53,8 +53,7 @@ if ($wp_query->have_posts()): ?>
         }
 
         // Check if material is purchased
-        $purchased_queries = uchebka_plugin()->purchased_queries();
-        $purchased_queries->all_materials_offset_query();
+        $purchased_queries = uchebka_plugin()->purchased_queries()->user_materials_offset_query(get_current_user_id());
         $is_purchased = in_array(get_the_ID(), $purchased_queries->get_query_result_ids());
       ?>
         <div class="col-md-6 col-12">
