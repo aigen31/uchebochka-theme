@@ -182,12 +182,13 @@
     <button id="withdrawToggle" class="btn-purple">Вывести деньги</button>
     <form id="withdrawForm" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="display:none; margin-top:10px;">
       <input type="hidden" name="action" value="process_withdraw">
-      <?php wp_nonce_field('balance_withdraw_action', 'balance_withdraw_nonce'); ?>
+      <input type="hidden" name="source" value="withdrawal">
+      <?php wp_nonce_field('withdraw_action', 'withdraw_nonce'); ?>
       <label for="withdrawAmount">Введите сумму для вывода:</label>
       <input type="number" id="withdrawAmount" name="withdraw_amount" min="1" step="0.01" required>
       <label for="withdrawDetails">Реквизиты для вывода:</label>
       <textarea id="withdrawDetails" name="withdraw_details" required></textarea>
-      <button type="submit" class="btn btn-edit">Подтвердить вывод</button>
+      <button type="submit" class="btn btn-purple">Подтвердить вывод</button>
     </form>
 
     <p>Внимание! По закону все доходы физических лиц подлежат налогообложению.</p>
@@ -203,13 +204,14 @@
     <div class="balans"><?php echo ($referral_balance !== false && $referral_balance !== null) ? esc_html(floatval($referral_balance)) . ' ₽' : '0 ₽'; ?></div>
     <button id="referralWithdrawToggle" class="btn-purple">Вывести деньги</button>
     <form id="referralWithdrawForm" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="display:none; margin-top:10px;">
-      <input type="hidden" name="action" value="process_referral_withdraw">
-      <?php wp_nonce_field('referral_withdraw_action', 'referral_withdraw_nonce'); ?>
+      <input type="hidden" name="action" value="process_withdraw">
+      <input type="hidden" name="source" value="referral_withdrawal">
+      <?php wp_nonce_field('withdraw_action', 'withdraw_nonce'); ?>
       <label for="withdrawAmountReferral">Введите сумму для вывода:</label>
       <input type="number" id="withdrawAmountReferral" name="withdraw_amount" min="1" step="0.01" required>
       <label for="withdrawDetailsReferral">Реквизиты для вывода:</label>
       <textarea id="withdrawDetailsReferral" name="withdraw_details" required></textarea>
-      <button type="submit" class="btn btn-edit">Подтвердить вывод</button>
+      <button type="submit" class="btn btn-purple">Подтвердить вывод</button>
     </form>
   </div>
 

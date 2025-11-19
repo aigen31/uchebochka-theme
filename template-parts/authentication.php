@@ -18,7 +18,7 @@
         Личный кабинет
       </div>
       <div class="section-materials__authentication-tab section-materials__authentication-tab--registration">
-        Баланс: <span><?php echo uchebka_plugin()->user_helper()->get_balance_meta(get_current_user_id())->get_balance(); ?> ₽</span>
+        Баланс: <span><?php echo uchebka_plugin()->user_helper()->get_balance(get_current_user_id()); ?> ₽</span>
       </div>
     <?php endif; ?>
   </div>

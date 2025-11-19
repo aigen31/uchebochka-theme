@@ -21,13 +21,12 @@
 				</div>
 			</div>
 			<div class="col-lg-8 col-md-8 col-12">
-				<nav>
-					<ul>
-						<!-- <li><a href="">Разместить рекламу</a></li> -->
-						<!-- <li><a href="/">Главная</a></li> -->
-						<!-- <li><a href="">Блог</a></li> -->
-					</ul>
-				</nav>
+				<?php wp_nav_menu([
+					'theme_location' => 'footer',
+					'container' => 'nav',
+					'container_class' => 'footer-menu',
+				]);
+				?>
 			</div>
 		</div>
 		<div class="row justify-content-between">

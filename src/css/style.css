@@ -1351,19 +1351,19 @@ footer .copyright {
     margin-top: 40px;
 }
 
-footer .col-lg-8 nav ul {
+.footer-menu ul {
     display: flex;
-    justify-content: space-between;
-
+    justify-content: flex-end;
+    gap: 30px;
 }
 
-footer .col-lg-8 nav ul li:first-child a {
+/* footer .col-lg-8 nav ul li:first-child a {
     background: #893fe3;
     color: white;
     border-radius: 25px;
     padding: 6px 25px;
     font-weight: 300;
-}
+} */
 
 footer .row+.row {
     border-top: 1px solid black;
@@ -1616,6 +1616,11 @@ h1 {
 .lk-menu ul li a img {
     margin-right: 6px;
     width: 15px;
+}
+
+.lk-menu ul {
+    padding-left: 22px;
+    padding-right: 22px;
 }
 
 .about {
