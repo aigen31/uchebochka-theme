@@ -21,6 +21,7 @@ get_header();
 
         <?php get_template_part('template-parts/post-counter', '', [
           'postfix' => 'методических разработок',
+          'post_type' => ['post'],
         ]); ?>
       </div>
 
