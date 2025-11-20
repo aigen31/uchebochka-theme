@@ -60,7 +60,9 @@ if ($wp_query->have_posts()): ?>
           <div class="product-card">
             <div class="product-image">
               <?php if ($image_url): ?>
-                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                <a href="<?php echo esc_url($permalink); ?>">
+                  <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                </a>
               <?php endif; ?>
 
               <?php if (function_exists('the_favorites_button')): ?>

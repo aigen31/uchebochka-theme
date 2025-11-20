@@ -148,7 +148,7 @@
 								<img src="<?php echo get_template_directory_uri(); ?>/img/cart2.svg" alt="">
 								<span class="count cart__count"><?php echo uchebka_plugin()->cart_queries()->get_products_count(get_current_user_id()); ?></span>
 							</a>
-							<a href="/create-material">
+							<a href="/lichnyj-kabinet">
 								<img src="<?php echo get_template_directory_uri(); ?>/img/lk.svg" alt="">
 								<img src="<?php echo get_template_directory_uri(); ?>/img/download.svg" alt="">
 							</a>

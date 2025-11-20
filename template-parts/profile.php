@@ -75,6 +75,8 @@
   <div class="materials">
     <h2>Опубликованные материалы</h2>
 
+    <a href="/create-material" class="btn mb-3 btn--accent">Опубликовать материал</a>
+
     <?php
     // Query user's metodic posts
     $args = array(

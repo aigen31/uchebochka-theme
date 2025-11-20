@@ -35,17 +35,17 @@ $products = uchebka_plugin()->cart_queries()->get_products_in_cart(get_current_u
           if (!empty($posts)) :
             foreach ($posts as $post_id => $post):
               $title = get_the_title($post);
-              // $description = get_the_excerpt($post);
               $author_id = $post->post_author;
               $author_name = get_the_author_meta('display_name', $author_id);
               $price = get_post_meta($post->ID, 'price', true);
               $old_price = get_post_meta($post->ID, 'old_price', true);
+              $permalink = get_permalink($post);
           ?>
               <div class="document-card cart-item">
                 <div class="document-info cart-item-info">
-                  <div class="document-title cart-item-title"><?php echo esc_html($title); ?></div>
-                  <!-- <div class="document-description cart-item-description"><?php // echo esc_html($description); 
-                                                                                ?></div> -->
+                  <a href="<?php echo esc_url($permalink); ?>">
+                    <div class="document-title cart-item-title"><?php echo esc_html($title); ?></div>
+                  </a>
                   <div class="course-details cart-item-details">
                     <span>Автор: <?php echo esc_html($author_name); ?></span>
                   </div>

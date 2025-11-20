@@ -203,13 +203,10 @@ $metodic_file = get_post_meta($post->ID, 'metodic_file', true);
         </div>
 
         <?php
-        // Получаем материал через синглтон плагина
         $material = uchebka_plugin()->methodological_material(get_the_ID());
 
-        // Получаем ID текущего пользователя
         $current_user_id = get_current_user_id();
 
-        // Получаем список купленных записей пользователя
         global $wpdb;
         $purchased_posts = $wpdb->get_col(
           $wpdb->prepare(
@@ -218,23 +215,18 @@ $metodic_file = get_post_meta($post->ID, 'metodic_file', true);
           )
         );
 
-        // ID текущей записи
         $post_id = get_the_ID();
 
-        // Функция проверки покупки
         function is_purchased(int $post_id, array $purchased_posts)
         {
           return in_array((string) $post_id, $purchased_posts, true);
         }
 
-        // Проверяем статус материала
         $is_purchased = is_purchased($post_id, $purchased_posts);
         $is_free = get_post_meta($post_id, 'free_material', true) === '1';
 
-        // Инициализируем сервис для работы с файлами напрямую
         $pda_services = new PDA_Services();
 
-        // Получаем информацию о ценах
         $price = get_post_meta($post_id, 'price', true);
         $discount = get_post_meta($post_id, 'without_discount_price', true);
         ?>
@@ -255,52 +247,13 @@ $metodic_file = get_post_meta($post->ID, 'metodic_file', true);
           <?php endif; ?>
         </div>
 
-        <?php
-        // Показываем соответствующие кнопки в зависимости от статуса
-        if ($is_purchased || $is_free || current_user_can('administrator')) :
-          // Массив типов материалов
-          $metodic_materials = [
-            'metodic_docs' => 'Скачать DOC',
-            'metodic_presentations' => 'Скачать Презентацию',
-            'metodic_pdfs' => 'Скачать PDF',
-            'curses_file' => 'Скачать Курс',
-          ];
-
-          foreach ($metodic_materials as $material_type => $button_text) :
-            $attachments = get_post_meta($post_id, $material_type);
-            if ($attachments) :
-              foreach ($attachments as $attachment_id) :
-                $download_link = $pda_services->generate_custom_private_link($attachment_id, null, null);
-        ?>
-                <a href='<?php echo esc_url($download_link); ?>'
-                  class='btn-buy material-download'
-                  data-post-id='<?php echo get_the_ID(); ?>'
-                  download>
-                  <?php echo esc_html($button_text) . '<br/>' . esc_html(get_the_title($attachment_id)); ?>
-                </a>
-            <?php
-              endforeach;
-            endif;
-          endforeach;
-
-          // Проверяем ссылку на Яндекс.Диск
-          $metodic_file_url = get_post_meta($post_id, 'metodic_file_url', true);
-          if ($metodic_file_url) : ?>
-            <a href="<?php echo esc_url($metodic_file_url) ?>"
-              class="btn-buy material-download">
-              Яндекс.Диск
-            </a>
-          <?php endif;
-
-        else : ?>
-          <button class="btn-buy material-payment"
-            data-id="<?php echo esc_attr($post_id); ?>">
-            Купить материал
-          </button>
-        <?php endif; ?>
+        <?php get_template_part('template-parts/material-action-buttons', '', [
+          'is_purchased' => $is_purchased,
+          'is_free' => $is_free,
+          'pda_services' => $pda_services,
+        ]); ?>
 
         <?php
-        // Показываем демо-версию если есть
         $demo_attachment = get_post_meta($post_id, 'metodic_demo', true);
         if ($demo_attachment) :
           $demo_link = $pda_services->generate_custom_private_link($demo_attachment, null, null);
