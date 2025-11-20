@@ -20,7 +20,7 @@ get_header();
         <?php get_template_part('template-parts/search'); ?>
 
         <?php get_template_part('template-parts/post-counter', '', [
-          'postfix' => 'методических разработок',
+          'postfix' => 'статей',
           'post_type' => ['post'],
         ]); ?>
       </div>
