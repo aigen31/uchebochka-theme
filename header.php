@@ -134,7 +134,7 @@
 								<a href="https://vk.me/public219902120">
 									<img src="<?php echo get_template_directory_uri(); ?>/img/socials/vk.svg" alt="">
 								</a>
-								<a href="https://t.me/ucheb_mat">
+								<a href="https://t.me/uchebochka_support">
 									<img src="<?php echo get_template_directory_uri(); ?>/img/socials/tg.svg" alt="">
 								</a>
 							</div>
@@ -211,7 +211,7 @@
 
 					<div class="header-main__support-icons">
 						<a href="https://vk.me/public219902120" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/vk.svg" alt=""></a>
-						<a href="https://t.me/ucheb_mat" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/tg.svg" alt=""></a>
+						<a href="https://t.me/uchebochka_support" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/tg.svg" alt=""></a>
 					</div>
 				</div>
 			</div>
