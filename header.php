@@ -19,51 +19,22 @@
 	<meta charset="<?php bloginfo('charset'); ?>">
 	<meta name='viewport' content='width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'>
 
-	<link rel="canonical" href="https://moderntemplate.site/" />
-	<link rel="amphtml" href="https://moderntemplate.site/amp/index.html" />
-	<link rel="icon" type="image/png" href="./img/icons/64x64.png" />
-	<link rel="manifest" href="./manifest.json" />
-	<link rel="profile" href="https://gmpg.org/xfn/11">
 
 	<!-- General -->
 	<meta name="referrer" content="strict-origin" />
 
-	<meta itemprop="name" content="HTML Template" />
-	<meta itemprop="description" content="Modern HTML Starter Template" />
-	<meta itemprop="image" content="./img/icons/128x128.png" />
-
 	<!-- Microsoft -->
 	<meta http-equiv="x-ua-compatible" content="ie=edge" />
 	<meta name="msapplication-starturl" content="/" />
-	<meta name="msapplication-tooltip" content="Modern HTML Starter Template" />
-	<meta name="msapplication-TileColor" content="#3c3c3c" />
+	<meta name="msapplication-TileColor" content="#f0c000" />
 	<meta name="msapplication-config" content="browserconfig.xml" />
 
-	<!-- Facebook -->
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://moderntemplate.site/" />
-	<meta property="og:title" content="HTML Template" />
-	<meta property="og:description" content="Modern HTML Starter Template" />
-	<meta property="og:image" content="./img/icons/600x600.png" />
-	<meta property="og:locale" content="en_US" />
-
-	<!-- Twitter -->
-	<meta name="twitter:card" content="app" />
-	<meta name="twitter:title" content="HTML Template" />
-	<meta name="twitter:description" content="Modern HTML Starter Template" />
-	<meta name="twitter:url" content="https://moderntemplate.site/" />
-	<meta name="twitter:image" content="./img/icons/512x512.png" />
-
 	<!-- iOS -->
-	<meta name="apple-mobile-web-app-title" content="HTML Template" />
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="#3c3c3c" />
-	<link rel="apple-touch-icon" href="./img/icons/512x512.png" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="#f0c000" />
 
 	<!-- Android -->
-	<meta name="theme-color" content="#f0f0f0" />
+	<meta name="theme-color" content="#f0c000" />
 	<meta name="color-scheme" content="light" />
-	<meta name="mobile-web-app-capable" content="yes" />
 
 	<!-- Google Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">

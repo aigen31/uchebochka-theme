@@ -968,6 +968,11 @@ section.section-materials {
     padding-top: 120px;
 }
 
+.section-materials__action-buttons {
+    display: flex;
+    gap: 20px;
+}
+
 .weekly-products {
     border: 1px solid #e0e0e0;
     border-radius: 15px;
@@ -3079,7 +3084,9 @@ a.btn.btn-open {
     border-radius: 20px;
     color: white;
     width: 100%;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 9px;
     margin-bottom: 15px;

@@ -1,5 +1,27 @@
 <?php
-$metodic_file = get_post_meta($post->ID, 'metodic_file', true);
+$post_id = get_the_ID();
+$metodic_file = get_post_meta($post_id, 'metodic_file', true);
+$material = uchebka_plugin()->methodological_material(get_the_ID());
+
+$current_user_id = get_current_user_id();
+
+global $wpdb;
+$purchased_posts = $wpdb->get_col(
+  $wpdb->prepare(
+    "SELECT post_id FROM {$wpdb->prefix}purchased_materials WHERE user_id = %d",
+    $current_user_id
+  )
+);
+
+function is_purchased(int $post_id, array $purchased_posts)
+{
+  return in_array((string) $post_id, $purchased_posts, true);
+}
+
+$is_purchased = is_purchased($post_id, $purchased_posts);
+$is_free = get_post_meta($post_id, 'free_material', true) === '1';
+
+$pda_services = new PDA_Services();
 ?>
 <section class="section-materials">
   <div class="container d-md-flex">
@@ -152,6 +174,14 @@ $metodic_file = get_post_meta($post->ID, 'metodic_file', true);
         <?php the_content(); ?>
       </div>
 
+      <div class="section-materials section-materials__action-buttons">
+        <?php get_template_part('template-parts/material-action-buttons', '', [
+          'is_purchased' => $is_purchased,
+          'is_free' => $is_free,
+          'pda_services' => $pda_services,
+        ]); ?>
+      </div>
+
       <div class="block">
         <h2>Комментарии</h2>
         <?php
@@ -203,30 +233,6 @@ $metodic_file = get_post_meta($post->ID, 'metodic_file', true);
         </div>
 
         <?php
-        $material = uchebka_plugin()->methodological_material(get_the_ID());
-
-        $current_user_id = get_current_user_id();
-
-        global $wpdb;
-        $purchased_posts = $wpdb->get_col(
-          $wpdb->prepare(
-            "SELECT post_id FROM {$wpdb->prefix}purchased_materials WHERE user_id = %d",
-            $current_user_id
-          )
-        );
-
-        $post_id = get_the_ID();
-
-        function is_purchased(int $post_id, array $purchased_posts)
-        {
-          return in_array((string) $post_id, $purchased_posts, true);
-        }
-
-        $is_purchased = is_purchased($post_id, $purchased_posts);
-        $is_free = get_post_meta($post_id, 'free_material', true) === '1';
-
-        $pda_services = new PDA_Services();
-
         $price = get_post_meta($post_id, 'price', true);
         $discount = get_post_meta($post_id, 'without_discount_price', true);
         ?>

@@ -7,7 +7,7 @@
     .mob {
         display: block
     }
-    
+
     .pad {
         display: none;
     }
@@ -32,6 +32,10 @@
 
     section.section-materials {
         padding-top: 30px;
+    }
+
+    .section-materials__action-buttons {
+        display: none;
     }
 
     .thanks {
@@ -61,13 +65,13 @@
         margin-top: 10px;
     }
 
-    .thanks .col-12 + .col-12 {
+    .thanks .col-12+.col-12 {
         order: 1;
         margin-bottom: 20px;
         padding-top: 20px;
     }
 
-    .faq .col-lg-6 + .col-lg-6 {
+    .faq .col-lg-6+.col-lg-6 {
         margin-top: 40px;
     }
 
@@ -375,7 +379,7 @@
         margin-bottom: 5px;
     }
 
-    .burger-menu ul + ul {
+    .burger-menu ul+ul {
         margin-top: 15px;
     }
 
@@ -439,7 +443,7 @@
         margin-bottom: 4px;
     }
 
-    .info-form + .d-flex {
+    .info-form+.d-flex {
         flex-wrap: wrap;
     }
 
