@@ -298,9 +298,7 @@ jQuery(document).ready(function ($) {
     });
 
     $('#apply-filter').on('click', function () {
-        $('#dgMobileFilter').removeClass('pop-it-up');
-        $('.paid-materials-filter__accept').css('display', 'none');
-        $('body').css('overflow', '');
+        $('.section-materials__filter').slideToggle();
     })
 
     $("#save-metodic-form").on("submit", function (e) {

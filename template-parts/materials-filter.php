@@ -56,7 +56,7 @@
       </div>
     </div>
     <!-- Кнопка применения фильтра -->
-    <button class="apply-filter" type="submit">Применить фильтр</button>
+    <button class="apply-filter" id="apply-filter" type="submit">Применить фильтр</button>
   </form>
 </div>
 
