@@ -522,6 +522,30 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
         $(this).siblings('.filter-options').find('.filter-option.switch').toggleClass('hidden visible');
     });
+
+    $('.material-download').on('click', function () {
+        console.log('click');
+        $target = $(this);
+        $.ajax({
+            'method': 'POST',
+            'data': {
+                'post_id': $target.data('post-id')
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
+            },
+            'url': uchebochka_vars.rest_url + uchebochka_vars.rest_route + '/download_counter_increment',
+            'success': function (data) {
+                if (data === false) {
+                    return;
+                }
+                $counter = $('#download-counter');
+                $count = parseInt($counter.text());
+                $count++;
+                $counter.text($count);
+            }
+        })
+    })
 });
 
 document.addEventListener('DOMContentLoaded', function () {

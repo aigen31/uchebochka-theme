@@ -19,7 +19,8 @@ if ($args['is_purchased'] || $args['is_free'] || current_user_can('administrator
           class='btn-buy material-download'
           data-post-id='<?php echo get_the_ID(); ?>'
           download>
-          <?php echo esc_html($button_text); ?>
+          <div class="btn-buy__text"><?php echo esc_html($button_text); ?></div>
+          <div class="btn-buy__filename"><?php echo esc_html(get_the_title($attachment_id)); ?></div>
         </a>
     <?php
       endforeach;

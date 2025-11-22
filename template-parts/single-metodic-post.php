@@ -198,19 +198,13 @@ $pda_services = new PDA_Services();
     <div class="right-market">
       <div class="material-info">
         <?php
-        $categories = get_the_category();
-        $tags = get_the_tags();
-        if ($categories || $tags) : ?>
+        $categories = get_the_terms(get_the_ID(), 'metodic_category');
+        if ($categories) : ?>
           <div class="cats">
             <?php
-            if ($categories) {
+            if ($categories && !is_wp_error($categories)) {
               foreach ($categories as $category) {
                 echo '<div class="item">' . esc_html($category->name) . '</div>';
-              }
-            }
-            if ($tags) {
-              foreach ($tags as $tag) {
-                echo '<div class="item">' . esc_html($tag->name) . '</div>';
               }
             }
             ?>
@@ -219,10 +213,10 @@ $pda_services = new PDA_Services();
 
         <div class="download-info">
           <?php
-          $download_count = get_post_meta(get_the_ID(), 'download_count', true);
+          $download_count = get_post_meta(get_the_ID(), 'download_counter', true);
           $view_count = get_post_meta(get_the_ID(), 'view_count', true);
           ?>
-          <p><?php echo $download_count ? $download_count : '0'; ?> скачиваний</p>
+          <p><span id="download-counter"><?php echo $download_count ? $download_count : '0'; ?></span> скачиваний</p>
           <div class="d-flex">
             <div class="date"><?php echo get_the_date('d.m.Y'); ?></div>
             <div class="see">

@@ -191,9 +191,12 @@ function uchebochka_scripts()
     'id'         => get_current_user_id()
   ));
 
-  wp_localize_script('uchebochka-main', 'uchebochka_vars', array(
-    'rest_url' => esc_url(rest_url()),
-    'nonce'    => wp_create_nonce('wp_rest')
-  ));
+  if (function_exists('uchebka_plugin')) {
+    wp_localize_script('uchebochka-main', 'uchebochka_vars', array(
+      'rest_url' => esc_url(rest_url()),
+      'nonce'    => wp_create_nonce('wp_rest'),
+      'rest_route' => 'uchebka/v1',
+    ));
+  }
 }
 add_action('wp_enqueue_scripts', 'uchebochka_scripts');
