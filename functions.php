@@ -49,3 +49,8 @@ require get_template_directory() . '/inc/profile-rating.php';
  * Support Candy extension functions
  */
 require get_template_directory() . '/inc/support-candy.php';
+
+/**
+ * Formatting functions
+ */
+require get_template_directory() . '/inc/formatting.php';
