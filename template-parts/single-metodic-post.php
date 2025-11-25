@@ -46,12 +46,78 @@ $pda_services = new PDA_Services();
         } ?>
       </div>
 
-      <div class="gallery">
-        <div class="slider-container">
-          <div class="main-slider">
-            <div class="slider-wrapper">
+      <?php
+      $rutube_ids = get_field('rutube_id');
+      $vk_video_ids = get_field('vk_video_id');
+      $thumbnail = get_the_post_thumbnail_url();
+      $images = get_post_meta($post->ID, 'gallery');
+
+      if (!empty($rutube_ids) || !empty($vk_video_ids) || $thumbnail || !empty($images)) : ?>
+        <div class="gallery">
+          <div class="slider-container">
+            <div class="main-slider">
+              <div class="slider-wrapper">
+                <?php
+                $slide_index = 0;
+
+                if (!empty($rutube_ids)) {
+                  $rutube_ids = array_map(function ($id) {
+                    return str_replace('https://rutube.ru/video/', '', $id);
+                  }, $rutube_ids);
+                  foreach ($rutube_ids as $rutube_id) :
+                ?>
+                    <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
+                      <iframe width="100%" height="100%" src="<?php echo esc_attr("https://rutube.ru/play/embed/$rutube_id") ?>" frameBorder="0" allow="clipboard-write; autoplay" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                    </div>
+                  <?php
+                    $slide_index++;
+                  endforeach;
+                }
+
+                if (!empty($vk_video_ids)) {
+                  $vk_video_ids = array_map(function ($id) {
+                    $id = str_replace('https://vkvideo.ru/video', '', $id);
+                    return explode('_', $id);
+                  }, $vk_video_ids);
+                  foreach ($vk_video_ids as $vk_video_id) :
+                  ?>
+                    <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
+                      <iframe src="https://vkvideo.ru/video_ext.php?oid=<?php echo esc_attr($vk_video_id[0]); ?>&id=<?php echo esc_attr($vk_video_id[1]); ?>&hd=2" width="100%" height="100%" style="background-color: #000" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                  <?php
+                    $slide_index++;
+                  endforeach;
+                }
+
+                if ($thumbnail) { ?>
+                  <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
+                    <img src="<?php echo esc_url($thumbnail) ?>" alt="<?php echo esc_attr(get_the_title()) ?>">
+                  </div>
+                  <?php
+                  $slide_index++;
+                }
+
+                if ($images) {
+                  foreach ($images as $image) {
+                    $attachment = wp_get_attachment_image_url($image, 'full');
+                  ?>
+                    <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
+                      <img src="<?php echo $attachment; ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
+                    </div>
+                <?php
+                    $slide_index++;
+                  }
+                }
+                ?>
+              </div>
+
+              <button class="slider-arrow prev-arrow"><img src="<?php echo get_template_directory_uri(); ?>/img/prev-arr.svg" alt=""></button>
+              <button class="slider-arrow next-arrow"><img src="<?php echo get_template_directory_uri(); ?>/img/next-arr.svg" alt=""></button>
+            </div>
+
+            <div class="thumbnails">
               <?php
-              $slide_index = 0;
+              $thumb_index = 0;
 
               $rutube_ids = get_field('rutube_id');
               if (!empty($rutube_ids)) {
@@ -60,113 +126,51 @@ $pda_services = new PDA_Services();
                 }, $rutube_ids);
                 foreach ($rutube_ids as $rutube_id) :
               ?>
-                  <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
-                    <iframe width="100%" height="100%" src="<?php echo esc_attr("https://rutube.ru/play/embed/$rutube_id") ?>" frameBorder="0" allow="clipboard-write; autoplay" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                  <div class="thumbnail <?php echo $thumb_index === 0 ? 'active' : ''; ?>" data-index="<?php echo $thumb_index; ?>">
+                    <img src="<?php echo esc_attr("https://rutube.ru/api/video/$rutube_id/thumbnail/?redirect=1") ?>" alt="">
                   </div>
                 <?php
-                  $slide_index++;
+                  $thumb_index++;
                 endforeach;
               }
 
               $vk_video_ids = get_field('vk_video_id');
               if (!empty($vk_video_ids)) {
-                $vk_video_ids = array_map(function ($id) {
-                  $id = str_replace('https://vkvideo.ru/video', '', $id);
-                  return explode('_', $id);
-                }, $vk_video_ids);
                 foreach ($vk_video_ids as $vk_video_id) :
+                  $vk_thumbnail = function_exists('uchebka_plugin') ? uchebka_plugin()->vk_video()->get_vk_thumbnail($vk_video_id) : '';
                 ?>
-                  <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
-                    <iframe src="https://vkvideo.ru/video_ext.php?oid=<?php echo esc_attr($vk_video_id[0]); ?>&id=<?php echo esc_attr($vk_video_id[1]); ?>&hd=2" width="100%" height="100%" style="background-color: #000" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
+                  <div class="thumbnail <?php echo $thumb_index === 0 ? 'active' : ''; ?>" data-index="<?php echo $thumb_index; ?>">
+                    <img src="<?php echo esc_attr($vk_thumbnail) ?>" alt="">
                   </div>
                 <?php
-                  $slide_index++;
+                  $thumb_index++;
                 endforeach;
               }
 
-              $thumbnail = get_the_post_thumbnail_url();
               if ($thumbnail) { ?>
-                <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
+                <div class="thumbnail <?php echo $thumb_index === 0 ? 'active' : ''; ?>" data-index="<?php echo $thumb_index; ?>">
                   <img src="<?php echo esc_url($thumbnail) ?>" alt="<?php echo esc_attr(get_the_title()) ?>">
                 </div>
                 <?php
-                $slide_index++;
+                $thumb_index++;
               }
 
-              $images = get_post_meta($post->ID, 'gallery');
               if ($images) {
                 foreach ($images as $image) {
-                  $attachment = wp_get_attachment_image_url($image, 'full');
+                  $attachment_thumb = wp_get_attachment_image_url($image, 'thumbnail');
                 ?>
-                  <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
-                    <img src="<?php echo $attachment; ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
+                  <div class="thumbnail <?php echo $thumb_index === 0 ? 'active' : ''; ?>" data-index="<?php echo $thumb_index; ?>">
+                    <img src="<?php echo $attachment_thumb ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
                   </div>
               <?php
-                  $slide_index++;
+                  $thumb_index++;
                 }
               }
               ?>
             </div>
-
-            <button class="slider-arrow prev-arrow"><img src="<?php echo get_template_directory_uri(); ?>/img/prev-arr.svg" alt=""></button>
-            <button class="slider-arrow next-arrow"><img src="<?php echo get_template_directory_uri(); ?>/img/next-arr.svg" alt=""></button>
-          </div>
-
-          <div class="thumbnails">
-            <?php
-            $thumb_index = 0;
-
-            $rutube_ids = get_field('rutube_id');
-            if (!empty($rutube_ids)) {
-              $rutube_ids = array_map(function ($id) {
-                return str_replace('https://rutube.ru/video/', '', $id);
-              }, $rutube_ids);
-              foreach ($rutube_ids as $rutube_id) :
-            ?>
-                <div class="thumbnail <?php echo $thumb_index === 0 ? 'active' : ''; ?>" data-index="<?php echo $thumb_index; ?>">
-                  <img src="<?php echo esc_attr("https://rutube.ru/api/video/$rutube_id/thumbnail/?redirect=1") ?>" alt="">
-                </div>
-              <?php
-                $thumb_index++;
-              endforeach;
-            }
-
-            $vk_video_ids = get_field('vk_video_id');
-            if (!empty($vk_video_ids)) {
-              foreach ($vk_video_ids as $vk_video_id) :
-                $vk_thumbnail = function_exists('uchebka_plugin') ? uchebka_plugin()->vk_video()->get_vk_thumbnail($vk_video_id) : '';
-              ?>
-                <div class="thumbnail <?php echo $thumb_index === 0 ? 'active' : ''; ?>" data-index="<?php echo $thumb_index; ?>">
-                  <img src="<?php echo esc_attr($vk_thumbnail) ?>" alt="">
-                </div>
-              <?php
-                $thumb_index++;
-              endforeach;
-            }
-
-            if ($thumbnail) { ?>
-              <div class="thumbnail <?php echo $thumb_index === 0 ? 'active' : ''; ?>" data-index="<?php echo $thumb_index; ?>">
-                <img src="<?php echo esc_url($thumbnail) ?>" alt="<?php echo esc_attr(get_the_title()) ?>">
-              </div>
-              <?php
-              $thumb_index++;
-            }
-
-            if ($images) {
-              foreach ($images as $image) {
-                $attachment_thumb = wp_get_attachment_image_url($image, 'thumbnail');
-              ?>
-                <div class="thumbnail <?php echo $thumb_index === 0 ? 'active' : ''; ?>" data-index="<?php echo $thumb_index; ?>">
-                  <img src="<?php echo $attachment_thumb ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
-                </div>
-            <?php
-                $thumb_index++;
-              }
-            }
-            ?>
           </div>
         </div>
-      </div>
+      <?php endif; ?>
 
 
       <div class="block">
