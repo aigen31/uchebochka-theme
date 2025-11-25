@@ -52,7 +52,7 @@ $pda_services = new PDA_Services();
       $thumbnail = get_the_post_thumbnail_url();
       $images = get_post_meta($post->ID, 'gallery');
 
-      if (!empty($rutube_ids) || !empty($vk_video_ids) || $thumbnail || !empty($images)) : ?>
+      if (array_filter($rutube_ids, fn($v) => $v !== '') || array_filter($vk_video_ids, fn($v) => $v !== '') || $thumbnail || !empty($images)) : ?>
         <div class="gallery">
           <div class="slider-container">
             <div class="main-slider">
@@ -60,34 +60,38 @@ $pda_services = new PDA_Services();
                 <?php
                 $slide_index = 0;
 
-                if (!empty($rutube_ids)) {
-                  $rutube_ids = array_map(function ($id) {
+                $rutube_ids = array_map(function ($id) {
+                  if (!empty($id)) {
                     return str_replace('https://rutube.ru/video/', '', $id);
-                  }, $rutube_ids);
-                  foreach ($rutube_ids as $rutube_id) :
+                  }
+                }, $rutube_ids);
+                foreach ($rutube_ids as $rutube_id) :
+                  if (!empty($rutube_id)) :
                 ?>
                     <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
                       <iframe width="100%" height="100%" src="<?php echo esc_attr("https://rutube.ru/play/embed/$rutube_id") ?>" frameBorder="0" allow="clipboard-write; autoplay" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
                     </div>
                   <?php
                     $slide_index++;
-                  endforeach;
-                }
+                  endif;
+                endforeach;
 
-                if (!empty($vk_video_ids)) {
-                  $vk_video_ids = array_map(function ($id) {
+                $vk_video_ids = array_map(function ($id) {
+                  if (!empty($id)) {
                     $id = str_replace('https://vkvideo.ru/video', '', $id);
                     return explode('_', $id);
-                  }, $vk_video_ids);
-                  foreach ($vk_video_ids as $vk_video_id) :
+                  }
+                }, $vk_video_ids);
+                foreach ($vk_video_ids as $vk_video_id) :
+                  if (!empty($vk_video_id)) :
                   ?>
                     <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
                       <iframe src="https://vkvideo.ru/video_ext.php?oid=<?php echo esc_attr($vk_video_id[0]); ?>&id=<?php echo esc_attr($vk_video_id[1]); ?>&hd=2" width="100%" height="100%" style="background-color: #000" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
                     </div>
                   <?php
                     $slide_index++;
-                  endforeach;
-                }
+                  endif;
+                endforeach;
 
                 if ($thumbnail) { ?>
                   <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
@@ -120,23 +124,26 @@ $pda_services = new PDA_Services();
               $thumb_index = 0;
 
               $rutube_ids = get_post_meta($post->ID, 'rutube_id');
-              if (!empty($rutube_ids)) {
-                $rutube_ids = array_map(function ($id) {
+
+              $rutube_ids = array_map(function ($id) {
+                if (!empty($id)) {
                   return str_replace('https://rutube.ru/video/', '', $id);
-                }, $rutube_ids);
-                foreach ($rutube_ids as $rutube_id) :
+                }
+              }, $rutube_ids);
+              foreach ($rutube_ids as $rutube_id) :
+                if (!empty($rutube_id)) :
               ?>
                   <div class="thumbnail <?php echo $thumb_index === 0 ? 'active' : ''; ?>" data-index="<?php echo $thumb_index; ?>">
                     <img src="<?php echo esc_attr("https://rutube.ru/api/video/$rutube_id/thumbnail/?redirect=1") ?>" alt="">
                   </div>
                 <?php
                   $thumb_index++;
-                endforeach;
-              }
+                endif;
+              endforeach;
 
               $vk_video_ids = get_post_meta($post->ID, 'vk_video_id');
-              if (!empty($vk_video_ids)) {
-                foreach ($vk_video_ids as $vk_video_id) :
+              foreach ($vk_video_ids as $vk_video_id) :
+                if (!empty($vk_video_id)) :
                   $vk_thumbnail = function_exists('uchebka_plugin') ? uchebka_plugin()->vk_video()->get_vk_thumbnail($vk_video_id) : '';
                 ?>
                   <div class="thumbnail <?php echo $thumb_index === 0 ? 'active' : ''; ?>" data-index="<?php echo $thumb_index; ?>">
@@ -144,8 +151,8 @@ $pda_services = new PDA_Services();
                   </div>
                 <?php
                   $thumb_index++;
-                endforeach;
-              }
+                endif;
+              endforeach;
 
               if ($thumbnail) { ?>
                 <div class="thumbnail <?php echo $thumb_index === 0 ? 'active' : ''; ?>" data-index="<?php echo $thumb_index; ?>">
