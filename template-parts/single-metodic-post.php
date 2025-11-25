@@ -47,8 +47,8 @@ $pda_services = new PDA_Services();
       </div>
 
       <?php
-      $rutube_ids = get_field('rutube_id');
-      $vk_video_ids = get_field('vk_video_id');
+      $rutube_ids = get_post_meta($post->ID, 'rutube_id');
+      $vk_video_ids = get_post_meta($post->ID, 'vk_video_id');
       $thumbnail = get_the_post_thumbnail_url();
       $images = get_post_meta($post->ID, 'gallery');
 
@@ -119,7 +119,7 @@ $pda_services = new PDA_Services();
               <?php
               $thumb_index = 0;
 
-              $rutube_ids = get_field('rutube_id');
+              $rutube_ids = get_post_meta($post->ID, 'rutube_id');
               if (!empty($rutube_ids)) {
                 $rutube_ids = array_map(function ($id) {
                   return str_replace('https://rutube.ru/video/', '', $id);
@@ -134,7 +134,7 @@ $pda_services = new PDA_Services();
                 endforeach;
               }
 
-              $vk_video_ids = get_field('vk_video_id');
+              $vk_video_ids = get_post_meta($post->ID, 'vk_video_id');
               if (!empty($vk_video_ids)) {
                 foreach ($vk_video_ids as $vk_video_id) :
                   $vk_thumbnail = function_exists('uchebka_plugin') ? uchebka_plugin()->vk_video()->get_vk_thumbnail($vk_video_id) : '';
