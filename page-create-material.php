@@ -14,7 +14,7 @@
             <h1>Добавление методической разработки в маркетплейс</h1>
 
             <div class="link">
-                <a href=""> Нажмите, чтобы попасть в чат, где можно получить помощь методиста, дизайнера или техподдержки</a>
+                <a href="/tehnicheskaya-podderzhka"> Нажмите, чтобы попасть в чат, где можно получить помощь методиста, дизайнера или техподдержки</a>
             </div>
 
             <form id="save-metodic-form" enctype="multipart/form-data">
@@ -116,17 +116,17 @@
                         добавить материал в нескольких форматах (по желанию).</p>
 
                     <div class="form-group-in">
-                        <div class="subtitle">Документы (.doc, .odt)</div>
+                        <div class="subtitle">Документы (.docx, .odt)</div>
                         <div class="file-upload-area" data-input-name="doc[]">
                             <div class="file-upload-content">
                                 <div class="file-upload-icon">
                                     <i class="fas fa-file-word"></i>
                                 </div>
                                 <p class="file-upload-text">Загрузите документы</p>
-                                <p class="file-upload-hint">.doc, .docx, .odt</p>
+                                <p class="file-upload-hint">.docx, .odt</p>
                             </div>
                             <div class="file-names"></div>
-                            <input type="file" name="metodic_docs[]" class="file-input-hidden" accept=".doc,.docx,.odt" multiple>
+                            <input type="file" name="metodic_docs[]" class="file-input-hidden" accept=".docx,.odt" multiple>
                         </div>
                     </div>
 
