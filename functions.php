@@ -1,4 +1,8 @@
 <?php
+/**
+ * Loading composer autoload
+ */
+require_once __DIR__ . '/vendor/autoload.php';
 
 /**
  * Template loading functions
@@ -49,3 +53,9 @@ require get_template_directory() . '/inc/profile-rating.php';
  * Support Candy extension functions
  */
 require get_template_directory() . '/inc/support-candy.php';
+
+/**
+ * Setup settings for author page
+ */
+require get_template_directory() . '/inc/author-settings.php';
+

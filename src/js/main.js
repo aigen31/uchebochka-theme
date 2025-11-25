@@ -411,8 +411,9 @@ jQuery(document).ready(function ($) {
                     $('.cart-actions__form').fadeRemove();
                     $('.cart-clear-btn').fadeRemove();
                 },
-                error: function () {
-                    alert('Ошибка при очистке корзины.');
+                error: function (e) {
+                    console.log(e);
+                    alert('Ошибка при очистке корзины22.');
                 }
             });
         }

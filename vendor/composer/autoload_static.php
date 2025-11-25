@@ -21,6 +21,10 @@ class ComposerStaticInitbdcfae9b7070136310d12b15b11066a5
         array (
             'WP_CLI\\I18n\\' => 12,
         ),
+        'U' => 
+        array (
+            'Uchebochka\\' => 11,
+        ),
         'S' => 
         array (
             'Symfony\\Component\\Finder\\' => 25,
@@ -56,6 +60,10 @@ class ComposerStaticInitbdcfae9b7070136310d12b15b11066a5
         'WP_CLI\\I18n\\' => 
         array (
             0 => __DIR__ . '/..' . '/wp-cli/i18n-command/src',
+        ),
+        'Uchebochka\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/inc/classes',
         ),
         'Symfony\\Component\\Finder\\' => 
         array (
