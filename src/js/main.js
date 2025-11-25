@@ -298,7 +298,7 @@ jQuery(document).ready(function ($) {
     });
 
     $('#apply-filter').on('click', function () {
-        $('.section-materials__filter').slideToggle();
+        $('.section-materials__filter').removeAttr('style');
     })
 
     $("#save-metodic-form").on("submit", function (e) {
