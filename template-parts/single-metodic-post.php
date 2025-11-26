@@ -290,7 +290,7 @@ $pda_services = new PDA_Services();
           посредником.
         </div>
 
-        <a href="<?php echo um_user_profile_url($author_id); ?>" class="ava d-flex align-items-center">
+        <a href="/o-sebe/<?php echo esc_attr(get_the_author_meta('user_nicename', $author_id)); ?>" class="ava d-flex align-items-center">
           <div class="img">
             <?php
             $author_avatar = get_avatar_url($author_id, array('size' => 50));
