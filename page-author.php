@@ -4,7 +4,7 @@ Template Name: Страница автора
 */
 get_header();
 
-use Uchebochka\UserWrapper;
+use Uchebochka\User_Wrapper;
 
 $user_login = get_query_var('user_login');
 
@@ -14,8 +14,8 @@ if(!$user_login){
         exit;
     }
     $current_user = wp_get_current_user();
-    $userWrapper = new UserWrapper($current_user->ID);
-    $userLogin = $userWrapper->getUserData()->user_login;
+    $user_wrapper = new User_Wrapper($current_user->ID);
+    $userLogin = $user_wrapper->get_user_data()->user_login;
     if(!$userLogin){
         wp_redirect(home_url('/'));
         exit;
@@ -24,6 +24,10 @@ if(!$user_login){
     exit;
 }
 ?>
+<!--TODO: Fix css in future -->
+</div>
+<!--TODO: Fix css in future -->
+
 <section class="section-materials">
     <div class="container d-md-flex">
         <?php get_template_part('template-parts/column', 'left'); ?>

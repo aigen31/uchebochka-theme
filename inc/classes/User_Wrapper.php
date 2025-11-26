@@ -8,9 +8,10 @@ use WP_User;
  * The Class-Wrapper for Wordpress User
  * Provides convenient methods for retrieving user data and content.
  */
-class UserWrapper{
+class User_Wrapper{
     private ?WP_User $wp_user;
     private ?array $materials = null;
+    private ?array $meta = null;
 
     /**
      * Summary of __construct
@@ -41,7 +42,7 @@ class UserWrapper{
      * It is cached to avoid making multiple queries to the database.
      * @return array - array or empty array materials
      */
-    public function getMaterials(): array{
+    public function get_materials(): array{
         if($this->materials === null){
             $this->materials = get_posts([
                 "author" => $this->wp_user->ID,
@@ -58,8 +59,8 @@ class UserWrapper{
      * Get the number of user materials
      * @return int - number of posts
      */
-    public function getMaterialCount(): int{
-        return count($this->getMaterials());
+    public function get_materials_count(): int{
+        return count($this->get_materials());
     }
 
     /**
@@ -67,11 +68,13 @@ class UserWrapper{
      * Function for getting user fields, including additional meta fields
      * @return WP_User
      */
-    public function getUserData(): WP_User{
-        $this->wp_user->position = get_user_meta($this->wp_user->ID, 'position', true);
-        $this->wp_user->education = get_user_meta($this->wp_user->ID, 'education', true);
-        $this->wp_user->vkprofile = get_user_meta($this->wp_user->ID, 'vk_profile', true);
-        $this->wp_user->tgprofile = get_user_meta($this->wp_user->ID, 'telegram_profile', true);
+    public function get_user_data(): WP_User{
+        if($this->meta === null){
+            $this->meta = uchebka_plugin()->user_helper()->get_user_data($this->wp_user);
+             foreach ($this->meta as $key => $value) { 
+                $this->wp_user->$key = $value; 
+            }
+        }
         return $this->wp_user;
     }
     
