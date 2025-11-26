@@ -51,7 +51,8 @@ function crb_attach_theme_options()
             ->set_attribute('max', '100')
             ->set_attribute('type', 'number'),
         ]),
-    ]);
+     
+    ],);
 }
 
 add_action('after_setup_theme', 'crb_load');

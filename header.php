@@ -77,7 +77,7 @@
 	<!-- /Yandex.Metrika counter -->
 </head>
 
-<body <?php body_class('main'); ?>>
+<body <?//php body_class('main'); TODO: ?>>
 	<div class="top">
 		<header class="header-main">
 			<div class="container header-main__container">
@@ -200,3 +200,4 @@
 					</a></li>
 			</ul>
 		</div>
+	
