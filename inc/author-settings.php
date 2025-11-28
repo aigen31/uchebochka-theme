@@ -1,11 +1,14 @@
 <?php
 
 
+
 // Adding a route with variable retrieval
 add_action('init', function() {
+    $author_route = uchebka_plugin()->page_routes()::PAGE_AUTHOR->path();
+
     add_rewrite_rule(
-        '^o-sebe/([^/]+)/?$',
-        'index.php?pagename=o-sebe&user_login=$matches[1]',
+        "^$author_route/([^/]+)/?$",
+        'index.php?pagename='+$author_route+'&user_login=$matches[1]',
         'top'
     );
 });

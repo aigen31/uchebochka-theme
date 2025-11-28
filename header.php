@@ -77,9 +77,9 @@
 	<!-- /Yandex.Metrika counter -->
 </head>
 
-<body <?//php body_class('main'); TODO: ?>>
+<body <?=body_class(is_front_page() ? 'main' : '')?>>
 	<div class="top">
-		<header class="header-main">
+		<header class="header-mainext-arrown">
 			<div class="container header-main__container">
 				<div class="header-main__wrapper d-md-flex align-items-md-center">
 					<a href="/" class="logo header-main__logo">
