@@ -79,7 +79,7 @@
 
 <body <?=body_class(is_front_page() ? 'main' : '')?>>
 	<div class="top">
-		<header class="header-mainext-arrown">
+		<header class="header-main next-arrow">
 			<div class="container header-main__container">
 				<div class="header-main__wrapper d-md-flex align-items-md-center">
 					<a href="/" class="logo header-main__logo">
