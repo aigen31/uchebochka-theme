@@ -6,6 +6,7 @@ get_header();
 
 use Uchebochka\User_Wrapper;
 
+$author_route = uchebka_plugin()->page_routes()::PAGE_AUTHOR->path();
 $user_login = get_query_var('user_login');
 
 if(!$user_login){
@@ -20,7 +21,7 @@ if(!$user_login){
         wp_redirect(home_url('/'));
         exit;
     }
-    wp_redirect(home_url("/o-sebe/$userLogin/"));
+    wp_redirect(home_url("/$author_route/$userLogin/"));
     exit;
 }
 ?>

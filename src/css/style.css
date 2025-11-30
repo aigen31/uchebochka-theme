@@ -3159,6 +3159,16 @@ a.btn.btn-open {
     display: none;
 }
 
+
+
+
+/* Временный CSS */
+.article .avatar{
+    visibility: hidden;
+}
+
+/* Временный CSS */
+
 .v-search-result {
     background-color: #fff;
     border-radius: 4px;

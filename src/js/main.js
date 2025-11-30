@@ -102,7 +102,13 @@ jQuery(document).ready(function ($) {
 
         bindEvents() {
             const self = this;
-
+            
+            //Выключаем навигацию если мало слайдов
+            if(this.totalSlides < 2){
+                  $('.prev-arrow').remove();
+                  $('.next-arrow').remove();
+                  return;
+            }
             // Стрелки навигации
             $('.prev-arrow').on('click', function () {
                 self.prevSlide();
