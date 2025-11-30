@@ -17,6 +17,40 @@
 
     <div class="article">
 
+      <!-- meta info -->
+
+      <div class="d-flex justify-content-between align-items-center">
+          <div class="avatar">
+              <div class="img">
+                  <img src="img/ava.png" alt="">
+              </div>
+              <div class="text">
+                  <div class="name">Иванов Иван</div>
+                  <div class="dol">Место работы</div>
+              </div>
+          </div>
+          <div class="meta-art">
+              <div class="read">
+                  <img src="img/time.svg" alt="">
+                  <span >Время чтения: <span id="timeread">1 минута</span></span>
+              </div>
+             <!-- <div class="d-flex">
+                  <div class="item">
+                      <img src="img/see.svg" alt="">
+                      <span>61</span>
+                  </div>
+                  <div class="item">
+                      <img src="img/chat2.svg" alt="">
+                      <span>0</span>
+                  </div>
+                  <div class="item">
+                      <img src="img/cal.svg" alt="">
+                      <span>09.07.2025</span>
+                  </div>
+              </div>-->
+          </div>
+      </div>
+
       <!-- article body -->
 
       <div class="article-body">

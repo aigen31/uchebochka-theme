@@ -178,7 +178,7 @@ function uchebochka_scripts()
 
   wp_enqueue_script('uchebochka-bootstrap-bundle', get_template_directory_uri() . '/src/js/bootstrap.bundle.min.js', array('jquery'), '5.1.3', true);
   wp_enqueue_script('uchebochka-main', get_template_directory_uri() . '/src/js/main.js', array('jquery'), _S_VERSION, true);
-
+  wp_enqueue_script_module('uchebochka-app', get_template_directory_uri() . '/src/js/app.js', [['id' => 'jquery','import' => 'static']]);
   if (is_singular() && comments_open() && get_option('thread_comments')) {
     wp_enqueue_script('comment-reply');
   }

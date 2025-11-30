@@ -3050,3 +3050,13 @@ a.btn-buy+p a {
 .mob {
     display: none;
 }
+
+
+
+
+/* Временный CSS */
+.article .avatar{
+    visibility: hidden;
+}
+
+/* Временный CSS */
