@@ -564,4 +564,12 @@
     .agree {
         margin-top: 20px;
     }
+
+    .need-help {
+        bottom: 75px;
+    }
+
+    .need-help img {
+        width: 100px;
+    }
 }
