@@ -142,11 +142,15 @@
         justify-content: space-between;
     }
 
-    header .burg img {
+    header .burg-pad img {
         width: 26px;
     }
 
     header .burg {
+        display: none
+    }
+
+    header .burg-pad {
         background: #fff;
         padding: 12px 9px;
         border-radius: 50%;
@@ -394,6 +398,18 @@
 
     .burger-menu .arr img {
         width: 10px;
+    }
+
+    .pad-menu {
+        display: block !important;
+    }
+
+    .pad-menu .close-burger-pad {
+        display: none;
+    }
+
+    .pad-menu .header-main__support-icons {
+        margin-left: 15px;
     }
 
     .modal-content {
