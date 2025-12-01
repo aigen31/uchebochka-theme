@@ -7,6 +7,6 @@ $child_terms = get_terms([
 ?>
 <div class="sections-wrapper" id="sectionsWrapper">
   <?php foreach ($child_terms as $term): ?>
-    <a href="<?php echo esc_url('/?category[0]=' . esc_attr($term->slug)); ?>" class="section-item"><?php echo esc_html($term->name); ?></a>
+    <a href="/?category[0]=<?php echo esc_url(esc_attr($term->slug)); ?>#catalog" class="section-item"><?php echo esc_html($term->name); ?></a>
   <?php endforeach; ?>
 </div>
