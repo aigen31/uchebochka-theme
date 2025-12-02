@@ -249,12 +249,14 @@ jQuery(document).ready(function ($) {
                         $this.attr('href', '/cart');
                         $this.off('click');
                     } else {
-                        alert('Произошла ошибка при добавлении товара в корзину.');
+                        $('#warning').find('.modal-body').text('Произошла ошибка при добавлении товара в корзину.')
+                        $('#warning').modal('show');
                     }
                 },
             })
         } else {
-            alert('Пожалуйста, войдите или зарегистрируйтесь, чтобы совершить оплату.');
+            $('#warning').find('.modal-body').text('Пожалуйста, войдите или зарегистрируйтесь, чтобы совершить оплату.')
+            $('#warning').modal('show');
         }
     })
 
@@ -322,7 +324,8 @@ jQuery(document).ready(function ($) {
         if (yandexDiskLink) {
             const value = yandexDiskLink.trim();
             if (!value.startsWith("https://disk.yandex.ru/") || value === "") {
-                alert("Ссылка должна начинаться с домена https://disk.yandex.ru/");
+                $('#warning').find('.modal-body').text("Ссылка должна начинаться с домена https://disk.yandex.ru/")
+                $('#warning').modal('show');
                 return;
             }
         }
@@ -357,7 +360,8 @@ jQuery(document).ready(function ($) {
             error: function (response) {
                 buttonActive()
                 var response = response.responseJSON;
-                alert(response.error);
+                $('#warning').find('.modal-body').text(response.error)
+                $('#warning').modal('show');
             },
             cache: false,
             contentType: false,
@@ -396,7 +400,8 @@ jQuery(document).ready(function ($) {
                 }
             },
             error: function () {
-                alert('Ошибка при удалении товара из корзины.');
+                $('#warning').find('.modal-body').text('Ошибка при удалении товара из корзины.')
+                $('#warning').modal('show');
             }
         });
     });
