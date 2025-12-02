@@ -99,18 +99,23 @@
 						);
 						?>
 
-						<div class="mob">
-							<ul>
-								<li><a href="/register">Регистрация</a></li>
-								<li><a href="/login">Вход</a></li>
-								<li><a href="/tehnicheskaya-podderzhka">Техническая помощь</a></li>
-							</ul>
-						</div>
+						<div class="pad-menu">
+							<div class="mob">
+								<ul>
+									<li><a href="/register">Регистрация</a></li>
+									<li><a href="/login">Вход</a></li>
+									<li><a href="/tehnicheskaya-podderzhka">Техническая помощь</a></li>
+								</ul>
+							</div>
 
-						<div class="mob">
-							<div class="header-main__support-icons">
-								<a href="https://vk.me/public219902120" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/vk.svg" alt=""></a>
-								<a href="https://t.me/uchebochka_support" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/tg.svg" alt=""></a>
+							<div class="mob">
+								<div class="header-main__support-icons">
+									<a href="https://vk.me/public219902120" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/vk.svg" alt=""></a>
+									<a href="https://t.me/uchebochka_support" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/tg.svg" alt=""></a>
+								</div>
+							</div>
+							<div class="close-burger-pad">
+								<img src="<?php echo get_template_directory_uri(); ?>/img/close-menu.svg" alt="">
 							</div>
 						</div>
 					</div>
@@ -128,31 +133,31 @@
 							</div>
 						</div>
 
-						<div data-bs-toggle="modal" data-bs-target="#consultModal" class="btn btn--icon header__profile-btn">
-							<span>Личный кабинет</span>
-							<img src="<?php echo get_template_directory_uri(); ?>/img/header/profile-arrow.svg" alt="">
+						<div class="links d-flex">
+							<a href="/favorites">
+								<img src="<?php echo get_template_directory_uri(); ?>/img/star-top.svg" alt="">
+							</a>
+							<a href="/cart">
+								<img src="<?php echo get_template_directory_uri(); ?>/img/cart2.svg" alt="">
+								<span class="count cart__count"><?php echo uchebka_plugin()->cart_queries()->get_products_count(get_current_user_id()); ?></span>
+							</a>
+							<a href="/lichnyj-kabinet">
+								<img src="<?php echo get_template_directory_uri(); ?>/img/lk.svg" alt="">
+								<img src="<?php echo get_template_directory_uri(); ?>/img/download.svg" alt="">
+							</a>
 						</div>
 					</div>
 
 					<div class="burg mob">
 						<img src="<?php echo get_template_directory_uri(); ?>/img/burger.svg" alt="">
 					</div>
+
+					<div class="burg-pad pad">
+						<img src="<?php echo get_template_directory_uri(); ?>/img/burger.svg" alt="">
+					</div>
 				</div>
 			</div>
 		</header>
-
-		<!-- pad menu -->
-		<div class="pad-menu" style="display:none;">
-			<ul>
-				<li><a href="/register">Регистрация</a></li>
-				<li><a href="/login">Вход</a></li>
-				<li><a href="/tehnicheskaya-podderzhka">Техническая помощь</a></li>
-			</ul>
-			<div class="header-main__support-icons">
-				<a href="https://vk.me/public219902120" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/vk.svg" alt=""></a>
-				<a href="https://t.me/uchebochka_support" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/tg.svg" alt=""></a>
-			</div>
-		</div>
 
 		<!-- bottom fixed menu -->
 		<div class="bottom-menu mob">

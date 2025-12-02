@@ -3163,7 +3163,7 @@ a.btn.btn-open {
 
 
 /* Временный CSS */
-.article .avatar{
+.article .avatar {
     visibility: hidden;
 }
 
@@ -3804,4 +3804,16 @@ body .wpsc-shortcode-container {
     height: 150px;
     width: 100%;
     object-fit: cover;
+}
+
+.close-burger {
+    display: none
+}
+
+.close-burger-pad {
+    display: none
+}
+
+.pad {
+    display: none;
 }
