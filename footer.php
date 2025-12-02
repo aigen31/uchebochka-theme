@@ -106,6 +106,20 @@
 	</div>
 </div>
 
+
+<div class="modal fade" id="warning" tabindex="-1" aria-labelledby="warningLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+				<img src="<?php echo get_template_directory_uri(); ?>/img/close.svg" alt="">
+			</button>
+			<div class="modal-body">
+				Пожалуйста, войдите или зарегистрируйтесь, чтобы совершить оплату.
+			</div>
+		</div>
+	</div>
+</div>
+
 <script src="<?php echo get_template_directory_uri(); ?>/src/js/bootstrap.bundle.min.js"></script>
 
 <?php wp_footer(); ?>
