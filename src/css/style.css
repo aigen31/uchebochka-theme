@@ -222,7 +222,7 @@ header.header-main {
 .top {
     background: #FAEFD9;
     padding-bottom: 32px;
-    padding-top: 23px;
+    padding-top: calc(23px + var(--header-height));
 }
 
 body.main .top {
