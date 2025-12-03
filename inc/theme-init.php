@@ -55,12 +55,12 @@ function crb_attach_theme_options()
     ],);
 }
 
-add_action('after_setup_theme', 'crb_load');
-function crb_load()
-{
-  require_once(__DIR__ . '/../vendor/autoload.php');
-  \Carbon_Fields\Carbon_Fields::boot();
-}
+// add_action('after_setup_theme', 'crb_load');
+// function crb_load()
+// {
+//   require_once(__DIR__ . '/../vendor/autoload.php');
+//   \Carbon_Fields\Carbon_Fields::boot();
+// }
 
 /**
  * uchebochka functions and definitions

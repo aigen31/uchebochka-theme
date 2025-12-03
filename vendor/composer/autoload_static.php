@@ -46,10 +46,6 @@ class ComposerStaticInitbdcfae9b7070136310d12b15b11066a5
         array (
             'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 55,
         ),
-        'C' =>
-        array (
-            'Carbon_Fields\\' => 14,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -88,10 +84,6 @@ class ComposerStaticInitbdcfae9b7070136310d12b15b11066a5
         'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' =>
         array (
             0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
-        ),
-        'Carbon_Fields\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/htmlburger/carbon-fields/core',
         ),
     );
 
