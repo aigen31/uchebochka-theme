@@ -8,17 +8,18 @@ $(function () {
         time_awerage_line.text(get_read_time(text_content));
     }
 
-    const header = $('header');
+    const top = $('.top');
+    const header = top.find('header');
     var offsetTop = header.offset().top;
 
     $(window).on('scroll', function () {
         if ($(window).scrollTop() >= offsetTop) {
-            header.addClass('fixed');
+            top.addClass('fixed');
             if (!$('#header-placeholder-style').length) {
                 $('head').append('<style id="header-placeholder-style"> body { --header-height: ' + header.outerHeight() + 'px; } </style>');
             }
         } else {
-            header.removeClass('fixed');
+            top.removeClass('fixed');
             $('#header-placeholder-style').remove();
         }
     });

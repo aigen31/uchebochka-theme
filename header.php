@@ -172,3 +172,7 @@
 					</a></li>
 			</ul>
 		</div>
+
+		<!-- <div class="update-notification d-flex justify-content-center">
+			<img class="update-notification__img" src="<?php echo get_template_directory_uri(); ?>/img/update.svg" alt="">
+		</div> -->
