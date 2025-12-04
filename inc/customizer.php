@@ -59,3 +59,28 @@ function uchebochka_customize_preview_js() {
 	wp_enqueue_script( 'uchebochka-customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), _S_VERSION, true );
 }
 add_action( 'customize_preview_init', 'uchebochka_customize_preview_js' );
+
+/**
+ * Remove word from h1
+ */
+add_filter( 'get_the_archive_title_prefix', '__return_empty_string' );
+ 
+/**
+ * Change h1 only in wp_footer
+ */
+add_action('wp_footer', function() {
+    ob_start(function($footer_content) {
+        // in wp-link
+        return preg_replace(
+            '/(<div[^>]*id="wp-link-wrap"[^>]*>.*?)<h1(\s[^>]*)?>(.*?)<\/h1>(.*?<\/div>)/is',
+            '$1<h2$2>$3</h2>$4',
+            $footer_content
+        );
+    });
+}, 1);
+
+add_action('wp_footer', function() {
+    if (ob_get_length()) {
+        ob_end_flush();
+    }
+}, 99999);
