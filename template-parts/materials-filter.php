@@ -20,12 +20,14 @@
       'slug' => 'type',
     ]));
 
-    get_template_part('template-parts/terms', 'sidebar', array_merge($args, [
-      'parent_id' => 11,
-      'sidebar_id' => 2,
-      'title' => 'Категории',
-      'slug' => 'category',
-    ]));
+    if (!is_tax('metodic_category')) {
+      get_template_part('template-parts/terms', 'sidebar', array_merge($args, [
+        'parent_id' => 11,
+        'sidebar_id' => 2,
+        'title' => 'Категории',
+        'slug' => 'category',
+      ]));
+    }
 
     get_template_part('template-parts/terms', 'sidebar', array_merge($args, [
       'parent_id' => 20,

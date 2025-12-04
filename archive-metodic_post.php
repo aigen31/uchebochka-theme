@@ -30,6 +30,8 @@ get_header();
 
     </div>
 
+    <?php get_template_part('template-parts/column-right'); ?>
+
     <!-- END CENTER COLUMN -->
   </div>
 </section>
