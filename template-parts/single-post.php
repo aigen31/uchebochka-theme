@@ -9,8 +9,7 @@
       } ?>
     </div>
 
-    <h1>Роспотребнадзор с помощью ИИ выявил 65 работ
-      на ЕГЭ, в которых не совпадает почерк</h1>
+    <?php the_title('<h1>', '</h1>'); ?>
   </div>
   <div class="container d-md-flex">
     <!-- CENTER COLUMN -->
@@ -20,21 +19,21 @@
       <!-- meta info -->
 
       <div class="d-flex justify-content-between align-items-center">
-          <div class="avatar">
-              <div class="img">
-                  <img src="img/ava.png" alt="">
-              </div>
-              <div class="text">
-                  <div class="name">Иванов Иван</div>
-                  <div class="dol">Место работы</div>
-              </div>
+        <div class="avatar">
+          <div class="img">
+            <img src="img/ava.png" alt="">
           </div>
-          <div class="meta-art">
-              <div class="read">
-                  <img src="img/time.svg" alt="">
-                  <span >Время чтения: <span id="timeread">1 минута</span></span>
-              </div>
-             <!-- <div class="d-flex">
+          <div class="text">
+            <div class="name">Иванов Иван</div>
+            <div class="dol">Место работы</div>
+          </div>
+        </div>
+        <div class="meta-art">
+          <div class="read">
+            <img src="img/time.svg" alt="">
+            <span>Время чтения: <span id="timeread">1 минута</span></span>
+          </div>
+          <!-- <div class="d-flex">
                   <div class="item">
                       <img src="img/see.svg" alt="">
                       <span>61</span>
@@ -48,7 +47,7 @@
                       <span>09.07.2025</span>
                   </div>
               </div>-->
-          </div>
+        </div>
       </div>
 
       <!-- article body -->
