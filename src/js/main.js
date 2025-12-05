@@ -255,7 +255,7 @@ jQuery(document).ready(function ($) {
                 },
             })
         } else {
-            $('#warning').find('.modal-body').text('Пожалуйста, войдите или зарегистрируйтесь, чтобы совершить оплату.')
+            $('#warning').find('.modal-body').html('Пожалуйста, <a href="/login/">войдите</a> или <a href="/register/">зарегистрируйтесь</a>, чтобы совершить оплату.')
             $('#warning').modal('show');
         }
     })
