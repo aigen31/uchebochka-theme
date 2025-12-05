@@ -3366,13 +3366,13 @@ a.btn-ai {
     display: inline-block;
 }
 
-.need-help {
+/* .need-help {
     margin-top: 30px;
 }
 
 .need-help img {
     width: 150px
-}
+} */
 
 
 a.btn-catalog {
@@ -4394,17 +4394,16 @@ body .wpsc-shortcode-container {
     display: none;
 }
 
-.need-help {
+/* .need-help {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    /* width: 150px; */
-}
+} */
 
-.need-help img {
+/* .need-help img {
     width: 150px;
     height: auto;
-}
+} */
 
 /* .update-notification__img {
     width: 400px;
