@@ -20,6 +20,18 @@ get_header();
         <?php get_template_part('template-parts/search'); ?>
       </div>
 
+      <div class="bread">
+        <div class="bread">
+          <span>
+            <span><a href="/">Главная страница</a></span>
+            / 
+            <span><a href="/methodical-materials/">Методические разработки</a></span>
+            / 
+            <span class="breadcrumb_last" aria-current="page"><?php the_archive_title(); ?></span>
+          </span>      
+        </div>
+      </div>
+
       <h1><?php the_archive_title(); ?></h1>
 
       <!-- categories -->
@@ -29,6 +41,8 @@ get_header();
       </div>
 
     </div>
+
+    <?php get_template_part('template-parts/column-right'); ?>
 
     <!-- END CENTER COLUMN -->
   </div>

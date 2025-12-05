@@ -15,7 +15,7 @@ if (function_exists('uchebka_plugin')) {
 }
 
 if ($wp_query->have_posts()): ?>
-  <div class="catalog">
+  <div class="catalog" id="catalog">
     <div class="row g-4">
       <?php
       while ($wp_query->have_posts()):

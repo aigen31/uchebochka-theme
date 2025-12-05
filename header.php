@@ -9,7 +9,6 @@
  *
  * @package uchebochka
  */
-
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +17,6 @@
 <head>
 	<meta charset="<?php bloginfo('charset'); ?>">
 	<meta name='viewport' content='width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'>
-
 
 	<!-- General -->
 	<meta name="referrer" content="strict-origin" />
@@ -77,16 +75,20 @@
 	<!-- /Yandex.Metrika counter -->
 </head>
 
-<body <?=body_class(is_front_page() ? 'main' : '')?>>
+<body <?= body_class(is_front_page() ? 'main' : '') ?>>
 	<div class="top">
-		<header class="header-mainext-arrown">
+		<header class="header-main">
 			<div class="container header-main__container">
 				<div class="header-main__wrapper d-md-flex align-items-md-center">
 					<a href="/" class="logo header-main__logo">
-						<img src="<?php echo get_template_directory_uri(); ?>/img/header/logo.svg" alt="">
+						<img src="<?php echo get_template_directory_uri(); ?>/img/logo.svg" alt="">
 					</a>
 
-					<div class="header-main__menu">
+					<div class="burger-menu">
+						<div class="close-burger">
+							<img src="<?php echo get_template_directory_uri(); ?>/img/close-menu.svg" alt="">
+						</div>
+
 						<?php
 						wp_nav_menu(
 							array(
@@ -96,9 +98,29 @@
 							)
 						);
 						?>
+
+						<div class="pad-menu">
+							<div class="mob">
+								<ul>
+									<li><a href="/register">Регистрация</a></li>
+									<li><a href="/login">Вход</a></li>
+									<li><a href="/tehnicheskaya-podderzhka">Техническая помощь</a></li>
+								</ul>
+							</div>
+
+							<div class="mob">
+								<div class="header-main__support-icons">
+									<a href="https://vk.me/public219902120" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/vk.svg" alt=""></a>
+									<a href="https://t.me/uchebochka_support" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/tg.svg" alt=""></a>
+								</div>
+							</div>
+							<div class="close-burger-pad">
+								<img src="<?php echo get_template_directory_uri(); ?>/img/close-menu.svg" alt="">
+							</div>
+						</div>
 					</div>
 
-					<div class="header-main__buttons">
+					<div class="header-main__buttons desc">
 						<div class="btn btn--icon header-main__support-btn">
 							<span>Техническая поддержка</span>
 							<div class="header-main__support-icons">
@@ -125,69 +147,19 @@
 							</a>
 						</div>
 					</div>
-				</div>
-			</div>
-		</header>
 
-		<header class="mob">
-			<div class="container">
-				<div class="d-flex justify-content-between align-items-center">
-					<div class="logo">
-						<a href="/">
-							<img src="<?php echo get_template_directory_uri(); ?>/img/logo.svg" alt="">
-						</a>
+					<div class="burg mob">
+						<img src="<?php echo get_template_directory_uri(); ?>/img/burger.svg" alt="">
 					</div>
-					<div class="pad">
-						<?php
-						wp_nav_menu(
-							array(
-								'theme_location' => 'menu-1',
-								'menu_id'        => 'primary-menu',
-								'container'      => null,
-							)
-						);
-						?>
-					</div>
-					<div class="burg">
+
+					<div class="burg-pad pad">
 						<img src="<?php echo get_template_directory_uri(); ?>/img/burger.svg" alt="">
 					</div>
 				</div>
 			</div>
 		</header>
 
-		<!--- burger menu -->
-
-		<div class="burger-menu" style="display:none;">
-			<div class="container">
-				<div class="item">
-					<div class="close-burger">
-						<img src="<?php echo get_template_directory_uri(); ?>/img/close-menu.svg" alt="">
-					</div>
-
-					<?php
-					wp_nav_menu(
-						array(
-							'theme_location' => 'menu-1',
-							'menu_id'        => 'primary-menu',
-							'container'      => null,
-						)
-					);
-					?>
-
-					<ul>
-						<li><a href="/register">Регистрация</a></li>
-						<li><a href="/login">Вход</a></li>
-						<li><a href="/tehnicheskaya-podderzhka">Техническая помощь</a></li>
-					</ul>
-
-					<div class="header-main__support-icons">
-						<a href="https://vk.me/public219902120" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/vk.svg" alt=""></a>
-						<a href="https://t.me/uchebochka_support" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/img/socials/tg.svg" alt=""></a>
-					</div>
-				</div>
-			</div>
-		</div>
-
+		<!-- bottom fixed menu -->
 		<div class="bottom-menu mob">
 			<ul>
 				<li><a href="/"><img src="<?php echo get_template_directory_uri(); ?>/img/home.svg" alt=""></a></li>
@@ -200,4 +172,7 @@
 					</a></li>
 			</ul>
 		</div>
-	
+
+		<!-- <div class="update-notification d-flex justify-content-center">
+			<img class="update-notification__img" src="<?php echo get_template_directory_uri(); ?>/img/update.svg" alt="">
+		</div> -->

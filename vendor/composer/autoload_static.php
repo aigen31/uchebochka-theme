@@ -13,106 +13,98 @@ class ComposerStaticInitbdcfae9b7070136310d12b15b11066a5
     );
 
     public static $prefixLengthsPsr4 = array (
-        'e' => 
+        'e' =>
         array (
             'eftec\\bladeone\\' => 15,
         ),
-        'W' => 
+        'W' =>
         array (
             'WP_CLI\\I18n\\' => 12,
         ),
-        'U' => 
+        'U' =>
         array (
             'Uchebochka\\' => 11,
         ),
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Component\\Finder\\' => 25,
         ),
-        'P' => 
+        'P' =>
         array (
             'Peast\\' => 6,
         ),
-        'M' => 
+        'M' =>
         array (
             'Mustangostang\\' => 14,
         ),
-        'G' => 
+        'G' =>
         array (
             'Gettext\\Languages\\' => 18,
             'Gettext\\' => 8,
         ),
-        'D' => 
+        'D' =>
         array (
             'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 55,
-        ),
-        'C' => 
-        array (
-            'Carbon_Fields\\' => 14,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'eftec\\bladeone\\' => 
+        'eftec\\bladeone\\' =>
         array (
             0 => __DIR__ . '/..' . '/eftec/bladeone/lib',
         ),
-        'WP_CLI\\I18n\\' => 
+        'WP_CLI\\I18n\\' =>
         array (
             0 => __DIR__ . '/..' . '/wp-cli/i18n-command/src',
         ),
-        'Uchebochka\\' => 
+        'Uchebochka\\' =>
         array (
             0 => __DIR__ . '/../..' . '/inc/classes',
         ),
-        'Symfony\\Component\\Finder\\' => 
+        'Symfony\\Component\\Finder\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
         ),
-        'Peast\\' => 
+        'Peast\\' =>
         array (
             0 => __DIR__ . '/..' . '/mck89/peast/lib/Peast',
         ),
-        'Mustangostang\\' => 
+        'Mustangostang\\' =>
         array (
             0 => __DIR__ . '/..' . '/wp-cli/mustangostang-spyc/src',
         ),
-        'Gettext\\Languages\\' => 
+        'Gettext\\Languages\\' =>
         array (
             0 => __DIR__ . '/..' . '/gettext/languages/src',
         ),
-        'Gettext\\' => 
+        'Gettext\\' =>
         array (
             0 => __DIR__ . '/..' . '/gettext/gettext/src',
         ),
-        'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
+        'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' =>
         array (
             0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
-        ),
-        'Carbon_Fields\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/htmlburger/carbon-fields/core',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'c' => 
+        'c' =>
         array (
-            'cli' => 
+            'cli' =>
             array (
                 0 => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib',
             ),
         ),
-        'W' => 
+        'W' =>
         array (
-            'WP_CLI\\' => 
+            'WP_CLI\\' =>
             array (
                 0 => __DIR__ . '/..' . '/wp-cli/wp-cli/php',
             ),
         ),
-        'M' => 
+        'M' =>
         array (
-            'Mustache' => 
+            'Mustache' =>
             array (
                 0 => __DIR__ . '/..' . '/wp-cli/mustache/src',
             ),

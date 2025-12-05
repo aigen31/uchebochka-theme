@@ -12,6 +12,13 @@
 
 ?>
 
+<?php if (!is_page('tehnicheskaya-podderzhka')) : ?>
+	<div class="need-help text-center">
+		<a href="/tehnicheskaya-podderzhka">
+			<img src="<?php echo get_template_directory_uri(); ?>/img/que2.png" alt="">
+		</a>
+	</div>
+<?php endif; ?>
 <footer>
 	<div class="container">
 		<div class="row align-items-center justify-content-between">

@@ -1,6 +1,6 @@
 <?php
 get_header();
-$products = uchebka_plugin()->cart_queries()->get_products_in_cart(get_current_user_id());
+$user_cart_query = uchebka_plugin()->cart_queries()->user_cart_query(get_current_user_id());
 ?>
 </div>
 
@@ -14,13 +14,16 @@ $products = uchebka_plugin()->cart_queries()->get_products_in_cart(get_current_u
       <div class="courses-container cart-courses-container">
         <h1 class="courses-title cart-title">Корзина</h1>
         <?php
-        $product_ids = array_column($products, 'product_id');
+        $product_ids = $user_cart_query->get_product_ids();
+        $products = $user_cart_query->get_query_result();
 
         $posts = [];
         if (!empty($product_ids)) {
           $query = new WP_Query([
             'post_type' => 'any',
             'post__in' => $product_ids,
+            'orderby' => 'ID',
+            'order' => 'DESC',
             'posts_per_page' => count($product_ids),
           ]);
           foreach ($query->posts as $index => $post) {

@@ -42,11 +42,11 @@ get_header();
         <img src="<?php echo get_template_directory_uri(); ?>/img/promo.png" alt="" class="section-hero__image">
         <div class="promo-menu">
           <ul>
-            <li><a href="/?taxonomy=metodic_category&term=matematika">Математика</a></li>
-            <li><a href="/?taxonomy=metodic_category&term=anglijskij-yazyk">Английский язык</a></li>
-            <li><a href="/?taxonomy=metodic_category&term=robototehnika">Робототехника</a></li>
-            <li><a href="/?taxonomy=metodic_category&term=geografiya">География</a></li>
-            <li><a href="/?taxonomy=metodic_category&term=russkij-yazyk">Русский язык</a></li>
+            <li><a href="/methodical-materials/matematika/">Математика</a></li>
+            <li><a href="/methodical-materials/anglijskij-yazyk/">Английский язык</a></li>
+            <li><a href="/methodical-materials/robototehnika/">Робототехника</a></li>
+            <li><a href="/methodical-materials/geografiya/">География</a></li>
+            <li><a href="/methodical-materials/russkij-yazyk/">Русский язык</a></li>
           </ul>
         </div>
       </div>

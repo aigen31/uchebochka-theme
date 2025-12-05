@@ -59,3 +59,7 @@ require get_template_directory() . '/inc/support-candy.php';
  */
 require get_template_directory() . '/inc/author-settings.php';
 
+/**
+ * Formatting functions
+ */
+require get_template_directory() . '/inc/formatting.php';
