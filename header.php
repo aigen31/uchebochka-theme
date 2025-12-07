@@ -66,8 +66,10 @@
 			trackLinks: true,
 			accurateTrackBounce: true,
 			webvisor: true,
-			ecommerce: "dataLayer"
+			ecommerce: true,
 		});
+		 window.dataLayer = window.dataLayer || [];
+		 console.log(window.dataLayer);
 	</script>
 	<noscript>
 		<div><img src="https://mc.yandex.ru/watch/102088441" style="position:absolute; left:-9999px;" alt="" /></div>

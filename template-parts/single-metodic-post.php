@@ -205,11 +205,19 @@ $pda_services = new PDA_Services();
       </div>
 
     </div>
-
-    <div class="right-market">
+    <?
+    $categories = get_the_terms(get_the_ID(), 'metodic_category');
+    $string_array_category = "";
+    if ($categories && !is_wp_error($categories)) {
+      foreach ($categories as $cat) {
+          $string_array_category.= esc_html($cat->name) . " / ";
+      }
+    }
+    ?>
+    <div class="right-market" data-id="<?= get_the_ID() ?>" data-category="<?= $string_array_category ?>">
       <div class="material-info">
         <?php
-        $categories = get_the_terms(get_the_ID(), 'metodic_category');
+       
         if ($categories) : ?>
           <div class="cats">
             <?php
@@ -246,7 +254,7 @@ $pda_services = new PDA_Services();
           <?php if ($is_free) : ?>
             <div class="price">Бесплатно</div>
           <?php elseif (!empty($price)) : ?>
-            <div class="price"><?php echo esc_html($price . ' ₽'); ?></div>
+            <div data-price="<?= $price ?>" class="price"><?php echo esc_html($price . ' ₽'); ?></div>
             <?php if (!empty($discount) && $discount > $price) :
               $discount_percent = '-' . round((($discount - $price) / $discount) * 100) . '%';
             ?>
@@ -257,6 +265,7 @@ $pda_services = new PDA_Services();
             <div class="price">0 ₽</div>
           <?php endif; ?>
         </div>
+        
 
         <?php get_template_part('template-parts/material-action-buttons', '', [
           'is_purchased' => $is_purchased,

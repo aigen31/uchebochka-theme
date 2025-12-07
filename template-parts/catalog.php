@@ -35,6 +35,15 @@ if ($wp_query->have_posts()): ?>
         $old_price = '';
         $discount_percent = '';
         $is_free = false;
+     
+        $string_array_category = "";
+        $categories = get_the_terms(get_the_ID(), 'metodic_category');
+        if ($categories && !is_wp_error($categories)) {
+          foreach ($categories as $cat) {
+              $string_array_category.= esc_html($cat->name) . " / ";
+          }
+        }
+  
 
         if ($material) {
           $price = $material->get_price();
@@ -57,7 +66,7 @@ if ($wp_query->have_posts()): ?>
         $is_purchased = in_array(get_the_ID(), $purchased_queries->get_query_result_ids());
       ?>
         <div class="col-md-6 col-12">
-          <div class="product-card">
+          <div class="product-card" data-category="<?=$string_array_category?>">
             <div class="product-image">
               <?php if ($image_url): ?>
                 <a href="<?php echo esc_url($permalink); ?>">

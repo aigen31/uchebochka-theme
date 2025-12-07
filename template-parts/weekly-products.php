@@ -37,9 +37,15 @@
             $price = get_post_meta(get_the_ID(), 'price', true);
             $discount = get_post_meta(get_the_ID(), 'without_discount_price', true);
             $free_material = get_post_meta(get_the_ID(), 'free_material', true);
+            $string_array_category = "";
+            if ($categories && !is_wp_error($categories)) {
+              foreach ($categories as $cat) {
+                  $string_array_category.= esc_html($cat->name) . " / ";
+              }
+            }
         ?>
             <div class="product-slide">
-              <div class="product-card">
+              <div class="product-card" data-category="<?= $string_array_category ?>">
                 <a href="<?php echo esc_url(get_permalink()); ?>">
                   <div class="product-image">
                     <?php if ($img): ?>

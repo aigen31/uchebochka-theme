@@ -225,34 +225,40 @@ jQuery(document).ready(function ($) {
 
     $('.material-payment').on('click', function (event) {
         event.preventDefault();
+        const link = $(this).attr('href');
+        if(link){
+            window.location.replace(link);
+            return;
+        }
         var productId = $(this).data('id');
         var $this = $(this);
-
         if (uchebochka_user.is_logged_in) {
             $.ajax({
                 method: 'POST',
                 url: uchebochka_vars.rest_url + 'uchebka/v1/insert_product_to_cart',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
+                    $this.text('Добавление в корзину...');
                 },
                 data: {
                     product_id: productId,
                 },
                 success: function (response) {
-                    console.log('ПОСТ ПРОШЁЛ');
                     if (response.status === 'success') {
-                        console.log('УДАЧНО');
                         $this.text('Перейти');
+
                         update_products_count(function (response) {
                             $('.cart__count').text(response);
                         });
                         $this.attr('href', '/cart');
-                        $this.off('click');
                     } else {
                         $('#warning').find('.modal-body').text('Произошла ошибка при добавлении товара в корзину.')
                         $('#warning').modal('show');
                     }
                 },
+                error: function(x,h,r){
+                    console.log(x,h,r);
+                }
             })
         } else {
             $('#warning').find('.modal-body').html('Пожалуйста, <a href="/login/">войдите</a> или <a href="/register/">зарегистрируйтесь</a>, чтобы совершить оплату.')
@@ -428,19 +434,6 @@ jQuery(document).ready(function ($) {
             });
         }
     });
-
-    $('.cart-checkout-btn').on('click', function () {
-        $.ajax({
-            url: '/wp-json/uchebka/v1/checkout',
-            method: 'POST',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
-            },
-            data: {
-                'title': 'Оплата товаров Учебочка',
-            }
-        })
-    })
 
     $(".burg-pad").click(function () {
         $(this).toggleClass('active');

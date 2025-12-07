@@ -1,7 +1,8 @@
 import { get_read_time } from './modules/article-time-read.js'
+import { ym_ecommerce_init, ym_make_order } from './modules/ym-ecommerce.js';
 const $ = window.jQuery;
 $(function () {
-
+    ym_ecommerce_init();
     const time_awerage_line = $('#timeread');
     const text_content = $('.article-body');
     if (time_awerage_line && text_content) {
@@ -23,4 +24,23 @@ $(function () {
             $('#header-placeholder-style').remove();
         }
     });
+
+
+    $('.cart-checkout-btn').on('click', function () {
+        ym_make_order();
+        return;
+        $.ajax({
+            url: '/wp-json/uchebka/v1/checkout',
+            method: 'POST',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
+            },
+            data: {
+                'title': 'Оплата товаров Учебочка',
+            }
+        })
+    })
+
+
 })
+
