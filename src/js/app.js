@@ -1,5 +1,5 @@
 import { get_read_time } from './modules/article-time-read.js'
-import { ym_ecommerce_init, ym_make_order } from './modules/ym-ecommerce.js';
+import { ym_ecommerce_init, ym_make_order, ym_clear_cart } from './modules/ym-ecommerce.js';
 const $ = window.jQuery;
 $(function () {
     ym_ecommerce_init();
@@ -52,7 +52,7 @@ $(function () {
                     $('.cart-item').each(function () {
                         $(this).fadeRemove();
                     });
-                    
+
                     ym_clear_cart();
 
                     $('.balance-amount').text('0.00 ₽');
