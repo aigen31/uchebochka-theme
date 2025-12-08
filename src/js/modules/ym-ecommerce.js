@@ -72,7 +72,7 @@ function show_article(){
     const id = $('.right-market').data('id');
     const category = $('.right-market').data('category');
     const name = $('h1').text();
-    let price = parseFloat($('.rigth-marker').find('.price').data('price'));
+    let price = parseFloat($('.right-market').find('.price').data('price'));
     if(!price){
         price = 0;
     }
