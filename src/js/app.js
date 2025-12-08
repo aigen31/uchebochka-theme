@@ -28,7 +28,6 @@ $(function () {
 
     $('.cart-checkout-btn').on('click', function () {
         ym_make_order();
-        return;
         $.ajax({
             url: '/wp-json/uchebka/v1/checkout',
             method: 'POST',
@@ -40,6 +39,32 @@ $(function () {
             }
         })
     })
+
+    $('.cart-clear-btn').on('click', function () {
+        if (confirm('Вы уверены, что хотите очистить корзину?')) {
+            $.ajax({
+                url: '/wp-json/uchebka/v1/clear_cart',
+                method: 'POST',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
+                },
+                success: function (response) {
+                    $('.cart-item').each(function () {
+                        $(this).fadeRemove();
+                    });
+                    
+                    ym_clear_cart();
+
+                    $('.balance-amount').text('0.00 ₽');
+                    $('.cart-actions__form').fadeRemove();
+                    $('.cart-clear-btn').fadeRemove();
+                },
+                error: function () {
+                    alert('Ошибка при очистке корзины.');
+                }
+            });
+        }
+    });
 
 
 })

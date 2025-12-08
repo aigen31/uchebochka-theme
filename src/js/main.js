@@ -412,28 +412,7 @@ jQuery(document).ready(function ($) {
         });
     });
 
-    $('.cart-clear-btn').on('click', function () {
-        if (confirm('Вы уверены, что хотите очистить корзину?')) {
-            $.ajax({
-                url: '/wp-json/uchebka/v1/clear_cart',
-                method: 'POST',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
-                },
-                success: function (response) {
-                    $('.cart-item').each(function () {
-                        $(this).fadeRemove();
-                    });
-                    $('.balance-amount').text('0.00 ₽');
-                    $('.cart-actions__form').fadeRemove();
-                    $('.cart-clear-btn').fadeRemove();
-                },
-                error: function () {
-                    alert('Ошибка при очистке корзины.');
-                }
-            });
-        }
-    });
+    
 
     $(".burg-pad").click(function () {
         $(this).toggleClass('active');

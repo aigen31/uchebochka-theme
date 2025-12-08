@@ -210,6 +210,40 @@ export function ym_make_order(){
     });
 }
 
+export function ym_clear_cart(){
+    const $ = window.jQuery;
+    const products = document.querySelectorAll('.cart-item');
+    if(!products) return;
+    products.forEach((product,index) => {
+        const button_remove =  product.querySelector('.cart-item-remove');
+        const name = $(product).find('.cart-item-title').text();
+        const id = $(button_remove).data('product-id');
+        let price = parseFloat($(product).find('.cart-item-price').data('price'));
+        if(!price){
+            price = 0;
+        }
+        const category = $(product).data('category');
+        window.dataLayer.push({
+            ecommerce: {
+                currencyCode: "RUB",
+                remove: {
+                    products: [
+                        {
+                            id: id,
+                            name: name,
+                            price: price,
+                            category: category,
+                            quantity: 1,
+                            position: index
+                        }
+                    ]
+                }
+            }
+        });
+    });
+}
+
+
 function genRandomId(prefix = 'TRX', digits = 6) {
   const max = 10 ** digits;
   const num = Math.floor(Math.random() * max); 
