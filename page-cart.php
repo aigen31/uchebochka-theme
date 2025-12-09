@@ -43,8 +43,15 @@ $user_cart_query = uchebka_plugin()->cart_queries()->user_cart_query(get_current
               $price = get_post_meta($post->ID, 'price', true);
               $old_price = get_post_meta($post->ID, 'old_price', true);
               $permalink = get_permalink($post);
+              $categories = get_the_terms(get_the_ID(), 'metodic_category');
+              $string_array_category = "";
+              if ($categories && !is_wp_error($categories)) {
+                foreach ($categories as $cat) {
+                    $string_array_category.= esc_html($cat->name) . " / ";
+                }
+              }
           ?>
-              <div class="document-card cart-item">
+              <div class="document-card cart-item" data-category="<?= $string_array_category ?>">
                 <div class="document-info cart-item-info">
                   <a href="<?php echo esc_url($permalink); ?>">
                     <div class="document-title cart-item-title"><?php echo esc_html($title); ?></div>
@@ -53,14 +60,15 @@ $user_cart_query = uchebka_plugin()->cart_queries()->user_cart_query(get_current
                     <span>Автор: <?php echo esc_html($author_name); ?></span>
                   </div>
                   <div class="paid-materials-card__price-wrapper cart-item-price-wrapper">
-                    <span class="paid-materials-card__price cart-item-price"><?php echo esc_html($price); ?> ₽</span>
+                    <span data-price="<?= esc_html($price); ?>" class="paid-materials-card__price cart-item-price"><?php echo esc_html($price); ?> ₽</span>
                     <?php if ($old_price && $old_price > $price): ?>
                       <span class="paid-materials-card__discount-price cart-item-discount-price"><?php echo esc_html($old_price); ?> ₽</span>
                     <?php endif; ?>
                   </div>
                 </div>
                 <div class="document-actions cart-item-actions">
-                  <button class="btn btn-edit cart-item-remove" data-product-id="<?php echo intval($post->cart_id); ?>">Удалить</button>
+                  <button class="btn btn-edit cart-item-remove" data-product-id="<?php echo intval($post->cart_id); ?>"
+                  >Удалить</button>
                 </div>
               </div>
             <?php endforeach;
