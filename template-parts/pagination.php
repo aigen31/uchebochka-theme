@@ -10,7 +10,8 @@ if ($args['wp_query']->max_num_pages > 1) :
         if ($i == $paged) {
           echo '<li class="active"><span>' . $i . '</span></li>';
         } elseif ($i <= 3 || $i > $max_pages - 3 || abs($i - $paged) <= 1) {
-          $page_link = add_query_arg('paged', ($i == 1 ? false : $i), get_pagenum_link($i, false));
+          $base_url = wp_doing_ajax() ? wp_get_referer() : get_pagenum_link(1);
+          $page_link = add_query_arg('paged', ($i == 1 ? false : $i), $base_url);
           echo '<li><a href="' . esc_url($page_link) . '">' . $i . '</a></li>';
         } elseif ($i == 4 && $paged > 6) {
           echo '<li class="dots">...</li>';
@@ -18,10 +19,10 @@ if ($args['wp_query']->max_num_pages > 1) :
           echo '<li class="dots">...</li>';
         }
       }
-
       if ($paged < $max_pages) {
         $next_page = $paged + 1;
-        $next_link = add_query_arg('paged', $next_page, get_pagenum_link($next_page, false));
+        $base_url = wp_doing_ajax() ? wp_get_referer() : get_pagenum_link(1);
+        $next_link = add_query_arg('paged', $next_page, $base_url);
         echo '<li><a href="' . esc_url($next_link) . '">Следующая страница <img src="' . get_template_directory_uri() . '/img/next.svg" alt=""></a></li>';
       }
       ?>
