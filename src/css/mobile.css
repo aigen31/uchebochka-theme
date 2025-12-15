@@ -578,4 +578,7 @@
     .need-help img {
         width: 100px;
     }
+    [data-b24-crm-hello-cont] {
+        display: none !important;
+    }
 }
