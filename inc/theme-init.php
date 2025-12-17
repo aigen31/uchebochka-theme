@@ -51,7 +51,7 @@ function crb_attach_theme_options()
             ->set_attribute('max', '100')
             ->set_attribute('type', 'number'),
         ]),
-     
+
     ],);
 }
 
@@ -175,7 +175,7 @@ function uchebochka_scripts()
   wp_enqueue_style('uchebochka-mobile-style', get_template_directory_uri() . '/src/css/mobile.css', array('uchebochka-tablet-style'), _S_VERSION);
 
   wp_style_add_data('uchebochka-style', 'rtl', 'replace');
-  wp_enqueue_script('jquery'); 
+  wp_enqueue_script('jquery');
   wp_enqueue_script('uchebochka-bootstrap-bundle', get_template_directory_uri() . '/src/js/bootstrap.bundle.min.js', array('jquery'), '5.1.3', true);
   wp_enqueue_script('uchebochka-main', get_template_directory_uri() . '/src/js/main.js', array('jquery'), _S_VERSION, true);
   wp_enqueue_script_module('uchebochka-app', get_template_directory_uri() . '/src/js/app.js');
@@ -197,6 +197,7 @@ function uchebochka_scripts()
       'rest_url' => esc_url(rest_url()),
       'nonce'    => wp_create_nonce('wp_rest'),
       'rest_route' => 'uchebka/v1',
+      'wp_login' => esc_url(site_url('/wp-login.php')),
     ));
   }
 }

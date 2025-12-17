@@ -25,7 +25,6 @@ $(function () {
         }
     });
 
-
     $('.cart-checkout-btn').on('click', function () {
         ym_make_order();
         $.ajax({
@@ -66,6 +65,84 @@ $(function () {
         }
     });
 
+    $('.section-materials__authentication-form').on('submit', function (e) {
+        e.preventDefault();
+
+        const form = $(this);
+        const username = form.find('input[name="log"]').val().trim();
+        const password = form.find('input[name="pwd"]').val();
+        const redirectTo = form.find('input[name="redirect_to"]').val();
+        const submitBtn = form.find('button[name="wp-submit"]');
+        const nonce = form.find('input[name="uchebka_login_nonce"]').val();
+
+        // Remove previous error messages
+        form.find('.error-message').remove();
+
+        // Basic client-side validation
+        if (!username) {
+            showFormError(form, 'Пожалуйста, введите логин');
+            return;
+        }
+
+        if (!password) {
+            showFormError(form, 'Пожалуйста, введите пароль');
+            return;
+        }
+
+        if (password.length < 6) {
+            showFormError(form, 'Пароль должен содержать минимум 6 символов');
+            return;
+        }
+
+        // Disable submit button and show loading state
+        submitBtn.prop('disabled', true);
+        submitBtn.text('Загрузка...');
+
+        // Send AJAX request
+        $.ajax({
+            url: ajax_filter_params.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'login',
+                username: username,
+                password: password,
+                redirect_to: redirectTo,
+                nonce: nonce
+            },
+            dataType: 'json',
+            // beforeSend: function (xhr) {
+            //     xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
+            // },
+            success: function (response) {
+                if (response.success) {
+                    window.location.href = response.data.redirect;
+                } else {
+                    showFormError(form, response.data.message);
+                    submitBtn.prop('disabled', false);
+                    submitBtn.text('Войти');
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                const errorMessage = jqXHR.responseJSON?.data?.message || 'Ошибка при попытке входа. Попробуйте позже.';
+                showFormError(form, errorMessage);
+                submitBtn.prop('disabled', false);
+                submitBtn.text('Войти');
+            }
+        });
+    });
+
+    // Show error message in form
+    function showFormError(form, message) {
+        const errorDiv = $('<div class="error-message" style="color: #d32f2f; margin-top: 10px; padding: 10px; background-color: #ffebee; border-radius: 4px;"></div>');
+        errorDiv.text(message);
+        form.append(errorDiv);
+        // Auto-remove error after 5 seconds
+        setTimeout(function () {
+            errorDiv.fadeOut(300, function () {
+                $(this).remove();
+            });
+        }, 5000);
+    }
 
 })
 

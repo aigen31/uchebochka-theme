@@ -23,7 +23,7 @@
     <?php endif; ?>
   </div>
   <?php if (!is_user_logged_in()) : ?>
-    <form class="section-materials__authentication-form" action="<?php echo site_url('/wp-login.php'); ?>" method="post">
+    <form class="section-materials__authentication-form" method="post">
       <input class="section-materials__authentication-input" type="text" id="login"
         placeholder="Логин" name="log">
       <input class="section-materials__authentication-input" type="password" id="password" name="pwd"
@@ -39,7 +39,7 @@
         </span>
       </div>
 
-      <button class="btn section-materials__authentication--login" name="wp-submit">
+      <button class="btn section-materials__authentication--login" name="wp-submit" type="submit">
         Войти
       </button>
 
@@ -48,6 +48,7 @@
       </div>
 
       <input type="hidden" value="/" name="redirect_to">
+      <?php wp_nonce_field('uchebka_login_nonce', 'uchebka_login_nonce'); ?>
     </form>
   <?php else : ?>
     <div class="lk-tab">
