@@ -2,6 +2,9 @@ import { get_read_time } from './modules/article-time-read.js'
 import { ym_ecommerce_init, ym_make_order, ym_clear_cart } from './modules/ym-ecommerce.js';
 const $ = window.jQuery;
 $(function () {
+
+    $('input[type="tel"]').mask("+7 (999) 999-99-99");
+
     ym_ecommerce_init();
     const time_awerage_line = $('#timeread');
     const text_content = $('.article-body');
@@ -26,7 +29,6 @@ $(function () {
     });
 
     $('.cart-checkout-btn').on('click', function () {
-        ym_make_order();
         $.ajax({
             url: '/wp-json/uchebka/v1/checkout',
             method: 'POST',
@@ -37,6 +39,20 @@ $(function () {
                 'title': 'Оплата товаров Учебочка',
             }
         })
+    })
+    $('.cart-actions__form').on('submit',function(e){
+        e.preventDefault();
+        const phone = $(this).find('input[type="tel"]');
+        const phoneVal = phone.val().replace(/\D/g, '');
+        if (!/^(7|8)\d{10}$/.test(phoneVal)) {
+            $('#warning').find('.modal-body').text('Введите корректный номер телефона');
+            $('#warning').modal('show');
+            phone.focus();
+            return;
+        }
+        ym_make_order();
+        $(this).off('submit');
+        this.submit();
     })
 
     $('.cart-clear-btn').on('click', function () {
