@@ -138,7 +138,7 @@
                                     <i class="fas fa-file-powerpoint"></i>
                                 </div>
                                 <p class="file-upload-text">Загрузите презентации</p>
-                                <p class="file-upload-hint">.pptx, .ppt, .odp</p>
+                                <p class="file-upload-hint">.pptx, .odp</p>
                             </div>
                             <div class="file-names"></div>
                             <input type="file" name="metodic_presentations[]" class="file-input-hidden" accept=".pptx,.ppt,.odp" multiple>
