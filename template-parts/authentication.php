@@ -44,7 +44,7 @@
       </button>
 
       <div class="text-center">
-        <a href="#" class="section-materials__authentication--forget">Забыли пароль?</a>
+        <a href="/password-reset" class="section-materials__authentication--forget">Забыли пароль?</a>
       </div>
 
       <input type="hidden" value="/" name="redirect_to">
