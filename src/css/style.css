@@ -1051,7 +1051,10 @@ section.section-materials {
     justify-content: center;
     margin-bottom: 15px;
 }
-
+.product-image a{
+    height: 100%;
+    width: 100%;
+}
 .product-image img {
     width: 100%;
     height: 100%;

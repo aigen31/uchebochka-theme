@@ -33,7 +33,7 @@
           while ($query->have_posts()) : $query->the_post();
             $categories = get_the_terms(get_the_ID(), 'metodic_category');
             $date = get_the_date('d.m.Y');
-            $img = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+            $img = get_the_post_thumbnail_url(get_the_ID(), 'large');
             $price = get_post_meta(get_the_ID(), 'price', true);
             $discount = get_post_meta(get_the_ID(), 'without_discount_price', true);
             $free_material = get_post_meta(get_the_ID(), 'free_material', true);

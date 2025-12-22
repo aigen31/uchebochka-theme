@@ -8,7 +8,7 @@ if (have_posts()): ?>
       while (have_posts()):
         the_post();
 
-        $image_url = get_the_post_thumbnail_url(get_the_ID(), 'thumbnail');
+        $image_url = get_the_post_thumbnail_url(get_the_ID(), 'large');
         $title = get_the_title();
         $permalink = get_permalink();
       ?>
