@@ -233,15 +233,19 @@ $pda_services = new PDA_Services();
         <div class="download-info">
           <?php
           $download_count = get_post_meta(get_the_ID(), 'download_counter', true);
-          // $view_count = do_shortcode('[ngd-single-post-view]');
           ?>
           <p><span id="download-counter"><?php echo $download_count ? $download_count : '0'; ?></span> скачиваний</p>
           <div class="d-flex">
             <div class="date"><?php echo get_the_date('d.m.Y'); ?></div>
-            <div class="see">
-              <img src="<?php echo get_template_directory_uri(); ?>/img/see2.svg" alt="">
-              <?php echo do_shortcode('[ngd-single-post-view]'); ?>
-            </div>
+            <?php if (function_exists('lightvc_get_post_views')) : ?>
+              <div class="see">
+                <img src="<?php echo get_template_directory_uri(); ?>/img/see2.svg" alt="">
+                <?php
+                $view_count = lightvc_get_post_views(get_the_ID());
+                echo $view_count ? $view_count : '0';
+                ?>
+              </div>
+            <?php endif; ?>
           </div>
         </div>
 
