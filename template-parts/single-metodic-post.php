@@ -210,14 +210,14 @@ $pda_services = new PDA_Services();
     $string_array_category = "";
     if ($categories && !is_wp_error($categories)) {
       foreach ($categories as $cat) {
-          $string_array_category.= esc_html($cat->name) . " / ";
+        $string_array_category .= esc_html($cat->name) . " / ";
       }
     }
     ?>
     <div class="right-market" data-id="<?= get_the_ID() ?>" data-category="<?= $string_array_category ?>">
       <div class="material-info">
         <?php
-       
+
         if ($categories) : ?>
           <div class="cats">
             <?php
@@ -233,14 +233,14 @@ $pda_services = new PDA_Services();
         <div class="download-info">
           <?php
           $download_count = get_post_meta(get_the_ID(), 'download_counter', true);
-          $view_count = get_post_meta(get_the_ID(), 'view_count', true);
+          // $view_count = do_shortcode('[ngd-single-post-view]');
           ?>
           <p><span id="download-counter"><?php echo $download_count ? $download_count : '0'; ?></span> скачиваний</p>
           <div class="d-flex">
             <div class="date"><?php echo get_the_date('d.m.Y'); ?></div>
             <div class="see">
               <img src="<?php echo get_template_directory_uri(); ?>/img/see2.svg" alt="">
-              <?php echo $view_count ? $view_count : '0'; ?>
+              <?php echo do_shortcode('[ngd-single-post-view]'); ?>
             </div>
           </div>
         </div>
@@ -265,7 +265,7 @@ $pda_services = new PDA_Services();
             <div class="price">0 ₽</div>
           <?php endif; ?>
         </div>
-        
+
 
         <?php get_template_part('template-parts/material-action-buttons', '', [
           'is_purchased' => $is_purchased,
