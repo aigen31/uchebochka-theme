@@ -1,8 +1,14 @@
 <?php
+
 /**
  * Loading composer autoload
  */
 require_once __DIR__ . '/vendor/autoload.php';
+
+/**
+ * Required dependencies file.
+ */
+require get_template_directory() . '/inc/required-dependencies.php';
 
 /**
  * Template loading functions
