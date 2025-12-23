@@ -108,7 +108,7 @@ $user_cart_query = uchebka_plugin()->cart_queries()->user_cart_query(get_current
             <form class="cart-actions__form" action="<?php echo esc_url(admin_url('admin-ajax.php')); ?>" method="post">
               <input type="hidden" name="action" value="checkout" required>
               <input type="email" name="email" placeholder="Введите ваш email" required>
-              <input type="tel" name="phone" placeholder="Введите ваш телефон" required>
+              <input type="tel" name="phone" placeholder="Введите ваш телефон">
               <button class="btn btn-edit cart-checkout-btn">Оформить заказ</button>
             </form>
           <?php
