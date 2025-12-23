@@ -3,7 +3,9 @@ import { ym_ecommerce_init, ym_make_order, ym_clear_cart } from './modules/ym-ec
 const $ = window.jQuery;
 $(function () {
 
-    $('input[type="tel"]').mask("+7 (999) 999-99-99");
+   $('input[type="tel"]').mask('+000000000000000', {
+    placeholder: '+______________'
+    });
 
     ym_ecommerce_init();
     const time_awerage_line = $('#timeread');
@@ -40,20 +42,30 @@ $(function () {
             }
         })
     })
-    $('.cart-actions__form').on('submit',function(e){
-        e.preventDefault();
-        const phone = $(this).find('input[type="tel"]');
-        const phoneVal = phone.val().replace(/\D/g, '');
-        if (!/^(7|8)\d{10}$/.test(phoneVal)) {
-            $('#warning').find('.modal-body').text('Введите корректный номер телефона');
-            $('#warning').modal('show');
-            phone.focus();
-            return;
-        }
-        ym_make_order();
-        $(this).off('submit');
-        this.submit();
-    })
+    $('.cart-actions__form').on('submit', function (e) {
+    e.preventDefault();
+
+    const phoneInput = $(this).find('input[type="tel"]');
+    const rawVal = phoneInput.val();
+    const phoneVal = rawVal.replace(/[^\d+]/g, '');
+
+    
+    if (!/^\+\d{8,15}$/.test(phoneVal)) {
+        $('#warning')
+            .find('.modal-body')
+            .text('Введите корректный номер телефона в международном формате, например +79161234567');
+        $('#warning').modal('show');
+        phoneInput.focus();
+        return;
+    }
+
+    phoneInput.val(phoneVal);
+
+    ym_make_order();
+    $(this).off('submit');
+    this.submit();
+});
+
 
     $('.cart-clear-btn').on('click', function () {
         if (confirm('Вы уверены, что хотите очистить корзину?')) {

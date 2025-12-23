@@ -315,6 +315,51 @@ jQuery(document).ready(function ($) {
         $('.section-materials__filter').removeAttr('style');
     })
 
+    const removeFilesDoc = [];
+    const removeFilesPdf = [];
+    const removeFilesPPTX = [];
+    const removeFilesCourse = [];
+    
+    $('.metodic_docs .remove').on('click', function(e){
+        e.preventDefault();
+        const parent = this.parentElement;
+        const doc_id = parent?.dataset.fileId;
+        if(doc_id && confirm('Вы действительно хотите удалить файл?')){
+            removeFilesDoc.push(doc_id);
+            parent.remove();
+        }
+    });
+
+    $('.metodic_presentations .remove').on('click', function(e){
+        e.preventDefault();
+        const parent = this.parentElement;
+        const doc_id = parent?.dataset.fileId;
+        if(doc_id && confirm('Вы действительно хотите удалить файл?')){
+            removeFilesPPTX.push(doc_id);
+            parent.remove();
+        }
+    });
+
+    $('.metodic_pdfs .remove').on('click', function(e){
+        e.preventDefault();
+        const parent = this.parentElement;
+        const doc_id = parent?.dataset.fileId;
+        if(doc_id && confirm('Вы действительно хотите удалить файл?')){
+            removeFilesPdf.push(doc_id);
+            parent.remove();
+        }
+    });
+
+    $('.curses_file .remove').on('click', function(e){
+        e.preventDefault();
+        const parent = this.parentElement;
+        const doc_id = parent?.dataset.fileId;
+        if(doc_id && confirm('Вы действительно хотите удалить файл?')){
+            removeFilesCourse.push(doc_id);
+            parent.remove();
+        }
+    });
+
     $("#save-metodic-form").on("submit", function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -324,6 +369,10 @@ jQuery(document).ready(function ($) {
         }
 
         var formData = new FormData($(this)[0]);
+        formData.append('remove_files_doc[]', removeFilesDoc);
+        formData.append('remove_files_pptx[]', removeFilesPPTX);
+        formData.append('remove_files_pdf[]', removeFilesPdf);
+        formData.append('remove_files_cource[]', removeFilesCourse);
         var yandexDiskLink = formData.get("yandex_disk");
 
 
