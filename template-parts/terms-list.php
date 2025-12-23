@@ -8,6 +8,7 @@
       'hide_empty' => false
     ));
     $current_categories = $args['current_categories'];
+    
     $total_categories = count($categories);
     for ($i = 0; $i < min(3, $total_categories); $i++) {
     ?>
@@ -16,7 +17,9 @@
           <?php
           if (!empty($_GET['post_' . $args['slug']]) && is_array($_GET['post_' . $args['slug']])) {
             echo in_array($categories[$i]->term_id, $_GET['post_' . $args['slug']]) ? 'checked' : '';
-          }
+          }else if($current_categories && in_array($categories[$i]->slug,$current_categories)){
+                echo 'checked';
+              }
           ?>>
         <span></span><?php echo esc_html($categories[$i]->name); ?>
       </label>

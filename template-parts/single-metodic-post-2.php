@@ -31,6 +31,7 @@ get_header(); ?>
 
             <form id="save-metodic-form" enctype="multipart/form-data">
                 <input type="hidden" name="material_type" value="metodic_post">
+                <input type="hidden" name="post_id" value="<?php echo $post_id?>">
 
                 <div class="form-group">
                     <h3>Назовите методическую разработку</h3>
@@ -156,6 +157,14 @@ get_header(); ?>
                             <input type="file" name="metodic_docs[]" class="file-input-hidden" accept=".docx,.odt" multiple>
                         </div>
                     </div>
+               
+                    <?php get_template_part('template-parts/material-action-buttons', '', [
+                        'is_purchased' => $is_purchased,
+                        'is_free' => $is_free,
+                        'pda_services' => $pda_services,
+                        'metodic_material_once' => ['metodic_docs' => '']
+                     ]); ?>
+                 
 
                     <div class="form-group-in">
                         <div class="subtitle">Презентации (.pptx, .odp)</div>
@@ -172,6 +181,13 @@ get_header(); ?>
                         </div>
                     </div>
 
+                    <?php get_template_part('template-parts/material-action-buttons', '', [
+                        'is_purchased' => $is_purchased,
+                        'is_free' => $is_free,
+                        'pda_services' => $pda_services,
+                        'metodic_material_once' => ['metodic_presentations' => '']
+                     ]); ?>
+
                     <div class="form-group-in">
                         <div class="subtitle">Файлы (.pdf)</div>
                         <div class="file-upload-area" data-input-name="pdf[]">
@@ -186,6 +202,12 @@ get_header(); ?>
                             <input type="file" name="metodic_pdfs[]" class="file-input-hidden" accept=".pdf" multiple>
                         </div>
                     </div>
+                     <?php get_template_part('template-parts/material-action-buttons', '', [
+                        'is_purchased' => $is_purchased,
+                        'is_free' => $is_free,
+                        'pda_services' => $pda_services,
+                        'metodic_material_once' => ['metodic_pdfs' => '']
+                     ]); ?>
 
                     <div class="form-group-in">
                         <div class="subtitle">Ссылка на Яндекс Диск</div>
@@ -211,6 +233,13 @@ get_header(); ?>
                         <div class="file-names"></div>
                         <input type="file" name="demo[]" class="file-input-hidden" multiple>
                     </div>
+
+                    <?php get_template_part('template-parts/material-action-buttons', '', [
+                        'is_purchased' => $is_purchased,
+                        'is_free' => $is_free,
+                        'pda_services' => $pda_services,
+                        'metodic_material_once' => ['curses_file' => '']
+                     ]); ?>
 
                     <div class="um-field um-custom-field cf-frontend-wrap">
                         <div class="cf-group">
