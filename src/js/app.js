@@ -32,7 +32,6 @@ $(function () {
     });
 
     $('.cart-checkout-btn').on('click', function () {
-        ym_make_order();
         $.ajax({
             url: '/wp-json/uchebka/v1/checkout',
             method: 'POST',
