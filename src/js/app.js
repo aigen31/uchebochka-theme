@@ -21,12 +21,12 @@ $(function () {
 
     $(window).on('scroll', function () {
         if ($(window).scrollTop() >= offsetTop) {
-            top.addClass('fixed');
+            top.addClass('top--fixed');
             if (!$('#header-placeholder-style').length) {
                 $('head').append('<style id="header-placeholder-style"> body { --header-height: ' + header.outerHeight() + 'px; } </style>');
             }
         } else {
-            top.removeClass('fixed');
+            top.removeClass('top--fixed');
             $('#header-placeholder-style').remove();
         }
     });

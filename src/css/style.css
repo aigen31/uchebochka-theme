@@ -274,7 +274,7 @@ body.main .top {
     background-repeat: no-repeat;
 }
 
-body.main .top.fixed {
+body.main .top.top--fixed {
     padding-top: calc(var(--padding-top) + var(--header-height) + var(--top-padding));
 }
 
@@ -3734,7 +3734,7 @@ button.clear-btn {
     padding: 5px 10px 5px;
 }
 
-.top.fixed header {
+.top.top--fixed header {
     position: fixed;
     top: 0;
     z-index: 999;

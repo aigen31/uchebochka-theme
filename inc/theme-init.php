@@ -166,9 +166,14 @@ add_action('widgets_init', 'uchebochka_widgets_init');
  */
 function uchebochka_scripts()
 {
-  wp_enqueue_style('uchebochka-style', get_stylesheet_uri(), array(), _S_VERSION);
-  wp_enqueue_style('uchebochka-bootstrap-reboot', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap-reboot.css', array());
-  wp_enqueue_style('uchebochka-bootstrap-grid', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap-grid.css', array());
+  // Не загружать Bootstrap стили на страницах материалов робототехники
+  $is_robototehnika = (is_singular('metodic_post') && has_term('robototehnika', 'metodic_category')) || (is_tax('metodic_category', 'robototehnika'));
+  
+  if (!$is_robototehnika) {
+    wp_enqueue_style('uchebochka-style', get_stylesheet_uri(), array(), _S_VERSION);
+    wp_enqueue_style('uchebochka-bootstrap-reboot', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap-reboot.css', array());
+    wp_enqueue_style('uchebochka-bootstrap-grid', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap-grid.css', array());
+  }
   wp_enqueue_style('uchebochka-bootstrap', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap.min.css', array());
   wp_enqueue_style('uchebochka-main-style', get_template_directory_uri() . '/src/css/style.css', array('uchebochka-bootstrap-reboot', 'uchebochka-bootstrap-grid', 'uchebochka-bootstrap'), _S_VERSION);
   wp_enqueue_style('uchebochka-tablet-style', get_template_directory_uri() . '/src/css/tablet.css', array('uchebochka-main-style'), _S_VERSION);

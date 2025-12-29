@@ -232,7 +232,7 @@ jQuery(document).ready(function ($) {
         }
         var productId = $(this).data('id');
         var $this = $(this);
-        if (uchebochka_user.is_logged_in) {
+        // if (uchebochka_user.is_logged_in) {
             $.ajax({
                 method: 'POST',
                 url: uchebochka_vars.rest_url + 'uchebka/v1/insert_product_to_cart',
@@ -260,10 +260,10 @@ jQuery(document).ready(function ($) {
                     console.log(x,h,r);
                 }
             })
-        } else {
-            $('#warning').find('.modal-body').html('Пожалуйста, <a href="/login/">войдите</a> или <a href="/register/">зарегистрируйтесь</a>, чтобы совершить оплату.')
-            $('#warning').modal('show');
-        }
+        // } else {
+            // $('#warning').find('.modal-body').html('Пожалуйста, <a href="/login/">войдите</a> или <a href="/register/">зарегистрируйтесь</a>, чтобы совершить оплату.')
+            // $('#warning').modal('show');
+        // }
     })
 
     function bindItem($item) {
