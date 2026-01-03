@@ -9,7 +9,7 @@
  * @package uchebochka
  */
 
-// get_header('tailwind');
+get_header('tailwind');
 echo '</div>';
 
 $post_id = get_the_ID();
@@ -57,6 +57,48 @@ if ($user_id > 0 && function_exists('uchebka_plugin')) {
   $purchased_materials = uchebka_plugin()->purchased_queries()->user_materials_query($user_id)->get_query_result();
   $purchased_ids = array_column($purchased_materials, 'post_id');
   $is_purchased = in_array($post_id, $purchased_ids);
+}
+
+// Check if material is free
+$is_free = get_post_meta($post_id, 'free_material', true) === '1';
+
+// PDA Services for download links
+$pda_service = class_exists('PDA_Services') ? new PDA_Services() : null;
+
+// Get material download links
+$material_downloads = [];
+if (($is_purchased || $is_free || current_user_can('administrator')) && $pda_service) {
+  $material_types = [
+    'metodic_docs' => 'DOC',
+    'metodic_presentations' => 'Презентация',
+    'metodic_pdfs' => 'PDF',
+    'curses_file' => 'Курс',
+  ];
+
+  foreach ($material_types as $meta_key => $label) {
+    $attachments = get_post_meta($post_id, $meta_key);
+    if ($attachments) {
+      foreach ($attachments as $attachment_id) {
+        if ($attachment_id) {
+          $material_downloads[] = [
+            'label' => $label,
+            'filename' => get_the_title($attachment_id),
+            'url' => $pda_service->generate_custom_private_link($attachment_id, null, null),
+          ];
+        }
+      }
+    }
+  }
+
+  // Yandex Disk link
+  $yandex_disk_url = get_post_meta($post_id, 'metodic_file_url', true);
+  if ($yandex_disk_url) {
+    $material_downloads[] = [
+      'label' => 'Яндекс.Диск',
+      'filename' => '',
+      'url' => $yandex_disk_url,
+    ];
+  }
 }
 
 // Check if material is in cart
@@ -353,17 +395,30 @@ if (is_array($what_you_get)) {
 
           <div class="flex flex-col gap-3 my-4">
 
-            <!-- Купить материал -->
-            <?php if ($is_purchased) : ?>
-              <a
-                href="<?php echo esc_url(home_url('/my-materials/')); ?>"
-                class="h-12 rounded-full bg-[#10B981] text-white
-                     flex items-center justify-center gap-2
-                     transition hover:bg-[#059669]
-                     border border-[#10B981]">
-                <span>✓</span>
-                <span>Материал куплен — перейти к скачиванию</span>
-              </a>
+            <!-- Скачать материал (если куплен или бесплатный) -->
+            <?php if (!empty($material_downloads)) : ?>
+              <?php foreach ($material_downloads as $download) : ?>
+                <a
+                  href="<?php echo esc_url($download['url']); ?>"
+                  download
+                  class="h-12 rounded-full bg-[#10B981] text-white
+                       flex items-center justify-center gap-2
+                       transition hover:bg-[#059669]
+                       border border-[#10B981] px-4 material-download"
+                  data-post-id="<?php echo intval($post_id); ?>">
+                  <span>⬇️</span>
+                  <span class="flex-1 text-center">
+                    <?php if ($download['filename']) : ?>
+                      <span class="font-medium"><?php echo esc_html($download['label']); ?>:</span>
+                      <span class="text-sm opacity-90"><?php echo esc_html($download['filename']); ?></span>
+                    <?php else : ?>
+                      <?php echo esc_html($download['label']); ?>
+                    <?php endif; ?>
+                  </span>
+                </a>
+              <?php endforeach; ?>
+
+              <!-- Купить материал -->
             <?php elseif ($is_in_cart) : ?>
               <a
                 href="<?php echo esc_url(home_url('/cart/')); ?>"
@@ -421,15 +476,15 @@ if (is_array($what_you_get)) {
 
           <?php if ($has_subscription) : ?>
             <div class="bg-[#ECFDF5] rounded-[16px] px-4 py-3 text-xs text-[#059669]">
-              ✨ У вас активна подписка! Доступ ко всем материалам и генератор AI открыты.
+              ✨ У вас активна подписка! Неограниченный доступ к ИИ поиску и генератору материалов открыты.
             </div>
           <?php elseif ($show_subscription_recommendation) : ?>
             <div class="bg-[#F3F4F6] rounded-[16px] px-4 py-3 text-xs text-[#6B7280]">
-              💡 С подпиской выгоднее: доступ ко всем материалам за 990 ₽ / месяц. Если планируете 1–2 материала — подписка экономит деньги.
+              💡 С подпиской вы получаете неогранниченный доступ к ИИ-помощнику и генератору материалов за 990 ₽ / месяц
             </div>
           <?php else : ?>
             <div class="bg-[#F3F4F6] rounded-[16px] px-4 py-3 text-xs text-[#6B7280]">
-              💡 С подпиской выгоднее: доступ ко всем материалам за 990 ₽ / месяц
+              💡 С подпиской выгоднее: Неограниченный доступ к ИИ поиску и генератору материалов
             </div>
           <?php endif; ?>
 
@@ -463,7 +518,7 @@ if (is_array($what_you_get)) {
               placeholder="Задайте вопрос или опишите задачу…"
               class="w-full resize-none bg-[#F3F4F6] text-sm px-4 py-3 rounded-[16px]
                    outline-none focus:ring-2 focus:ring-[#7C3AED]
-                   max-h-[120px] overflow-y-auto"></textarea>
+                   max-h-[320px] overflow-y-auto resize-y"></textarea>
 
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-3">
@@ -506,131 +561,7 @@ if (is_array($what_you_get)) {
 </div><!-- /.robototehnika-single -->
 
 <!--  ПОДПИСКА: ПОПАП  -->
-<div
-  id="subscriptionPopup"
-  class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 px-4"
-  aria-hidden="true">
-  <div class="bg-[#7C3AED] rounded-[32px] w-full max-w-[720px] text-white relative p-6 sm:p-10">
-
-    <!-- Закрыть -->
-    <button
-      id="closeSubscription"
-      class="absolute top-6 right-6 text-white/80 hover:text-white text-2xl"
-      aria-label="Закрыть"
-      type="button">
-      ✕
-    </button>
-
-    <h3 class="text-xl sm:text-2xl font-semibold mb-6">
-      Подписка «Учебочка»
-    </h3>
-
-    <div class="bg-[#8B5CF6] rounded-[24px] p-6 sm:p-8 mb-8">
-      <div class="text-4xl font-semibold mb-4">
-        990 ₽ <span class="text-base font-normal text-white/80">в месяц</span>
-      </div>
-
-      <ul class="space-y-4 text-sm">
-
-        <li class="flex gap-3">
-          <span class="text-yellow-300" aria-hidden="true">📘</span>
-          <div>
-            <div class="font-medium">Доступ ко всем материалам</div>
-            <div class="text-white/80">
-              Робототехника, программирование, STEM и другие направления
-            </div>
-          </div>
-        </li>
-
-        <li class="flex gap-3">
-          <span class="text-yellow-300" aria-hidden="true">✨</span>
-          <div>
-            <div class="font-medium">Конструктор материалов на основе AI</div>
-            <div class="text-white/80">
-              Персонализированные материалы под ваши задачи
-            </div>
-          </div>
-        </li>
-
-        <li class="flex gap-3">
-          <span class="text-yellow-300" aria-hidden="true">⬇️</span>
-          <div>
-            <div class="font-medium">Неограниченное скачивание</div>
-            <div class="text-white/80">
-              Скачивайте любые материалы без ограничений
-            </div>
-          </div>
-        </li>
-
-        <li class="flex gap-3">
-          <span class="text-yellow-300" aria-hidden="true">⭐</span>
-          <div>
-            <div class="font-medium">Новые материалы каждую неделю</div>
-            <div class="text-white/80">
-              Библиотека постоянно пополняется
-            </div>
-          </div>
-        </li>
-
-      </ul>
-    </div>
-
-    <!-- Форма оплаты -->
-    <form id="subscriptionForm" class="space-y-4">
-      <?php if (!is_user_logged_in()) : ?>
-        <div>
-          <label for="subEmail" class="block text-sm mb-1">Email *</label>
-          <input
-            type="email"
-            id="subEmail"
-            name="email"
-            required
-            placeholder="your@email.com"
-            class="w-full h-12 px-4 rounded-[12px] bg-white/10 text-white placeholder-white/50 border border-white/20 focus:border-white outline-none">
-        </div>
-      <?php else : ?>
-        <div class="bg-white/10 rounded-[12px] px-4 py-3 text-sm">
-          <div class="text-white/70 mb-1">Подписка будет привязана к аккаунту:</div>
-          <div class="font-medium"><?php echo esc_html(wp_get_current_user()->user_email); ?></div>
-        </div>
-      <?php endif; ?>
-      <div>
-        <label for="subPhone" class="block text-sm mb-1">Телефон *</label>
-        <input
-          type="tel"
-          id="subPhone"
-          name="phone"
-          required
-          placeholder="+7 (999) 123-45-67"
-          class="w-full h-12 px-4 rounded-[12px] bg-white/10 text-white placeholder-white/50 border border-white/20 focus:border-white outline-none">
-      </div>
-
-      <div id="subscriptionError" class="hidden text-red-200 text-sm bg-red-500/20 px-4 py-2 rounded-[12px]"></div>
-      <div id="subscriptionSuccess" class="hidden text-green-200 text-sm bg-green-500/20 px-4 py-2 rounded-[12px]"></div>
-
-      <div class="text-center pt-2">
-        <button
-          type="submit"
-          id="subscriptionSubmitBtn"
-          class="h-12 px-10 rounded-full
-                 bg-white text-[#7C3AED]
-                 font-medium inline-flex items-center justify-center gap-2
-                 border border-transparent
-                 transition
-                 hover:bg-transparent hover:text-white hover:border-white
-                 disabled:opacity-50 disabled:cursor-not-allowed">
-          <span id="subscriptionBtnText">🛒 Купить подписку</span>
-          <span id="subscriptionBtnLoading" class="hidden">Загрузка...</span>
-        </button>
-
-        <div class="text-xs text-white/70 mt-4">
-          Подписку можно отменить в любой момент
-        </div>
-      </div>
-    </form>
-
-  </div>
-</div>
+<?php get_template_part('template-parts/subscription-popup'); ?>
 
 <!--  ЛОГИКА  -->
 <script>
@@ -646,45 +577,48 @@ if (is_array($what_you_get)) {
         const productId = this.dataset.productId;
         const btnText = document.getElementById('addToCartBtnText');
         const btnIcon = document.getElementById('addToCartBtnIcon');
-        
+
         // Disable button and show loading
         this.disabled = true;
         const originalText = btnText.textContent;
         btnText.textContent = 'Добавляем...';
-        
+
         try {
           const response = await fetch('/wp-json/uchebka/v1/insert_product_to_cart', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              <?php if (is_user_logged_in()) : ?>
-              'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>',
+              <?php if (is_user_logged_in()) : ?> 'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>',
               <?php endif; ?>
             },
             credentials: 'same-origin',
-            body: JSON.stringify({ product_id: parseInt(productId) })
+            body: JSON.stringify({
+              product_id: parseInt(productId)
+            })
           });
-          
+
           const data = await response.json();
-          
+
           if (data.status === 'success' || !data.code) {
             // Success - update button to show "In cart" state
             this.className = 'h-12 rounded-full bg-[#F59E0B] text-white flex items-center justify-center gap-2 transition hover:bg-[#D97706] border border-[#F59E0B]';
             if (btnIcon) btnIcon.textContent = '✓';
             btnText.textContent = 'В корзине — перейти к оформлению';
-            
+
             // Update cart counter in header
             document.querySelectorAll('.cart__count').forEach(el => {
               const currentCount = parseInt(el.textContent) || 0;
               el.textContent = currentCount + 1;
             });
-            
+
             // Make button a link to cart
             this.addEventListener('click', function(e) {
               e.preventDefault();
               window.location.href = cartUrl;
-            }, { once: true });
-            
+            }, {
+              once: true
+            });
+
             this.disabled = false;
           } else {
             // Error
@@ -825,9 +759,9 @@ if (is_array($what_you_get)) {
 
     // Welcome message for single material
     if (hasSubscription) {
-      addMessage('✨ У вас активна подписка! Я помогу с любыми вопросами по этому материалу. Могу также сгенерировать персональный учебный материал — просто опишите задачу.', false);
+      addMessage('Привет! 👋 Я AI-помощник по этому материалу.\n\n✨ У вас активна подписка!\n\n🎯 Что я могу:\n• Подробно расскажу о содержании и особенностях материала\n• Отвечу на любые вопросы о применении и методике\n• Проанализирую ваши файлы (программу, учебный план)\n• Сгенерирую персональный учебный материал под ваши задачи\n\nЗадавайте вопросы или опишите, какой материал вам нужен!', false);
     } else {
-      addMessage('Я помогу понять, подойдёт ли этот материал именно вам. У меня есть доступ к описанию и содержимому материала. Задавайте любые вопросы!', false);
+      addMessage('Привет! 👋 Я AI-помощник по этому материалу.\n\n🎯 Что я могу:\n• Подробно расскажу о содержании и особенностях\n• Помогу понять, подойдёт ли материал для ваших задач\n• Отвечу на вопросы о методике и применении\n• Проанализирую прикреплённые файлы\n\nУ меня есть доступ к полному описанию и содержимому материала. Задавайте любые вопросы!', false);
     }
 
     // Check remaining messages (only if no subscription)
@@ -904,7 +838,7 @@ if (is_array($what_you_get)) {
           }
 
           let reply = data.rationale || '';
-          
+
           // Check if PDF was generated
           if (data.pdf_url) {
             addMessage(reply, false);
@@ -1065,4 +999,4 @@ if (is_array($what_you_get)) {
   })();
 </script>
 
-<?php // get_footer('tailwind'); ?>
+<?php get_footer('tailwind'); ?>

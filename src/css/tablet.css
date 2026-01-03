@@ -1,6 +1,6 @@
 @media (min-width: 768px) and (max-width: 1200px) {
 
-    header {
+    .body--legacy header {
         position: relative;
         z-index: 99
     }
@@ -123,7 +123,7 @@
         margin-top: 40px;
     }
 
-    .section-hero__col.section-hero__col--right {
+    .body--legacy .section-hero__col.section-hero__col--right {
         /* display: none; */
         flex: auto;
         position: relative;
@@ -138,24 +138,24 @@
     }
 
 
-    .section-hero__items {
+    .body--legacy .section-hero__items {
         flex-wrap: wrap;
     }
 
-    .section-hero__item--text {
+    .body--legacy .section-hero__item--text {
         font-size: 14px;
         line-height: 1.2
     }
 
-    .section-hero__items .section-hero__item {
+    .body--legacy .section-hero__items .section-hero__item {
         margin-bottom: 20px;
     }
 
-    .section-hero__row {
+    .body--legacy .section-hero__row {
         padding-bottom: 0px;
     }
 
-    .section-hero__item--title {
+    .body--legacy .section-hero__item--title {
         font-size: 13px;
         color: #fff;
         font-weight: 400;
@@ -163,7 +163,7 @@
         margin-bottom: 9px;
     }
 
-    .section-hero__h1 {
+    .body--legacy .section-hero__h1 {
         font-size: 38px;
         font-weight: 400;
         margin-bottom: 35px;
@@ -182,7 +182,7 @@
 
 
 
-    .section-hero__col--left {
+    .body--legacy .section-hero__col--left {
         flex: auto;
     }
 
@@ -278,7 +278,7 @@
     }
 
 
-    .section-hero__item {
+    .body--legacy .section-hero__item {
         background-color: #f2c945;
         background-image: url(../../img/items/hero.svg);
         background-repeat: no-repeat;
@@ -369,7 +369,7 @@
     }
 
 
-    footer {
+    .body--legacy footer {
         padding-bottom: 80px;
     }
 
@@ -380,7 +380,7 @@
         z-index: 999;
     }
 
-    .section-hero {
+    .body--legacy .section-hero {
         padding: 65px 0 55px;
         background: url(../../img/list.png) repeat-x center 101% / 220px;
     }
@@ -427,7 +427,7 @@
         right: -70px;
     }
 
-    .section-hero__image {
+    .body--legacy .section-hero__image {
         max-width: 350px;
         top: -40px;
     }
@@ -515,7 +515,7 @@
     }
 
 
-    h1 {
+    .body--legacy h1 {
         font-size: 24px;
         font-weight: 400;
         margin-bottom: 30px;
@@ -558,7 +558,7 @@
         flex-wrap: wrap;
     }
 
-    button.btn.btn-send {
+    button.btn-send {
         background: #893fe3;
         color: white;
         font-size: 15px;
@@ -603,7 +603,7 @@
         margin-bottom: 20px;
     }
 
-    a.btn.btn-del {
+    .btn-del {
         margin-top: 11px;
     }
 
@@ -726,7 +726,7 @@
         font-size: 14px;
     }
 
-    .subscribe-author .btn.btn-send {
+    .subscribe-author .btn-send {
         margin-top: 0;
         margin-left: 14px
     }

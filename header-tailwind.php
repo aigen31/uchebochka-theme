@@ -75,7 +75,7 @@
 <body <?= body_class(is_front_page() ? 'main' : '') ?>>
   <div class="top">
     <header class="header-main">
-      <div class="container header-main__container">
+      <div class="container mx-auto header-main__container">
         <div class="header-main__wrapper md:flex md:items-center">
           <a href="/" class="logo header-main__logo">
             <img src="<?php echo get_template_directory_uri(); ?>/img/logo.svg" alt="">

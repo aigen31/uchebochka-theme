@@ -127,7 +127,7 @@ if ($is_guest) {
               <?php else: ?>
                 <!-- Authorized user: hidden fields for compatibility -->
                 <input type="hidden" name="email" value="<?php echo esc_attr(wp_get_current_user()->user_email); ?>">
-                <input type="hidden" name="phone" value="">
+                <input name="phone" type="tel" value="">
               <?php endif; ?>
               <button class="btn btn-edit cart-checkout-btn">Оформить заказ</button>
             </form>

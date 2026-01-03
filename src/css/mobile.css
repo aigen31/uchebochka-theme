@@ -75,7 +75,7 @@
         margin-top: 40px;
     }
 
-    .section-hero__col.section-hero__col--right {
+    .body--legacy .section-hero__col.section-hero__col--right {
         display: none;
     }
 
@@ -85,24 +85,24 @@
     }
 
 
-    .section-hero__items {
+    .body--legacy .section-hero__items {
         flex-wrap: wrap;
     }
 
-    .section-hero__item--text {
+    .body--legacy .section-hero__item--text {
         font-size: 14px;
         line-height: 1.2
     }
 
-    .section-hero__items .section-hero__item {
+    .body--legacy .section-hero__items .section-hero__item {
         margin-bottom: 20px;
     }
 
-    .section-hero__row {
+    .body--legacy .section-hero__row {
         padding-bottom: 0px;
     }
 
-    .section-hero__item--title {
+    .body--legacy .section-hero__item--title {
         font-size: 13px;
         color: #fff;
         font-weight: 400;
@@ -110,7 +110,7 @@
         margin-bottom: 9px;
     }
 
-    .section-hero__h1 {
+    .body--legacy .section-hero__h1 {
         font-size: 38px;
         font-weight: 400;
         margin-bottom: 35px;
@@ -129,7 +129,7 @@
 
 
 
-    .section-hero__col--left {
+    .body--legacy .section-hero__col--left {
         flex: 0;
     }
 
@@ -223,7 +223,7 @@
     }
 
 
-    .section-hero__item {
+    .body--legacy .section-hero__item {
         background-color: #f2c945;
         background-image: url(../../img/items/hero.svg);
         background-repeat: no-repeat;
@@ -314,7 +314,7 @@
     }
 
 
-    footer {
+    .body--legacy footer {
         padding-bottom: 80px;
     }
 
@@ -325,7 +325,7 @@
         z-index: 999;
     }
 
-    .section-hero {
+    .body--legacy .section-hero {
         padding: 35px 0 55px;
         background: url(../../img/list.png) repeat-x center 101% / 220px;
     }
@@ -410,7 +410,7 @@
     }
 
 
-    h1 {
+    .body--legacy h1 {
         font-size: 24px;
         font-weight: 400;
         margin-bottom: 30px;
@@ -453,7 +453,7 @@
         flex-wrap: wrap;
     }
 
-    button.btn.btn-send {
+    .btn-send {
         background: #893fe3;
         color: white;
         font-size: 15px;
@@ -498,7 +498,7 @@
         margin-bottom: 20px;
     }
 
-    a.btn.btn-del {
+    .btn-del {
         margin-top: 11px;
     }
 
@@ -578,6 +578,7 @@
     .need-help img {
         width: 100px;
     }
+
     [data-b24-crm-hello-cont] {
         display: none !important;
     }

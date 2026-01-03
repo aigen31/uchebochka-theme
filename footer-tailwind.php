@@ -7,7 +7,7 @@
 ?>
 
 <footer>
-  <div class="container">
+  <div class="container mx-auto">
     <div class="flex flex-wrap items-center justify-between">
       <div class="w-full md:w-1/3 lg:w-1/3">
         <div class="logo">

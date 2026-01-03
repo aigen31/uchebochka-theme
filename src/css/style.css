@@ -1,26 +1,26 @@
 /* CSS3 */
 /* Modules */
 
-img {
+.body--legacy img {
     max-width: 100%;
     height: auto;
 }
 
-a {
+.body--legacy a {
     text-decoration: none;
     color: inherit;
 }
 
-main {
+.main--legacy {
     flex: 1;
 }
 
-main h2 {
+.main--legacy h2 {
     margin: 0.5rem 0;
     font-size: 2rem;
 }
 
-main ul {
+.main--legacy ul {
     list-style: none;
     background: rgba(255, 255, 255, 0.5);
     padding: 1.5rem;
@@ -29,7 +29,7 @@ main ul {
         inset -1px -1px 1px rgba(0, 0, 0, 0.5);
 }
 
-main li {
+.main--legacy li {
     margin: 0.5rem 0;
     font-size: 1.25rem;
 }
@@ -50,7 +50,7 @@ main li {
     --primary-1: #f0c000;
 }
 
-body {
+.body--legacy {
     font-size: 16px;
     font-family: "Rubik";
     background: url(../../img/fon.png) repeat center 0/100%;
@@ -61,8 +61,7 @@ body {
     text-align: center;
 }
 
-.btn,
-.submit {
+.btn {
     padding: 10px;
     text-align: center;
     display: inline-block;
@@ -73,8 +72,7 @@ body {
     text-decoration: none;
 }
 
-.btn--accent,
-.submit {
+.btn--accent {
     background-color: #893fe3;
     color: #fff;
     font-weight: 400;
@@ -282,24 +280,24 @@ body.main .header-main {
     margin-bottom: var(--top-padding);
 }
 
-.section-hero {
+.body--legacy .section-hero {
     padding: 85px 0 55px;
     background: url(../../img/list.png) repeat-x center 101%/220px;
 }
 
-.section-hero__h1 {
+.body--legacy .section-hero__h1 {
     font-size: 85px;
     font-weight: 400;
     margin-bottom: 45px;
 }
 
-.section-hero__items {
+.body--legacy .section-hero__items {
     display: flex;
     column-gap: 30px;
     align-items: start;
 }
 
-.section-hero__item {
+.body--legacy .section-hero__item {
     background-color: #f1c93b;
     background-image: url(../../img/items/hero.svg);
     background-repeat: no-repeat;
@@ -312,7 +310,7 @@ body.main .header-main {
     min-height: 156px;
 }
 
-.section-hero__item--title {
+.body--legacy .section-hero__item--title {
     font-size: 14px;
     color: #fff;
     font-weight: 400;
@@ -320,36 +318,36 @@ body.main .header-main {
     margin-bottom: 23px;
 }
 
-.section-hero__item--text {
+.body--legacy .section-hero__item--text {
     margin-top: 0;
     margin-bottom: 0;
 }
 
-.section-hero__image {
+.body--legacy .section-hero__image {
     max-width: 580px;
 }
 
-.section-hero__row {
+.body--legacy .section-hero__row {
     display: flex;
     position: relative;
     padding-bottom: 40px;
 }
 
-.section-hero__col {
+.body--legacy .section-hero__col {
     position: relative;
 }
 
-.section-hero__image {
+.body--legacy .section-hero__image {
     position: absolute;
     top: -70px;
     right: -70px;
 }
 
-.section-hero__col--left {
+.body--legacy .section-hero__col--left {
     flex: 1 0 auto;
 }
 
-.section-hero__col--right {
+.body--legacy .section-hero__col--right {
     flex: 1 1 auto;
     position: relative;
     z-index: 9;
@@ -1051,10 +1049,12 @@ section.section-materials {
     justify-content: center;
     margin-bottom: 15px;
 }
-.product-image a{
+
+.product-image a {
     height: 100%;
     width: 100%;
 }
+
 .product-image img {
     width: 100%;
     height: 100%;
@@ -1349,7 +1349,7 @@ section.section-materials {
     color: #b882fa
 }
 
-.subscribe button {
+.subscribe .btn {
     background: #f4e0b2;
     width: 100%
 }
@@ -1382,7 +1382,7 @@ section.section-materials {
 
 
 
-footer {
+.body--legacy footer {
     background: #FAEFD9;
     padding: 20px 0;
     font-weight: 300;
@@ -1495,13 +1495,13 @@ footer .soc a+a {
     max-width: 300px;
 }
 
-.modal-content button[type="submit"] {
+.modal-content .btn {
     background: #f8cc4d;
     width: 200px !important;
     display: inline-block;
 }
 
-button.btn-close {
+.btn-close {
     opacity: 1;
     position: absolute;
     right: 20px;
@@ -1512,7 +1512,7 @@ button.btn-close {
     z-index: 999999;
 }
 
-h1 {
+.body--legacy h1 {
     font-size: 36px;
     font-weight: 400;
     margin-bottom: 30px;
@@ -2113,7 +2113,7 @@ section.articles-page {
     margin: 10px 0;
 }
 
-blockquote {
+.body--legacy blockquote {
     background: none;
     padding: 0 20px 15px;
     margin: 30px 0;
@@ -2295,7 +2295,7 @@ input[type="file"]+.form-group-in {
     margin: 30px 0
 }
 
-button.btn.btn-send {
+button.btn-send {
     background: #893fe3;
     color: white;
     font-size: 22px;
@@ -2793,23 +2793,23 @@ p.profile-rating__progress-text {
     width: 24px
 }
 
-a.btn.btn-del {
+.btn-del {
     background: #cba1ff;
 }
 
-a.btn.btn-edit {
+.btn-edit {
     background: #f0c000;
 }
 
-a.btn.btn-go {
+.btn-go {
     background: #fff;
 }
 
-a.btn.btn-download {
+.btn-download {
     background: #cba1ff;
 }
 
-a.btn.btn-open {
+.btn-open {
     background: #eac35d;
 }
 
@@ -2912,7 +2912,7 @@ a.btn.btn-open {
     color: #893fe3
 }
 
-.subscribe-author .btn.btn-send {
+.subscribe-author .btn-send {
     background: #f7d062;
     font-size: 14px;
     text-align: center;
@@ -3082,7 +3082,7 @@ a.btn.btn-open {
     margin-bottom: 20px;
 }
 
-.block {
+.body--legacy .block {
     border: 1px solid #ddd;
     padding: 20px;
     margin-bottom: 25px;
@@ -3269,7 +3269,7 @@ section.nfound .btn-yellow {
     border-bottom: 1px solid #000;
 }
 
-a.btn-yellow2 {
+.btn-yellow2 {
     background: #f0c000;
     color: white;
     border-radius: 20px;
@@ -3296,7 +3296,7 @@ a.btn-yellow2 {
     margin-bottom: 20px;
 }
 
-a.btn-add {
+.btn-add {
     background: #f0c000;
     border-radius: 20px;
     font-size: 15px;
@@ -3344,7 +3344,7 @@ a.btn-add {
     border: none;
 }
 
-a.btn-yellow-mat {
+.btn-yellow-mat {
     background: #f0c000;
     font-size: 24px;
     font-weight: 300;
@@ -3357,7 +3357,7 @@ a.btn-yellow-mat {
     margin-bottom: 15px;
 }
 
-a.btn-ai {
+.btn-ai {
     background: url(../../img/butii.jpg) no-repeat center center/110%;
     font-size: 24px;
     font-weight: 300;
@@ -3378,7 +3378,7 @@ a.btn-ai {
 } */
 
 
-a.btn-catalog {
+.btn-catalog {
     border-radius: 25px;
     font-weight: 300;
     text-align: center;
@@ -3390,7 +3390,7 @@ a.btn-catalog {
     background: #faf1dd;
 }
 
-a.btn-pay {
+.btn-pay {
     background: #d1adff;
     font-size: 24px;
     font-weight: 300;
@@ -3403,7 +3403,7 @@ a.btn-pay {
     margin-bottom: 15px;
 }
 
-a.btn-ref {
+.btn-ref {
     background: #d1adff;
     font-size: 24px;
     font-weight: 300;
@@ -3508,7 +3508,7 @@ p.info {
     border-bottom: 1px solid;
 }
 
-a.btn-ref-copy {
+.btn-ref-copy {
     padding: 5px 25px;
     background: #893fe3;
     border-radius: 25px;
@@ -3546,7 +3546,7 @@ a.btn-ref-copy {
     max-width: 600px;
 }
 
-a.btn-download-ai {
+.btn-download-ai {
     background: linear-gradient(180deg, rgb(243 179 39) 0%, rgb(251 148 111) 100%);
     padding: 10px 35px;
     border-radius: 25px;
@@ -4102,8 +4102,8 @@ section.section-materials .cart-title {
     gap: 8px;
 }
 
-.btn.cart-item-remove,
-.btn.cart-clear-btn {
+.cart-item-remove,
+.cart-clear-btn {
     background: #ff6b6b;
     color: #fff;
     padding: 8px 12px;
@@ -4112,7 +4112,7 @@ section.section-materials .cart-title {
     border: none;
 }
 
-.btn.cart-clear-btn {
+.cart-clear-btn {
     background: #e74c3c;
     display: inline-block;
     margin-top: 18px;
