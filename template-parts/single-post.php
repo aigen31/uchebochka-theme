@@ -29,10 +29,6 @@
           </div>
         </div>
         <div class="meta-art">
-          <div class="read">
-            <img src="img/time.svg" alt="">
-            <span>Время чтения: <span id="timeread">1 минута</span></span>
-          </div>
           <!-- <div class="d-flex">
                   <div class="item">
                       <img src="img/see.svg" alt="">
@@ -58,27 +54,20 @@
 
       <!-- comments -->
 
-      <div class="comments">
-        <h4>Комментарии</h4>
+      <?php
+      if (comments_open() || get_comments_number()) :
+      ?>
+        <div class="comments">
+          <h4>Комментарии</h4>
 
-        <?php
-        if (comments_open() || get_comments_number()) {
+          <?php
           comments_template();
-        } else {
-          echo '<p>Комментарии закрыты.</p>';
-        }
-        ?>
-      </div>
-
-
+          ?>
+        </div>
+      <?php endif; ?>
     </div>
 
-
-
     <!-- END CENTER COLUMN -->
-
-
-
 
   </div>
 </section>

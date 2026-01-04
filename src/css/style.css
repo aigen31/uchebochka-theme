@@ -54,6 +54,9 @@
     font-size: 16px;
     font-family: "Rubik";
     background: url(../../img/fon.png) repeat center 0/100%;
+}
+
+body {
     --header-height: 0px;
 }
 

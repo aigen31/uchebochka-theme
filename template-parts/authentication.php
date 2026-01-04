@@ -48,7 +48,7 @@
           <a href="/password-reset" class="section-materials__authentication--forget">Забыли пароль?</a>
         </div>
 
-        <input type="hidden" value="/" name="redirect_to">
+        <input type="hidden" value="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" name="redirect_to">
         <?php wp_nonce_field('uchebka_login_nonce', 'uchebka_login_nonce'); ?>
       </form>
     <?php else : ?>

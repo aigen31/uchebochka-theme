@@ -141,7 +141,7 @@ if ($rutube_ids) {
 if ($vk_video_ids) {
   foreach ($vk_video_ids as $vk_video_id) {
     if (!empty($vk_video_id)) {
-      $vk_id = str_replace('https://vkvideo.ru/video', '', $vk_video_id);
+      $vk_id = str_replace('https://vk.com/video', '', $vk_video_id);
       $vk_parts = explode('_', $vk_id);
       if (count($vk_parts) >= 2) {
         $vk_thumb = function_exists('uchebka_plugin') ? uchebka_plugin()->vk_video()->get_vk_thumbnail($vk_video_id) : '';
@@ -248,7 +248,7 @@ if (is_array($what_you_get)) {
             <?php elseif ($first_item['type'] === 'rutube') : ?>
               <iframe width="100%" height="100%" src="https://rutube.ru/play/embed/<?php echo esc_attr($first_item['id']); ?>" frameBorder="0" allow="clipboard-write; autoplay" allowFullScreen></iframe>
             <?php elseif ($first_item['type'] === 'vk') : ?>
-              <iframe src="https://vkvideo.ru/video_ext.php?oid=<?php echo esc_attr($first_item['oid']); ?>&id=<?php echo esc_attr($first_item['id']); ?>&hd=2" width="100%" height="100%" allow="autoplay; encrypted-media; fullscreen; picture-in-picture;" frameborder="0" allowfullscreen></iframe>
+              <iframe src="https://vk.com/video_ext.php?oid=<?php echo esc_attr($first_item['oid']); ?>&id=<?php echo esc_attr($first_item['id']); ?>&hd=2" width="100%" height="100%" allow="autoplay; encrypted-media; fullscreen; picture-in-picture;" frameborder="0" allowfullscreen></iframe>
             <?php endif; ?>
           <?php elseif (has_post_thumbnail()) : ?>
             <?php echo get_the_post_thumbnail($post_id, 'large', ['class' => 'w-full h-full object-cover']); ?>
@@ -678,7 +678,7 @@ if (is_array($what_you_get)) {
           mainMedia.appendChild(iframe);
         } else if (type === 'vk') {
           const iframe = document.createElement('iframe');
-          iframe.src = 'https://vkvideo.ru/video_ext.php?oid=' + btn.dataset.vkOid + '&id=' + btn.dataset.vkId + '&hd=2';
+          iframe.src = 'https://vk.com/video_ext.php?oid=' + btn.dataset.vkOid + '&id=' + btn.dataset.vkId + '&hd=2';
           iframe.width = '100%';
           iframe.height = '100%';
           iframe.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture;';

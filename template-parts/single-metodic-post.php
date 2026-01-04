@@ -78,7 +78,7 @@ $pda_services = new PDA_Services();
 
                 $vk_video_ids = array_map(function ($id) {
                   if (!empty($id)) {
-                    $id = str_replace('https://vkvideo.ru/video', '', $id);
+                    $id = str_replace('https://vk.com/video', '', $id);
                     return explode('_', $id);
                   }
                 }, $vk_video_ids);
@@ -86,7 +86,7 @@ $pda_services = new PDA_Services();
                   if (!empty($vk_video_id)) :
                   ?>
                     <div class="slide <?php echo $slide_index === 0 ? 'active' : ''; ?>">
-                      <iframe src="https://vkvideo.ru/video_ext.php?oid=<?php echo esc_attr($vk_video_id[0]); ?>&id=<?php echo esc_attr($vk_video_id[1]); ?>&hd=2" width="100%" height="100%" style="background-color: #000" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
+                      <iframe src="https://vk.com/video_ext.php?oid=<?php echo esc_attr($vk_video_id[0]); ?>&id=<?php echo esc_attr($vk_video_id[1]); ?>&hd=2" width="100%" height="100%" style="background-color: #000" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>
                     </div>
                   <?php
                     $slide_index++;

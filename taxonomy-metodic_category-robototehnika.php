@@ -589,9 +589,9 @@ if (function_exists('uchebka_plugin')) {
       }
     });
 
-    function addMessage(text, isUser) {
+    function addMessage(text, isUser, isLoading = false) {
       const wrap = document.createElement('div');
-      wrap.className = 'flex gap-2 ' + (isUser ? 'justify-end' : '');
+      wrap.className = 'flex gap-2 ' + (isUser ? 'justify-end' : '') + (isLoading ? ' ai-loading' : '');
       const safe = (text || '').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
 
       wrap.innerHTML = `
@@ -691,7 +691,7 @@ if (function_exists('uchebka_plugin')) {
       }
 
       // Show loading
-      addMessage('Думаю...', false);
+      addMessage('Думаю...', false, true);
 
       // Build FormData for file upload support
       const formData = new FormData();
@@ -711,10 +711,17 @@ if (function_exists('uchebka_plugin')) {
           credentials: 'same-origin',
           body: formData
         })
-        .then(r => r.json())
+        .then(r => {
+          if (!r.ok) {
+            console.error('AI Chat HTTP error:', r.status, r.statusText);
+          }
+          return r.json();
+        })
         .then(data => {
-          // Remove loading message
-          aiChatMessages.lastChild.remove();
+          // Remove loading message safely
+          const loadingMsg = aiChatMessages.querySelector('.ai-loading');
+          if (loadingMsg) loadingMsg.remove();
+          else if (aiChatMessages.lastChild) aiChatMessages.lastChild.remove();
 
           if (data.code) {
             addMessage('Ошибка: ' + (data.message || 'Попробуйте позже'), false);
@@ -722,6 +729,11 @@ if (function_exists('uchebka_plugin')) {
           }
 
           let reply = data.rationale || '';
+          
+          // If reply is empty, show a default message
+          if (!reply.trim()) {
+            reply = 'Не удалось получить ответ. Попробуйте переформулировать вопрос.';
+          }
 
           // Check if PDF was generated
           if (data.pdf_url) {
@@ -775,9 +787,10 @@ if (function_exists('uchebka_plugin')) {
             aiRemainingInfo.textContent = `Осталось ${data.remaining_messages} сообщений.`;
           }
         })
-        .catch(() => {
+        .catch((err) => {
+          console.error('AI Chat error:', err);
           aiChatMessages.lastChild.remove();
-          addMessage('Произошла ошибка. Попробуйте позже.', false);
+          addMessage('Произошла ошибка соединения. Проверьте интернет и попробуйте снова.', false);
         });
     }
 
