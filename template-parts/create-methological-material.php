@@ -485,7 +485,7 @@
                         </div>
                         <div class="form-group-in">
                             <p>Ссылка на VK видео</p>
-                            <input type="text" name="vk_video" value="" placeholder="https://vkvideo.ru/ваш_id_видео" class="form-control">
+                            <input type="text" name="vk_video" value="" placeholder="https://vk.com/ваш_id_видео" class="form-control">
                         </div>
 
                         <div class="form-group-in">
