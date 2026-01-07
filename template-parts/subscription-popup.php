@@ -69,7 +69,7 @@
       <div>
         <label for="subPhone" class="block text-sm mb-1">Телефон *</label>
         <input
-          type="tel"
+          type="text"
           id="subPhone"
           name="phone"
           required

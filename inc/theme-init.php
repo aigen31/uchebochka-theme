@@ -201,8 +201,10 @@ function uchebochka_scripts()
 
   if (function_exists('uchebka_plugin')) {
     wp_localize_script('uchebochka-main', 'uchebochka_vars', array(
+      'ajax_url' => admin_url('admin-ajax.php'),
       'rest_url' => esc_url(rest_url()),
-      'nonce'    => wp_create_nonce('wp_rest'),
+      'nonce'    => wp_create_nonce('uchebochka_scripts'),
+      'rest_nonce' => wp_create_nonce('wp_rest'),
       'rest_route' => 'uchebka/v1',
       'wp_login' => esc_url(site_url('/wp-login.php')),
     ));

@@ -129,6 +129,8 @@
   </div>
 </div>
 
+<?php get_template_part('template-parts/purchase-modal', 'tailwind'); ?>
+
 <script>
 (function() {
   // Modal functionality
@@ -142,20 +144,31 @@
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // Prevent background scroll
     }
 
     function closeModal() {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      modal.removeAttribute('style'); // Remove any inline styles
       modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = ''; // Restore scroll
     }
 
     if (closeBtn) {
-      closeBtn.addEventListener('click', closeModal);
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeModal();
+      });
     }
 
+    // Close on backdrop click
     modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
+      // Check if click is directly on modal (backdrop), not on child elements
+      if (e.target === modal) {
+        closeModal();
+      }
     });
 
     // Expose open function globally
@@ -166,6 +179,7 @@
 
   setupModal('consultModal');
   setupModal('warning');
+  setupModal('instantPurchaseModal');
 
   // Close on Escape
   document.addEventListener('keydown', (e) => {

@@ -36,7 +36,7 @@ $(function () {
             url: '/wp-json/uchebka/v1/checkout',
             method: 'POST',
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
+                xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.rest_nonce);
             },
             data: {
                 'title': 'Оплата товаров Учебочка',
@@ -75,7 +75,7 @@ $(function () {
                 url: '/wp-json/uchebka/v1/clear_cart',
                 method: 'POST',
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
+                    xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.rest_nonce);
                 },
                 success: function (response) {
                     $('.cart-item').each(function () {

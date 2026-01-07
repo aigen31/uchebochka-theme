@@ -35,9 +35,18 @@ if ($args['is_purchased'] || $args['is_free'] || current_user_can('administrator
     </a>
   <?php endif;
 
-else : ?>
-  <button class="btn-buy material-payment"
-    data-id="<?php echo esc_attr($post_id); ?>">
+else : 
+  $price = get_post_meta($post_id, 'price', true);
+  $title = get_the_title($post_id);
+?>
+  <button class="btn-buy material-instant-purchase"
+    data-id="<?php echo esc_attr($post_id); ?>"
+    data-title="<?php echo esc_attr($title); ?>"
+    data-price="<?php echo esc_attr($price); ?>">
     Купить материал
+  </button>
+  <button class="btn-buy btn-buy--secondary material-payment"
+    data-id="<?php echo esc_attr($post_id); ?>">
+    В корзину
   </button>
 <?php endif; ?>

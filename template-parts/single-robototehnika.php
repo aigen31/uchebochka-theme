@@ -202,6 +202,10 @@ if (is_array($what_you_get)) {
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/fonts/fonts.css">
 
+<!-- GLightbox for media lightbox -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js"></script>
+
 <style>
   .robototehnika-single {
     font-family: "Wix Madefor Display", sans-serif;
@@ -222,6 +226,17 @@ if (is_array($what_you_get)) {
     background: #7C3AED;
     color: #fff;
   }
+
+  /* GLightbox custom styles */
+  .glightbox-clean .gslide-description {
+    background: rgba(31, 41, 55, 0.95);
+    border-radius: 12px;
+  }
+
+  .glightbox-clean .gslide-title {
+    color: #fff;
+    font-family: "Wix Madefor Display", sans-serif;
+  }
 </style>
 
 <div class="robototehnika-single bg-[#FBF6EB] text-[#1F2937]">
@@ -235,12 +250,12 @@ if (is_array($what_you_get)) {
 
       <!-- ЛЕВАЯ КОЛОНКА: ФОТО / ВИДЕО (ЛИПКИЙ БЛОК) -->
 
-      <aside class="lg:sticky lg:top-6 self-start">
+      <aside class="lg:sticky lg:top-28 self-start">
 
         <!-- ОСНОВНОЙ МЕДИА-БЛОК -->
         <div
           id="mainMedia"
-          class="bg-white rounded-[24px] overflow-hidden mb-4 aspect-video flex items-center justify-center">
+          class="bg-white rounded-[24px] overflow-hidden mb-4 flex items-center justify-center aspect-square">
           <?php if (!empty($media_items)) :
             $first_item = $media_items[0];
             if ($first_item['type'] === 'image') : ?>
@@ -444,15 +459,28 @@ if (is_array($what_you_get)) {
             <?php else : ?>
               <button
                 type="button"
-                id="addToCartBtn"
-                data-product-id="<?php echo intval($post_id); ?>"
-                class="h-12 rounded-full bg-[#7C3AED] text-white
+                class="material-instant-purchase h-12 rounded-full bg-[#7C3AED] text-white
                      flex items-center justify-center gap-2
                      transition hover:bg-white hover:text-[#7C3AED]
+                     border border-[#7C3AED]"
+                data-product-id="<?php echo intval($post_id); ?>"
+                data-product-title="<?php echo esc_attr($title); ?>"
+                data-product-price="<?php echo esc_attr(number_format($price, 0, '', ' ') . ' ₽'); ?>">
+                <span>🛒</span>
+                <span>Купить сейчас</span>
+              </button>
+              
+              <button
+                type="button"
+                id="addToCartBtn"
+                data-product-id="<?php echo intval($post_id); ?>"
+                class="h-12 rounded-full bg-white text-[#7C3AED]
+                     flex items-center justify-center gap-2
+                     transition hover:bg-[#7C3AED] hover:text-white
                      border border-[#7C3AED]
                      disabled:opacity-50 disabled:cursor-not-allowed">
                 <span id="addToCartBtnIcon">🛒</span>
-                <span id="addToCartBtnText">Купить материал</span>
+                <span id="addToCartBtnText">Добавить в корзину</span>
               </button>
             <?php endif; ?>
 
@@ -599,6 +627,10 @@ if (is_array($what_you_get)) {
 
           const data = await response.json();
 
+          if (!data) {
+            throw new Error('Empty response');
+          }
+
           if (data.status === 'success' || !data.code) {
             // Success - update button to show "In cart" state
             this.className = 'h-12 rounded-full bg-[#F59E0B] text-white flex items-center justify-center gap-2 transition hover:bg-[#D97706] border border-[#F59E0B]';
@@ -652,24 +684,40 @@ if (is_array($what_you_get)) {
     const mainMedia = document.getElementById('mainMedia');
     const thumbs = document.querySelectorAll('.media-thumb');
 
-    thumbs.forEach(btn => {
-      btn.addEventListener('click', () => {
+    thumbs.forEach(elem => {
+      elem.addEventListener('click', (e) => {
+        const type = elem.dataset.type;
+
         // Highlight active thumb
         thumbs.forEach(b => b.classList.remove('border-2', 'border-[#7C3AED]'));
-        btn.classList.add('border-2', 'border-[#7C3AED]');
+        elem.classList.add('border-2', 'border-[#7C3AED]');
 
-        const type = btn.dataset.type;
         mainMedia.innerHTML = '';
 
         if (type === 'image') {
+          // Create link with glightbox
+          const link = document.createElement('a');
+          link.href = elem.dataset.src;
+          link.className = 'glightbox block w-full h-full';
+          link.dataset.gallery = 'material-gallery';
+          link.dataset.glightbox = 'title: <?php echo esc_js($title); ?>';
+          
+          // Create image inside link
           const img = document.createElement('img');
-          img.src = btn.dataset.src;
+          img.src = elem.dataset.src;
           img.alt = '';
-          img.className = 'w-full h-full object-cover';
-          mainMedia.appendChild(img);
+          img.className = 'w-full h-full object-cover cursor-pointer';
+          
+          link.appendChild(img);
+          mainMedia.appendChild(link);
+          
+          // Reinitialize GLightbox to include new element
+          if (window.glightboxInstance) {
+            window.glightboxInstance.reload();
+          }
         } else if (type === 'rutube') {
           const iframe = document.createElement('iframe');
-          iframe.src = 'https://rutube.ru/play/embed/' + btn.dataset.rutubeId;
+          iframe.src = 'https://rutube.ru/play/embed/' + elem.dataset.rutubeId;
           iframe.width = '100%';
           iframe.height = '100%';
           iframe.frameBorder = '0';
@@ -678,7 +726,7 @@ if (is_array($what_you_get)) {
           mainMedia.appendChild(iframe);
         } else if (type === 'vk') {
           const iframe = document.createElement('iframe');
-          iframe.src = 'https://vk.com/video_ext.php?oid=' + btn.dataset.vkOid + '&id=' + btn.dataset.vkId + '&hd=2';
+          iframe.src = 'https://vk.com/video_ext.php?oid=' + elem.dataset.vkOid + '&id=' + elem.dataset.vkId + '&hd=2';
           iframe.width = '100%';
           iframe.height = '100%';
           iframe.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture;';
@@ -687,6 +735,17 @@ if (is_array($what_you_get)) {
           mainMedia.appendChild(iframe);
         }
       });
+    });
+
+    // Initialize GLightbox for images
+    window.glightboxInstance = GLightbox({
+      selector: '.glightbox',
+      touchNavigation: true,
+      loop: true,
+      autoplayVideos: false,
+      closeButton: true,
+      skin: 'clean',
+      keyboardNavigation: true
     });
 
     // AI Chat
@@ -758,10 +817,20 @@ if (is_array($what_you_get)) {
     }
 
     // Welcome message for single material
+    const betaNote = '\n\n⚠️ Обратите внимание: все функции ИИ-ассистента сейчас работают в тестовом (бета) режиме.\nМы активно дорабатываем систему, поэтому возможны неточности и изменения в функциональности.\nСпасибо, что помогаете нам становиться лучше!';
+
     if (hasSubscription) {
-      addMessage('Привет! 👋 Я AI-помощник по этому материалу.\n\n✨ У вас активна подписка!\n\n🎯 Что я могу:\n• Подробно расскажу о содержании и особенностях материала\n• Отвечу на любые вопросы о применении и методике\n• Проанализирую ваши файлы (программу, учебный план)\n• Сгенерирую персональный учебный материал под ваши задачи\n\nЗадавайте вопросы или опишите, какой материал вам нужен!', false);
+      addMessage(
+      'Привет! 👋 Я AI-помощник по этому материалу.\n\n✨ У вас активна подписка!\n\n🎯 Что я могу:\n• Подробно расскажу о содержании и особенностях материала\n• Отвечу на любые вопросы о применении и методике\n• Проанализирую ваши файлы (программу, учебный план)\n• Сгенерирую персональный учебный материал под ваши задачи\n\nЗадавайте вопросы или опишите, какой материал вам нужен!' +
+      betaNote,
+      false
+      );
     } else {
-      addMessage('Привет! 👋 Я AI-помощник по этому материалу.\n\n🎯 Что я могу:\n• Подробно расскажу о содержании и особенностях\n• Помогу понять, подойдёт ли материал для ваших задач\n• Отвечу на вопросы о методике и применении\n• Проанализирую прикреплённые файлы\n\nУ меня есть доступ к полному описанию и содержимому материала. Задавайте любые вопросы!', false);
+      addMessage(
+      'Привет! 👋 Я AI-помощник по этому материалу.\n\n🎯 Что я могу:\n• Подробно расскажу о содержании и особенностях\n• Помогу понять, подойдёт ли материал для ваших задач\n• Отвечу на вопросы о методике и применении\n• Проанализирую прикреплённые файлы\n\nУ меня есть доступ к полному описанию и содержимому материала. Задавайте любые вопросы!' +
+      betaNote,
+      false
+      );
     }
 
     // Check remaining messages (only if no subscription)
@@ -831,6 +900,11 @@ if (is_array($what_you_get)) {
         .then(data => {
           // Remove loading
           chat.lastChild.remove();
+
+          if (!data) {
+            addMessage('Ошибка: Не удалось получить ответ', false);
+            return;
+          }
 
           if (data.code) {
             addMessage('Ошибка: ' + (data.message || 'Попробуйте позже'), false);
@@ -969,6 +1043,15 @@ if (is_array($what_you_get)) {
         });
 
         const data = await response.json();
+
+        if (!data) {
+          subscriptionError.textContent = 'Не удалось получить ответ от сервера';
+          subscriptionError.classList.remove('hidden');
+          subscriptionSubmitBtn.disabled = false;
+          subscriptionBtnText.classList.remove('hidden');
+          subscriptionBtnLoading.classList.add('hidden');
+          return;
+        }
 
         if (data.code || data.error) {
           subscriptionError.textContent = data.message || data.error || 'Произошла ошибка';
