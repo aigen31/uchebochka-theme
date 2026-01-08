@@ -351,6 +351,36 @@ if (is_array($what_you_get)) {
           </div>
         <?php endif; ?>
 
+        <!--  КОНТЕНТ ЗАПИСИ  -->
+        <?php if (!empty($content)) : ?>
+          <div class="bg-white rounded-[24px] p-6 mb-6">
+            <div class="prose prose-sm max-w-none
+                       prose-headings:font-semibold prose-headings:text-[#1F2937]
+                       prose-h1:text-2xl prose-h1:mb-4
+                       prose-h2:text-xl prose-h2:mb-3 prose-h2:mt-6
+                       prose-h3:text-lg prose-h3:mb-2 prose-h3:mt-4
+                       prose-p:text-[#374151] prose-p:leading-relaxed prose-p:mb-4
+                       prose-a:text-[#7C3AED] prose-a:no-underline hover:prose-a:underline
+                       prose-strong:text-[#1F2937] prose-strong:font-semibold
+                       prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-4
+                       prose-ol:list-decimal prose-ol:pl-5 prose-ol:mb-4
+                       prose-li:text-[#374151] prose-li:mb-2
+                       prose-blockquote:border-l-4 prose-blockquote:border-[#7C3AED] 
+                       prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-[#6B7280]
+                       prose-code:bg-[#F3F4F6] prose-code:px-2 prose-code:py-1 prose-code:rounded
+                       prose-code:text-[#7C3AED] prose-code:text-sm
+                       prose-pre:bg-[#1F2937] prose-pre:text-white prose-pre:p-4 
+                       prose-pre:rounded-[16px] prose-pre:overflow-x-auto
+                       prose-img:rounded-[16px] prose-img:w-full prose-img:mb-4
+                       prose-hr:border-[#E5E7EB] prose-hr:my-6
+                       prose-table:w-full prose-table:border-collapse
+                       prose-th:bg-[#F3F4F6] prose-th:px-4 prose-th:py-2 prose-th:text-left
+                       prose-td:border prose-td:border-[#E5E7EB] prose-td:px-4 prose-td:py-2">
+              <?php echo apply_filters('the_content', $content); ?>
+            </div>
+          </div>
+        <?php endif; ?>
+
         <!--  ЧТО ОНИ ПОЛУЧАТ  -->
         <?php if (!empty($what_you_get_items)) : ?>
           <div class="bg-white rounded-[24px] p-6 mb-6">
