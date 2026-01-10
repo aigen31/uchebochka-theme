@@ -231,7 +231,7 @@
                                 <div class="cf-item">
                                     <div class="cf-item__fields">
                                         <label>Ссылка VK Видео
-                                            <input type="text" maxlength="255" name="vk_video_id[]" placeholder="https://vkvideo.ru/ваш_id_видео">
+                                            <input type="text" maxlength="255" name="vk_video_id[]" placeholder="https://vk.com/ваш_id_видео">
                                         </label>
                                     </div>
                                     <div class="cf-item__actions">
@@ -245,7 +245,7 @@
                                 <div class="cf-item">
                                     <div class="cf-item__fields">
                                         <label>Ссылка VK Видео
-                                            <input type="text" maxlength="255" name="vk_video_id[]" placeholder="https://vkvideo.ru/ваш_id_видео">
+                                            <input type="text" maxlength="255" name="vk_video_id[]" placeholder="https://vk.com/ваш_id_видео">
                                         </label>
                                     </div>
                                     <div class="cf-item__actions">
