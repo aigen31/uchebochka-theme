@@ -4411,3 +4411,27 @@ body .wpsc-shortcode-container {
 /* .update-notification__img {
     width: 400px;
 } */
+
+.thumbnail img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    min-width: 100px;
+    border: 1px solid #ddd;
+}
+
+.thumbnail {
+    height: auto;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    border: 2px solid transparent;
+    display: block;
+}
+
+.page-article {
+    flex-basis: 55%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
