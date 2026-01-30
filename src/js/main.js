@@ -215,7 +215,7 @@ jQuery(document).ready(function ($) {
             url: uchebochka_vars.rest_url + 'uchebka/v1/get_products_count',
             method: 'GET',
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
+                xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.rest_nonce);
             },
             success: function (response) {
                 callback(response)
@@ -230,14 +230,15 @@ jQuery(document).ready(function ($) {
             window.location.replace(link);
             return;
         }
-        var productId = $(this).data('id');
+        // Support both data-id and data-product-id formats
+        var productId = $(this).data('product-id') || $(this).data('id');
         var $this = $(this);
-        if (uchebochka_user.is_logged_in) {
+        // if (uchebochka_user.is_logged_in) {
             $.ajax({
                 method: 'POST',
                 url: uchebochka_vars.rest_url + 'uchebka/v1/insert_product_to_cart',
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
+                    xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.rest_nonce);
                     $this.text('Добавление в корзину...');
                 },
                 data: {
@@ -260,11 +261,123 @@ jQuery(document).ready(function ($) {
                     console.log(x,h,r);
                 }
             })
-        } else {
-            $('#warning').find('.modal-body').html('Пожалуйста, <a href="/login/">войдите</a> или <a href="/register/">зарегистрируйтесь</a>, чтобы совершить оплату.')
-            $('#warning').modal('show');
-        }
+        // } else {
+            // $('#warning').find('.modal-body').html('Пожалуйста, <a href="/login/">войдите</a> или <a href="/register/">зарегистрируйтесь</a>, чтобы совершить оплату.')
+            // $('#warning').modal('show');
+        // }
     })
+
+    // Instant Purchase Modal Handler - Universal (Bootstrap + Tailwind)
+    $(document).on('click', '.material-instant-purchase', function(e) {
+        e.preventDefault();
+        
+        // Support both data-id and data-product-id formats
+        var productId = $(this).data('product-id') || $(this).data('id');
+        var productTitle = $(this).data('product-title') || $(this).data('title');
+        var productPrice = $(this).data('product-price') || $(this).data('price');
+        
+        // Fill modal with product info
+        $('#instantPurchaseProductId').val(productId);
+        $('#instantPurchaseProductTitle').text(productTitle);
+        $('#instantPurchaseProductPrice').text(productPrice ? productPrice + (String(productPrice).includes('₽') ? '' : ' ₽') : 'Бесплатно');
+        
+        var $modal = $('#instantPurchaseModal');
+        var $errorDiv = $('#instantPurchaseError');
+        var $submitBtn = $('#instantPurchaseSubmit');
+        
+        // Reset form state (both Bootstrap and Tailwind classes)
+        $errorDiv.addClass('d-none').addClass('hidden').text('');
+        $submitBtn.prop('disabled', false).text('Оплатить');
+        
+        // Detect modal type and show appropriately
+        if ($modal.hasClass('modal')) {
+            // Bootstrap modal
+            var modal = new bootstrap.Modal(document.getElementById('instantPurchaseModal'));
+            modal.show();
+        } else {
+            // Tailwind modal - use flex for centering
+            $modal.removeClass('hidden').addClass('flex');
+            $modal.attr('aria-hidden', 'false');
+        }
+    });
+
+    // Tailwind modal close handlers
+    $(document).on('click', '[onclick="closeInstantPurchaseModal()"]', function(e) {
+        e.preventDefault();
+        var $modal = $('#instantPurchaseModal');
+        if (!$modal.hasClass('modal')) {
+            $modal.addClass('hidden').removeClass('flex').removeAttr('style');
+            $modal.attr('aria-hidden', 'true');
+        }
+    });
+
+    // Close Tailwind modal on outside click
+    $(document).on('click', '#instantPurchaseModal', function(e) {
+        if (e.target.id === 'instantPurchaseModal' && !$(this).hasClass('modal')) {
+            $(this).addClass('hidden').removeClass('flex').removeAttr('style');
+            $(this).attr('aria-hidden', 'true');
+        }
+    });
+
+    // Close modal on Escape key
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape') {
+            var $modal = $('#instantPurchaseModal');
+            if ($modal.hasClass('flex') && !$modal.hasClass('hidden')) {
+                $modal.addClass('hidden').removeClass('flex').removeAttr('style');
+                $modal.attr('aria-hidden', 'true');
+            }
+        }
+    });
+
+    // Instant Purchase Form Submit - Universal
+    $('#instantPurchaseForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        var $form = $(this);
+        var $submitBtn = $('#instantPurchaseSubmit');
+        var $errorDiv = $('#instantPurchaseError');
+        
+        var productId = $('#instantPurchaseProductId').val();
+        var email = $('#instantPurchaseEmail').val();
+        var phone = $('#instantPurchasePhone').val();
+        
+        // Disable button and show loading
+        $submitBtn.prop('disabled', true).text('Обработка...');
+        $errorDiv.addClass('d-none').addClass('hidden');
+        
+        $.ajax({
+            method: 'POST',
+            url: uchebochka_vars.ajax_url,
+            data: {
+                action: 'instant_checkout',
+                product_id: productId,
+                email: email,
+                phone: phone,
+                nonce: uchebochka_vars.nonce
+            },
+            success: function(response) {
+                console.log('Instant checkout response:', response);
+                
+                if (response && response.success && response.data && response.data.redirect_url) {
+                    // Redirect to payment
+                    window.location.href = response.data.redirect_url;
+                } else {
+                    console.error('Invalid response structure:', response);
+                    const errorMessage = (response && response.data && response.data.message) 
+                        ? response.data.message 
+                        : 'Произошла ошибка. Попробуйте снова.';
+                    $errorDiv.removeClass('d-none').removeClass('hidden').text(errorMessage);
+                    $submitBtn.prop('disabled', false).text('Оплатить');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Instant checkout error:', error);
+                $errorDiv.removeClass('d-none').removeClass('hidden').text('Ошибка соединения. Попробуйте снова.');
+                $submitBtn.prop('disabled', false).text('Оплатить');
+            }
+        });
+    });
 
     function bindItem($item) {
         $item.find('.cf-remove').off('click').on('click', function () {
@@ -352,7 +465,7 @@ jQuery(document).ready(function ($) {
             method: "POST",
             url: '/wp-json/urok/save_metodic',
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
+                xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.rest_nonce);
             },
             data: formData,
             success: function (response) {
@@ -395,7 +508,7 @@ jQuery(document).ready(function ($) {
                 id: productId
             },
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.nonce);
+                xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.rest_nonce);
             },
             success: function (response) {
                 cartItem.fadeRemove();

@@ -99,7 +99,13 @@ if ($wp_query->have_posts()): ?>
             <?php elseif ($is_free): ?>
               <a href="<?php echo esc_url($permalink); ?>" class="add-to-cart">Получить бесплатно</a>
             <?php else: ?>
-              <button class="add-to-cart material-payment" data-id="<?php echo get_the_ID(); ?>">В корзину</button>
+              <div class="catalog-buttons">
+                <button class="add-to-cart material-instant-purchase" 
+                  data-product-id="<?php echo get_the_ID(); ?>"
+                  data-product-title="<?php echo esc_attr($title); ?>"
+                  data-product-price="<?php echo esc_attr($material ? number_format($material->get_price(), 0, '', ' ') . ' ₽' : ''); ?>">Купить</button>
+                <button class="add-to-cart add-to-cart--secondary material-payment" data-product-id="<?php echo get_the_ID(); ?>">В корзину</button>
+              </div>
             <?php endif; ?>
 
             <?php echo get_template_part('template-parts/modal', ''); ?>

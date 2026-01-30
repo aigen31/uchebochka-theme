@@ -166,13 +166,13 @@ add_action('widgets_init', 'uchebochka_widgets_init');
  */
 function uchebochka_scripts()
 {
-  wp_enqueue_style('uchebochka-style', get_stylesheet_uri(), array(), _S_VERSION);
   wp_enqueue_style('uchebochka-bootstrap-reboot', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap-reboot.css', array());
   wp_enqueue_style('uchebochka-bootstrap-grid', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap-grid.css', array());
   wp_enqueue_style('uchebochka-bootstrap', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap.min.css', array());
+  wp_enqueue_style('uchebochka-style', get_stylesheet_uri(), array(), _S_VERSION);
   wp_enqueue_style('uchebochka-main-style', get_template_directory_uri() . '/src/css/style.css', array('uchebochka-bootstrap-reboot', 'uchebochka-bootstrap-grid', 'uchebochka-bootstrap'), _S_VERSION);
-  wp_enqueue_style('uchebochka-tablet-style', get_template_directory_uri() . '/src/css/tablet.css', array('uchebochka-main-style'), _S_VERSION);
-  wp_enqueue_style('uchebochka-mobile-style', get_template_directory_uri() . '/src/css/mobile.css', array('uchebochka-tablet-style'), _S_VERSION);
+  wp_enqueue_style('uchebochka-tablet-style', get_template_directory_uri() . '/src/css/tablet.css', ['uchebochka-main-style'], _S_VERSION);
+  wp_enqueue_style('uchebochka-mobile-style', get_template_directory_uri() . '/src/css/mobile.css', ['uchebochka-tablet-style'], _S_VERSION);
 
   wp_style_add_data('uchebochka-style', 'rtl', 'replace');
   wp_enqueue_script('jquery');
@@ -195,8 +195,10 @@ function uchebochka_scripts()
 
   if (function_exists('uchebka_plugin')) {
     wp_localize_script('uchebochka-main', 'uchebochka_vars', array(
+      'ajax_url' => admin_url('admin-ajax.php'),
       'rest_url' => esc_url(rest_url()),
-      'nonce'    => wp_create_nonce('wp_rest'),
+      'nonce'    => wp_create_nonce('uchebochka_scripts'),
+      'rest_nonce' => wp_create_nonce('wp_rest'),
       'rest_route' => 'uchebka/v1',
       'wp_login' => esc_url(site_url('/wp-login.php')),
     ));

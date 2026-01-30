@@ -1,6 +1,20 @@
 <?php
 get_header();
-$user_cart_query = uchebka_plugin()->cart_queries()->user_cart_query(get_current_user_id());
+
+// Get cart items for authorized users or guests
+$user_id = get_current_user_id();
+$is_guest = ($user_id === 0);
+
+if ($is_guest) {
+  // Guest user - get from session
+  $products = uchebka_plugin()->guest_cart()->get_products_with_cart_data();
+  $product_ids = uchebka_plugin()->guest_cart()->get_product_ids();
+} else {
+  // Authorized user - get from database
+  $user_cart_query = uchebka_plugin()->cart_queries()->user_cart_query($user_id);
+  $products = $user_cart_query->get_query_result();
+  $product_ids = $user_cart_query->get_product_ids();
+}
 ?>
 </div>
 
@@ -14,8 +28,7 @@ $user_cart_query = uchebka_plugin()->cart_queries()->user_cart_query(get_current
       <div class="courses-container cart-courses-container">
         <h1 class="courses-title cart-title">Корзина</h1>
         <?php
-        $product_ids = $user_cart_query->get_product_ids();
-        $products = $user_cart_query->get_query_result();
+        // Use $product_ids and $products variables which are already set above
 
         $posts = [];
         if (!empty($product_ids)) {
@@ -106,9 +119,16 @@ $user_cart_query = uchebka_plugin()->cart_queries()->user_cart_query(get_current
           if (!empty($posts)) :
           ?>
             <form class="cart-actions__form" action="<?php echo esc_url(admin_url('admin-ajax.php')); ?>" method="post">
-              <input type="hidden" name="action" value="checkout" required>
-              <input type="email" name="email" placeholder="Введите ваш email" required>
-              <input type="tel" name="phone" placeholder="Введите ваш телефон" required >
+              <input type="hidden" name="action" value="<?php echo $is_guest ? 'checkout_guest' : 'checkout'; ?>" required>
+              <?php if ($is_guest): ?>
+                <!-- Guest checkout: show email and phone inputs -->
+                <input type="email" name="email" placeholder="Введите ваш email" required>
+                <input type="tel" name="phone" placeholder="Введите ваш телефон" required>
+              <?php else: ?>
+                <!-- Authorized user: hidden fields for compatibility -->
+                <input type="hidden" name="email" value="<?php echo esc_attr(wp_get_current_user()->user_email); ?>">
+                <input name="phone" type="tel" value="">
+              <?php endif; ?>
               <button class="btn btn-edit cart-checkout-btn">Оформить заказ</button>
             </form>
           <?php
