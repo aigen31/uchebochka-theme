@@ -155,6 +155,29 @@
                   </div>
                   <div class="col-md-3 col-12">
                     <a href="<?php echo esc_url(get_permalink($post->ID)); ?>" class="btn btn-open">Открыть карточку</a>
+                    <?php
+                    $pda_services = new PDA_Services();
+                    $current_user_id = get_current_user_id();
+                    global $wpdb;
+                    $purchased_posts = $wpdb->get_col(
+                      $wpdb->prepare(
+                        "SELECT post_id FROM {$wpdb->prefix}purchased_materials WHERE user_id = %d",
+                        $current_user_id
+                      )
+                    );
+
+                    function is_purchased(int $post_id, array $purchased_posts)
+                    {
+                      return in_array((string) $post_id, $purchased_posts, true);
+                    }
+
+                    $is_purchased = is_purchased($post_id, $purchased_posts);
+                    $is_free = get_post_meta($post_id, 'free_material', true) === '1';
+                    get_template_part('template-parts/material-action-buttons', '', [
+                      'is_purchased' => $is_purchased,
+                      'is_free' => $is_free,
+                      'pda_services' => $pda_services,
+                    ]); ?>
                   </div>
                 </div>
               </div>
