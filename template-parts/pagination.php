@@ -5,12 +5,14 @@ if ($args['wp_query']->max_num_pages > 1) :
   $category = isset($_GET['category']) ? $_GET['category'] : null;
   $class = isset($_GET['class']) ? $_GET['class'] : null;
   $type = isset($_GET['type']) ? $_GET['type'] : null;
+  $min_price = isset($_GET['min_price']) ? $_GET['min_price'] : null;
+  $max_price = isset($_GET['max_price']) ? $_GET['max_price'] : null;
 ?>
   <div class="pagination">
     <ul>
       <?php
       $base_url = wp_doing_ajax() ? wp_get_referer() : get_pagenum_link(1);
-      $base_url = add_query_arg(array('category' => $category, 'class' => $class, 'type' => $type), $base_url);
+      $base_url = add_query_arg(array('category' => $category, 'class' => $class, 'type' => $type, 'min_price' => $min_price, 'max_price' => $max_price), $base_url);
       for ($i = 1; $i <= $max_pages; $i++) {
         if ($i == $paged) {
           echo '<li class="active"><span>' . $i . '</span></li>';

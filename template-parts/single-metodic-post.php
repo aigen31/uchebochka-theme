@@ -193,16 +193,132 @@ $pda_services = new PDA_Services();
         ]); ?>
       </div>
 
-      <div class="block">
+      <?php
+      // Получаем термины текущего поста
+      $current_categories = get_the_terms(get_the_ID(), 'metodic_category');
+      if ($current_categories && !is_wp_error($current_categories)) {
+        $category_ids = array_map(function($cat) {
+          return $cat->term_id;
+        }, $current_categories);
+
+        // Запрос рекомендуемых материалов
+        $recommended_query = new WP_Query([
+          'post_type' => 'metodic_post',
+          'post_status' => 'publish',
+          'posts_per_page' => 3,
+          'orderby' => 'rand',
+          'post__not_in' => [get_the_ID()], // исключаем текущий пост
+          'tax_query' => [
+            [
+              'taxonomy' => 'metodic_category',
+              'field'    => 'term_id',
+              'terms'    => $category_ids,
+            ],
+          ],
+        ]);
+
+        if ($recommended_query->have_posts()) : ?>
+          <div class="block">
+            <h2>Рекомендуемые материалы</h2>
+            <div class="catalog">
+              <div class="row g-4">
+                <?php
+                while ($recommended_query->have_posts()):
+                  $recommended_query->the_post();
+
+                  // Create a material instance for the current post
+                  $material = function_exists('uchebka_plugin')
+                    ? uchebka_plugin()->methodological_material(get_the_ID())
+                    : null;
+
+                  $image_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
+                  $permalink = get_permalink();
+                  $title = get_the_title();
+
+                  // Get price information
+                  $current_price = '';
+                  $old_price = '';
+                  $discount_percent = '';
+                  $is_free_rec = false;
+
+                  if ($material) {
+                    $price = $material->get_price();
+                    $discount = $material->get_without_discount_price();
+                    $is_free_rec = $material->is_free_material();
+
+                    if ($is_free_rec) {
+                      $current_price = 'Бесплатно';
+                    } else {
+                      $current_price = $price . ' ₽';
+                      if (!empty($discount) && $discount > $price) {
+                        $old_price = $discount . ' ₽';
+                        $discount_percent = '-' . round((($discount - $price) / $discount) * 100) . '%';
+                      }
+                    }
+                  }
+
+                  // Check if material is purchased
+                  $purchased_queries = uchebka_plugin()->purchased_queries();
+                  $purchased_queries->all_materials_offset_query();
+                  $is_purchased_rec = in_array(get_the_ID(), $purchased_queries->get_query_result_ids());
+                ?>
+                  <div class="col-md-4 col-12">
+                    <div class="product-card">
+                      <div class="product-image">
+                        <?php if ($image_url): ?>
+                          <a href="<?php echo esc_url($permalink); ?>">
+                            <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                          </a>
+                        <?php endif; ?>
+
+                        <?php if (function_exists('the_favorites_button')): ?>
+                          <?php the_favorites_button(); ?>
+                        <?php endif; ?>
+                      </div>
+
+                      <div class="price-section">
+                        <span class="current-price"><?php echo esc_html($current_price); ?></span>
+                        <?php if (!empty($old_price)): ?>
+                          <span class="old-price"><?php echo esc_html($old_price); ?></span>
+                          <span class="discount"><?php echo esc_html($discount_percent); ?></span>
+                        <?php endif; ?>
+                      </div>
+
+                      <a href="<?php echo esc_url($permalink); ?>" class="product-title"><?php echo esc_html($title); ?></a>
+
+                      <div class="rating-article">
+                        <?php get_template_part('template-parts/rating-scope'); ?>
+                      </div>
+
+                      <?php if ($is_purchased_rec): ?>
+                        <button class="add-to-cart" disabled>Приобретено</button>
+                      <?php elseif ($is_free_rec): ?>
+                        <a href="<?php echo esc_url($permalink); ?>" class="add-to-cart">Получить бесплатно</a>
+                      <?php else: ?>
+                        <button class="add-to-cart material-payment" data-id="<?php echo get_the_ID(); ?>">В корзину</button>
+                      <?php endif; ?>
+                    </div>
+                  </div>
+                <?php endwhile; ?>
+              </div>
+            </div>
+          </div>
+          <?php
+          wp_reset_postdata();
+        endif;
+      }
+      ?>
+
+      <!-- <div class="block">
         <h2>Комментарии</h2>
         <?php
-        if (comments_open() || get_comments_number()) {
-          comments_template();
-        } else {
-          echo '<p>Комментарии закрыты.</p>';
-        }
+        // if (comments_open() || get_comments_number()) {
+        //   comments_template();
+        // } else {
+        //   echo '<p>Комментарии закрыты.</p>';
+        // }
         ?>
-      </div>
+      </div> -->
 
     </div>
     <?
@@ -230,24 +346,24 @@ $pda_services = new PDA_Services();
           </div>
         <?php endif; ?>
 
-        <div class="download-info">
+        <!-- <div class="download-info">
           <?php
-          $download_count = get_post_meta(get_the_ID(), 'download_counter', true);
+          // $download_count = get_post_meta(get_the_ID(), 'download_counter', true);
           ?>
-          <p><span id="download-counter"><?php echo $download_count ? $download_count : '0'; ?></span> скачиваний</p>
+          <p><span id="download-counter"><?php // echo $download_count ? $download_count : '0'; ?></span> скачиваний</p>
           <div class="d-flex">
             <div class="date"><?php echo get_the_date('d.m.Y'); ?></div>
-            <?php if (function_exists('lightvc_get_post_views')) : ?>
+            <?php // if (function_exists('lightvc_get_post_views')) : ?>
               <div class="see">
                 <img src="<?php echo get_template_directory_uri(); ?>/img/see2.svg" alt="">
                 <?php
-                $view_count = lightvc_get_post_views(get_the_ID());
-                echo $view_count ? $view_count : '0';
+                // $view_count = lightvc_get_post_views(get_the_ID());
+                // echo $view_count ? $view_count : '0';
                 ?>
               </div>
-            <?php endif; ?>
+            <?php // endif; ?>
           </div>
-        </div>
+        </div> -->
 
         <?php
         $price = get_post_meta($post_id, 'price', true);

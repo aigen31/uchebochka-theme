@@ -13,28 +13,36 @@ get_header();
         </h1>
 
         <div class="section-hero__items">
-          <div class="section-hero__item">
-            <p class="section-hero__item--title">
-              Педагоги и эксперты
-            </p>
+          <div class="section-hero__column">
+            <div class="section-hero__item">
+              <p class="section-hero__item--title">
+                Педагоги и эксперты
+              </p>
 
-            <p class="section-hero__item--text">
-              Покупайте материалы для занятий,<br>
-              чтобы сделать их интереснее<br>
-              и сэкономить время
-            </p>
+              <p class="section-hero__item--text">
+                Покупайте материалы для занятий,<br>
+                чтобы сделать их интереснее<br>
+                и сэкономить время
+              </p>
+            </div>
+
+            <a href="/#materialsSection" class="btn section-hero__btn">Перейти в каталог</a>
           </div>
 
-          <div class="section-hero__item">
-            <p class="section-hero__item--title">
-              Авторы материалов
-            </p>
+          <div class="section-hero__column">
+            <div class="section-hero__item">
+              <p class="section-hero__item--title">
+                Авторы материалов
+              </p>
 
-            <p class="section-hero__item--text">
-              Размещайте свои разработки<br>
-              и получайте 50% от продаж - <br>
-              комфортный пассивный доход
-            </p>
+              <p class="section-hero__item--text">
+                Размещайте свои разработки<br>
+                и получайте 50% от продаж - <br>
+                комфортный пассивный доход
+              </p>
+            </div>
+
+            <a href="/create-material/" class="btn section-hero__btn section-hero__btn--underline">Разместить материал</a>
           </div>
         </div>
       </div>
@@ -47,6 +55,7 @@ get_header();
             <li><a href="/methodical-materials/robototehnika/">Робототехника</a></li>
             <li><a href="/methodical-materials/geografiya/">География</a></li>
             <li><a href="/methodical-materials/russkij-yazyk/">Русский язык</a></li>
+            <li><a href="/methodical-materials/programmirovanie/">Программирование</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +65,7 @@ get_header();
 </div>
 
 
-<section class="section-materials">
+<section class="section-materials" id="materialsSection">
   <div class="container d-md-flex">
 
     <?php get_template_part('template-parts/column-left'); ?>

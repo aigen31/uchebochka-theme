@@ -55,16 +55,16 @@
       <!-- comments -->
 
       <?php
-      if (comments_open() || get_comments_number()) :
+       //if (comments_open() || get_comments_number()) :
       ?>
-        <div class="comments">
+        <!-- <div class="comments">
           <h4>Комментарии</h4>
 
           <?php
-          comments_template();
+          // comments_template();
           ?>
-        </div>
-      <?php endif; ?>
+        </div> -->
+      <?php // endif; ?>
     </div>
 
     <!-- END CENTER COLUMN -->
