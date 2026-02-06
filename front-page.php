@@ -55,7 +55,7 @@ get_header();
             <li><a href="/methodical-materials/robototehnika/">Робототехника</a></li>
             <li><a href="/methodical-materials/geografiya/">География</a></li>
             <li><a href="/methodical-materials/russkij-yazyk/">Русский язык</a></li>
-            <li><a href="/methodical-materials/programmirovanie/">Программирование</a></li>
+            <li><a href="/methodical-materials/programmirovanie-category/">Программирование</a></li>
           </ul>
         </div>
       </div>
