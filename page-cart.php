@@ -80,7 +80,7 @@ if ($is_guest) {
                   </div>
                 </div>
                 <div class="document-actions cart-item-actions">
-                  <button class="btn btn-edit cart-item-remove" data-product-id="<?php echo intval($post->cart_id); ?>"
+                  <button class="btn btn-edit cart-item-remove" data-product-id="<?php echo esc_attr($post->cart_id); ?>"
                   >Удалить</button>
                 </div>
               </div>

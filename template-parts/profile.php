@@ -77,118 +77,31 @@
 
     <a href="/create-material" class="btn mb-3 btn--accent">Опубликовать материал</a>
 
-    <?php
-    // Query user's metodic posts
-    $args = array(
-      'post_type'      => 'metodic_post',
-      'posts_per_page' => -1,
-      'author'         => $user_id,
-      'post_status'    => array('publish', 'pending', 'draft'),
-    );
-    $query = new WP_Query($args);
-
-    if ($query->have_posts()) :
-      while ($query->have_posts()) : $query->the_post();
-        $status = get_post_status();
-        $status_text = '';
-        if ($status == 'publish') {
-          $status_text = 'Опубликован';
-        } elseif ($status == 'pending' || $status == 'draft') {
-          $status_text = 'На модерации';
-        }
-    ?>
-        <div class="item">
-          <div class="row">
-            <div class="col-md-3 col-12">
-              <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: (get_template_directory_uri() . '/img/default-thumbnail.jpg')); ?>" alt="" />
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="d-flex flex-column justify-content-between h-100">
-                <div class="text">
-                  <div class="subtitle"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
-                  <p><?php echo wp_trim_words(get_the_excerpt(), 15, '...'); ?></p>
-                </div>
-                <div class="status"><?php echo esc_html($status_text); ?></div>
-              </div>
-            </div>
-            <div class="col-md-3 col-12">
-              <a href="<?php echo esc_url(get_delete_post_link(get_the_ID())); ?>" class="btn btn-del">Удалить</a>
-              <a href="<?php echo esc_url(get_edit_post_link()); ?>" class="btn btn-edit">Редактировать</a>
-              <a href="<?php the_permalink(); ?>" class="btn btn-go">Перейти к публикации</a>
-            </div>
-          </div>
-        </div>
-      <?php endwhile;
-    else : ?>
+    <div id="published-materials-list">
+      <!-- Items will be loaded via JavaScript -->
+    </div>
+    <div id="published-materials-loading" class="text-center py-3" style="display: none;">
+      <span>Загрузка...</span>
+    </div>
+    <div id="published-materials-empty" class="text-center py-3" style="display: none;">
       <p>Нет публикаций.</p>
-    <?php endif;
-    wp_reset_postdata(); ?>
+    </div>
+    <button id="load-more-published" class="btn btn-outline-primary mt-3" style="display: none;">Показать ещё</button>
   </div>
 
   <div class="materials">
     <h2>Приобретенные материалы</h2>
     <div class="item">
-      <div class="document-list">
-        <?php
-        global $wpdb;
-        $table_name = $wpdb->prefix . 'purchased_materials';
-        $sql = $wpdb->prepare("SELECT post_id FROM $table_name WHERE user_id = %d", $user_id);
-        $purchased_posts = $wpdb->get_col($sql);
-
-        if (!empty($purchased_posts)) {
-          foreach ($purchased_posts as $post_id) {
-            $post = get_post($post_id);
-            if ($post) {
-        ?>
-              <div class="item">
-                <div class="row">
-                  <div class="col-md-3 col-12">
-                    <img src="<?php echo esc_url(get_the_post_thumbnail_url($post->ID, 'thumbnail') ?: (get_template_directory_uri() . '/img/default-thumbnail.jpg')); ?>" alt="" />
-                  </div>
-                  <div class="col-md-6 col-12">
-                    <div class="d-flex flex-column h-100">
-                      <div class="text">
-                        <div class="subtitle"><a href="<?php echo esc_url(get_permalink($post->ID)); ?>"><?php echo esc_html($post->post_title); ?></a></div>
-                        <p><?php echo wp_trim_words($post->post_excerpt, 15, '...'); ?></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-12">
-                    <a href="<?php echo esc_url(get_permalink($post->ID)); ?>" class="btn btn-open">Открыть карточку</a>
-                    <?php
-                    $pda_services = new PDA_Services();
-                    $current_user_id = get_current_user_id();
-                    global $wpdb;
-                    $purchased_posts = $wpdb->get_col(
-                      $wpdb->prepare(
-                        "SELECT post_id FROM {$wpdb->prefix}purchased_materials WHERE user_id = %d",
-                        $current_user_id
-                      )
-                    );
-
-                    function is_purchased(int $post_id, array $purchased_posts)
-                    {
-                      return in_array((string) $post_id, $purchased_posts, true);
-                    }
-
-                    $is_purchased = is_purchased($post_id, $purchased_posts);
-                    $is_free = get_post_meta($post_id, 'free_material', true) === '1';
-                    get_template_part('template-parts/material-action-buttons', '', [
-                      'is_purchased' => $is_purchased,
-                      'is_free' => $is_free,
-                      'pda_services' => $pda_services,
-                    ]); ?>
-                  </div>
-                </div>
-              </div>
-        <?php
-            }
-          }
-        } else {
-          echo '<p>Нет скачанных материалов.</p>';
-        }
-        ?>
+      <div class="document-list" id="purchased-materials-list">
+        <!-- Items will be loaded via JavaScript -->
       </div>
+      <div id="purchased-materials-loading" class="text-center py-3" style="display: none;">
+        <span>Загрузка...</span>
+      </div>
+      <div id="purchased-materials-empty" class="text-center py-3" style="display: none;">
+        <p>Нет скачанных материалов.</p>
+      </div>
+      <button id="load-more-purchased" class="btn btn-outline-primary mt-3" style="display: none;">Показать ещё</button>
     </div>
   </div>
 

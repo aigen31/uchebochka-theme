@@ -72,7 +72,7 @@ function crb_attach_theme_options()
 
 if (! defined('_S_VERSION')) {
   // Replace the version number of the theme on each release.
-  define('_S_VERSION', '1.0.11');
+  define('_S_VERSION', '1.0.12');
 }
 
 /**
@@ -168,7 +168,7 @@ function uchebochka_scripts()
 {
   wp_enqueue_style('uchebochka-bootstrap-reboot', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap-reboot.css', array());
   wp_enqueue_style('uchebochka-bootstrap-grid', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap-grid.css', array());
-  wp_enqueue_style('uchebochka-bootstrap', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap.min.css', array());
+  wp_enqueue_style('uchebochka-bootstrap', get_template_directory_uri() . '/src/libs/bootstrap/css/bootstrap.css', array());
   wp_enqueue_style('uchebochka-style', get_stylesheet_uri(), array(), _S_VERSION);
   wp_enqueue_style('uchebochka-main-style', get_template_directory_uri() . '/src/css/style.css', array('uchebochka-bootstrap-reboot', 'uchebochka-bootstrap-grid', 'uchebochka-bootstrap'), _S_VERSION);
   wp_enqueue_style('uchebochka-tablet-style', get_template_directory_uri() . '/src/css/tablet.css', ['uchebochka-main-style'], _S_VERSION);
@@ -201,6 +201,7 @@ function uchebochka_scripts()
       'rest_nonce' => wp_create_nonce('wp_rest'),
       'rest_route' => 'uchebka/v1',
       'wp_login' => esc_url(site_url('/wp-login.php')),
+      'theme_url' => get_template_directory_uri(),
     ));
   }
 }

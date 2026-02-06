@@ -126,6 +126,9 @@
     .body--legacy .section-hero__col.section-hero__col--right {
         /* display: none; */
         flex: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: relative;
         flex-basis: 50%;
         z-index: 1;
@@ -140,6 +143,8 @@
 
     .body--legacy .section-hero__items {
         flex-wrap: wrap;
+        /* flex-direction: column; */
+        gap: 20px;
     }
 
     .body--legacy .section-hero__item--text {
@@ -151,8 +156,14 @@
         margin-bottom: 20px;
     }
 
+    .section-hero__btn {
+        margin-top: 0;
+    }
+
     .body--legacy .section-hero__row {
         padding-bottom: 0px;
+        flex-direction: column;
+        row-gap: 20px;
     }
 
     .body--legacy .section-hero__item--title {
@@ -403,33 +414,45 @@
 
 
     .promo-menu ul li:nth-child(1) {
-        top: -20px;
-        left: -30%;
+        top: -130px;
+        left: -260px;
     }
 
     .promo-menu ul li:nth-child(2) {
-        top: 40px;
-        left: -54%;
+        top: -55px;
+        left: -320px;
     }
 
     .promo-menu ul li:nth-child(3) {
-        top: 130px;
-        left: -38%;
+        top: 60px;
+        left: -280px;
     }
 
     .promo-menu ul li:nth-child(4) {
-        top: -20px;
-        right: -40px;
+        top: -95px;
+        right: -230px;
     }
 
     .promo-menu ul li:nth-child(5) {
-        top: 150px;
-        right: -70px;
+        top: 70px;
+        right: -230px;
+    }
+
+    .promo-menu ul li:nth-child(6) {
+        top: -150px;
+        right: -240px;
     }
 
     .body--legacy .section-hero__image {
-        max-width: 350px;
-        top: -40px;
+        max-width: 420px;
+        width: 100%;
+        position: relative;
+        top: auto;
+        right: auto;
+    }
+
+    .promo-menu {
+        position: absolute;
     }
 
     .burger-menu {

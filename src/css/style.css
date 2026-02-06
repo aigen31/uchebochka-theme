@@ -323,7 +323,7 @@ body.main .header-main {
     padding: 12px;
     width: 100%;
     color: #fff !important;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
     text-align: center;
     border-radius: 100px;
@@ -421,8 +421,8 @@ body.main .header-main {
 }
 
 .promo-menu ul li:nth-child(4) {
-    top: 40px;
-    right: -40px;
+    top: 83px;
+    right: -165px;
 }
 
 .promo-menu ul li:nth-child(5) {
@@ -431,8 +431,8 @@ body.main .header-main {
 }
 
 .promo-menu ul li:nth-child(6) {
-    top: -90px;
-    right: -95px;
+    top: -10px;
+    right: -110px;
 }
 
 .header-main__container {
@@ -4553,4 +4553,9 @@ body .wpsc-shortcode-container {
     flex-basis: 55%;
     max-width: 100%;
     overflow-x: hidden;
+}
+
+.body--legacy .page-message__link {
+    color: #222222;
+    text-decoration: underline;
 }

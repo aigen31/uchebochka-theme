@@ -623,14 +623,221 @@ jQuery(document).ready(function ($) {
         '/wp-json/urok/get_user_accrual_history',
     );
 
+    // ===== Lazy Loading for Published and Purchased Materials =====
+    
+    /**
+     * Class for managing lazy loading of materials list
+     */
+    class MaterialsLazyLoader {
+        constructor(options) {
+            this.endpoint = options.endpoint;
+            this.listSelector = options.listSelector;
+            this.loadingSelector = options.loadingSelector;
+            this.emptySelector = options.emptySelector;
+            this.loadMoreSelector = options.loadMoreSelector;
+            this.renderItem = options.renderItem;
+            this.perPage = options.perPage || 5;
+            this.currentPage = 1;
+            this.totalPages = 1;
+            this.isLoading = false;
+            
+            this.$list = $(this.listSelector);
+            this.$loading = $(this.loadingSelector);
+            this.$empty = $(this.emptySelector);
+            this.$loadMore = $(this.loadMoreSelector);
+            
+            this.init();
+        }
+        
+        init() {
+            if (this.$list.length === 0) return;
+            
+            this.$loadMore.on('click', () => this.loadMore());
+            this.loadPage(1);
+        }
+        
+        loadPage(page) {
+            if (this.isLoading) return;
+            
+            this.isLoading = true;
+            this.$loading.show();
+            this.$loadMore.prop('disabled', true);
+            
+            $.ajax({
+                url: uchebochka_vars.rest_url + 'uchebka/v1/' + this.endpoint,
+                method: 'GET',
+                data: { page: page, per_page: this.perPage },
+                beforeSend: (xhr) => {
+                    xhr.setRequestHeader('X-WP-Nonce', uchebochka_vars.rest_nonce);
+                },
+                success: (response) => {
+                    this.$loading.hide();
+                    this.isLoading = false;
+                    
+                    if (response && response.items) {
+                        this.currentPage = response.page;
+                        this.totalPages = response.total_pages;
+                        
+                        if (response.items.length > 0) {
+                            response.items.forEach(item => {
+                                this.$list.append(this.renderItem(item));
+                            });
+                        }
+                        
+                        // Show/hide empty state
+                        if (this.currentPage === 1 && response.items.length === 0) {
+                            this.$empty.show();
+                        } else {
+                            this.$empty.hide();
+                        }
+                        
+                        // Show/hide load more button
+                        if (this.currentPage < this.totalPages) {
+                            this.$loadMore.show().prop('disabled', false);
+                        } else {
+                            this.$loadMore.hide();
+                        }
+                    }
+                },
+                error: () => {
+                    this.$loading.hide();
+                    this.isLoading = false;
+                    this.$loadMore.prop('disabled', false);
+                    console.error('Error loading materials');
+                }
+            });
+        }
+        
+        loadMore() {
+            if (this.currentPage < this.totalPages) {
+                this.loadPage(this.currentPage + 1);
+            }
+        }
+    }
+    
+    // Render function for published materials
+    function renderPublishedItem(item) {
+        var defaultThumbnail = typeof uchebochka_vars !== 'undefined' && uchebochka_vars.theme_url 
+            ? uchebochka_vars.theme_url + '/img/default-thumbnail.jpg' 
+            : '/wp-content/themes/uchebochka/img/default-thumbnail.jpg';
+        var thumbnail = item.thumbnail || defaultThumbnail;
+        
+        return `
+            <div class="item">
+                <div class="row">
+                    <div class="col-md-3 col-12">
+                        <img src="${escapeHtml(thumbnail)}" alt="" />
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="d-flex flex-column justify-content-between h-100">
+                            <div class="text">
+                                <div class="subtitle"><a href="${escapeHtml(item.permalink)}">${escapeHtml(item.title)}</a></div>
+                                <p>${escapeHtml(item.excerpt)}</p>
+                            </div>
+                            <div class="status">${escapeHtml(item.status_text)}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-12">
+                        ${item.delete_link ? `<a href="${escapeHtml(item.delete_link)}" class="btn btn-del">Удалить</a>` : ''}
+                        ${item.edit_link ? `<a href="${escapeHtml(item.edit_link)}" class="btn btn-edit">Редактировать</a>` : ''}
+                        <a href="${escapeHtml(item.permalink)}" class="btn btn-go">Перейти к публикации</a>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Render function for purchased materials
+    function renderPurchasedItem(item) {
+        var defaultThumbnail = typeof uchebochka_vars !== 'undefined' && uchebochka_vars.theme_url 
+            ? uchebochka_vars.theme_url + '/img/default-thumbnail.jpg' 
+            : '/wp-content/themes/uchebochka/img/default-thumbnail.jpg';
+        var thumbnail = item.thumbnail || defaultThumbnail;
+        
+        // Build download buttons HTML
+        var downloadButtonsHtml = '';
+        if (item.download_buttons && item.download_buttons.length > 0) {
+            item.download_buttons.forEach(function(btn) {
+                var filenameHtml = btn.filename 
+                    ? '<div class="btn-buy__filename">' + escapeHtml(btn.filename) + '</div>' 
+                    : '';
+                downloadButtonsHtml += `
+                    <a href="${escapeHtml(btn.url)}" 
+                       class="btn btn-buy material-download" 
+                       data-post-id="${item.id}"
+                       ${btn.type !== 'external' ? 'download' : 'target="_blank"'}>
+                        <div class="btn-buy__text">${escapeHtml(btn.text)}</div>
+                        ${filenameHtml}
+                    </a>
+                `;
+            });
+        }
+        
+        return `
+            <div class="item">
+                <div class="row">
+                    <div class="col-md-3 col-12">
+                        <img src="${escapeHtml(thumbnail)}" alt="" />
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="d-flex flex-column h-100">
+                            <div class="text">
+                                <div class="subtitle"><a href="${escapeHtml(item.permalink)}">${escapeHtml(item.title)}</a></div>
+                                <p>${escapeHtml(item.excerpt)}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-12">
+                        <a href="${escapeHtml(item.permalink)}" class="btn btn-open">Открыть карточку</a>
+                        ${downloadButtonsHtml}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Helper function to escape HTML
+    function escapeHtml(text) {
+        if (!text) return '';
+        var div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    // Initialize lazy loaders for profile page
+    if ($('#published-materials-list').length > 0) {
+        new MaterialsLazyLoader({
+            endpoint: 'user_published_materials',
+            listSelector: '#published-materials-list',
+            loadingSelector: '#published-materials-loading',
+            emptySelector: '#published-materials-empty',
+            loadMoreSelector: '#load-more-published',
+            renderItem: renderPublishedItem,
+            perPage: 5
+        });
+    }
+    
+    if ($('#purchased-materials-list').length > 0) {
+        new MaterialsLazyLoader({
+            endpoint: 'user_purchased_materials',
+            listSelector: '#purchased-materials-list',
+            loadingSelector: '#purchased-materials-loading',
+            emptySelector: '#purchased-materials-empty',
+            loadMoreSelector: '#load-more-purchased',
+            renderItem: renderPurchasedItem,
+            perPage: 5
+        });
+    }
+
     $('.section-materials__filter .show-more').click(function (e) {
         e.preventDefault();
         $(this).siblings('.filter-options').find('.filter-option.switch').toggleClass('hidden visible');
     });
 
-    $('.material-download').on('click', function () {
+    // Use event delegation for dynamically added download buttons
+    $(document).on('click', '.material-download', function () {
         console.log('click');
-        $target = $(this);
+        var $target = $(this);
         $.ajax({
             'method': 'POST',
             'data': {
@@ -644,13 +851,13 @@ jQuery(document).ready(function ($) {
                 if (data === false) {
                     return;
                 }
-                $counter = $('#download-counter');
-                $count = parseInt($counter.text());
+                var $counter = $('#download-counter');
+                var $count = parseInt($counter.text());
                 $count++;
                 $counter.text($count);
             }
-        })
-    })
+        });
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function () {

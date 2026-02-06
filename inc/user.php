@@ -8,8 +8,12 @@ function display_is_user_logged_in($template_path, $name = null, $args = null)
 ?>
     <div class="section-materials__materials add-material">
       <div class="page-message page-message--info">
-        <p>Вы должны быть авторизованы, чтобы добавить новый материал.</p>
-        <a class="link" href="/login">Войти</a>
+        <?php if (!empty($args['message'])): ?>
+          <?php echo wp_kses_post($args['message']); ?>
+        <?php else: ?>
+          <p>Вы должны быть авторизованы, чтобы добавить новый материал.</p>
+          <a class="link" href="/login">Войти</a>
+        <?php endif; ?>
       </div>
     </div>
 <?php
