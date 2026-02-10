@@ -467,7 +467,7 @@
                             на Rutube или VK на видеообзор материала.</p>
                         <p>Демо-файлы для пробного доступа</p>
 
-                        <div class="file-upload-area" data-input-name="demo[]">
+                        <div class="file-upload-area" data-input-name="metodic_demo[]">
                             <div class="file-upload-content">
                                 <div class="file-upload-icon">
                                     <i class="fas fa-eye"></i>
@@ -476,7 +476,7 @@
                                 <p class="file-upload-hint">Любые форматы</p>
                             </div>
                             <div class="file-names"></div>
-                            <input type="file" name="demo[]" class="file-input-hidden" multiple>
+                            <input type="file" name="metodic_demo[]" class="file-input-hidden" multiple>
                         </div>
 
                         <div class="form-group-in">
