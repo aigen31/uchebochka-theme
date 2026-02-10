@@ -54,23 +54,28 @@ jQuery(function ($) {
         }
     });
 
+    var searchDebounceTimer = null;
     $('#search-course-form input[name="searchQuery"]').on('input', function () {
         var query = $(this).val();
 
-        if (query.length >= 3) { // Минимальная длина запроса для начала поиска
-            $.ajax({
-                url: ajax_filter_params.ajax_url, // URL для отправки запроса (определяется в WordPress)
-                type: 'POST',
-                data: {
-                    action: 'search_courses', // Название действия для AJAX-хука
-                    searchQuery: query
-                },
-                success: function (data) {
-                    var resultsContainer = $('.v-search-result');
-                    resultsContainer.html(data);
-                    resultsContainer.show();
-                }
-            });
+        clearTimeout(searchDebounceTimer);
+
+        if (query.length >= 3) {
+            searchDebounceTimer = setTimeout(function () {
+                $.ajax({
+                    url: ajax_filter_params.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'search_courses',
+                        searchQuery: query
+                    },
+                    success: function (data) {
+                        var resultsContainer = $('.v-search-result');
+                        resultsContainer.html(data);
+                        resultsContainer.show();
+                    }
+                });
+            }, 300);
         } else {
             $('.v-search-result').hide();
         }
@@ -731,8 +736,8 @@ jQuery(document).ready(function ($) {
                     <div class="col-md-6 col-12">
                         <div class="d-flex flex-column justify-content-between h-100">
                             <div class="text">
-                                <div class="subtitle"><a href="${escapeHtml(item.permalink)}">${escapeHtml(item.title)}</a></div>
-                                <p>${escapeHtml(item.excerpt)}</p>
+                                <div class="subtitle"><a href="${escapeHtml(item.permalink)}">${decodeHtmlEntities(item.title)}</a></div>
+                                <p>${decodeHtmlEntities(item.excerpt)}</p>
                             </div>
                             <div class="status">${escapeHtml(item.status_text)}</div>
                         </div>
@@ -782,8 +787,8 @@ jQuery(document).ready(function ($) {
                     <div class="col-md-6 col-12">
                         <div class="d-flex flex-column h-100">
                             <div class="text">
-                                <div class="subtitle"><a href="${escapeHtml(item.permalink)}">${escapeHtml(item.title)}</a></div>
-                                <p>${escapeHtml(item.excerpt)}</p>
+                                <div class="subtitle"><a href="${escapeHtml(item.permalink)}">${decodeHtmlEntities(item.title)}</a></div>
+                                <p>${decodeHtmlEntities(item.excerpt)}</p>
                             </div>
                         </div>
                     </div>
@@ -802,6 +807,14 @@ jQuery(document).ready(function ($) {
         var div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    // Helper function to decode HTML entities (e.g. &#8220; → ")
+    function decodeHtmlEntities(text) {
+        if (!text) return '';
+        var textarea = document.createElement('textarea');
+        textarea.innerHTML = text;
+        return textarea.value;
     }
     
     // Initialize lazy loaders for profile page

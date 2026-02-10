@@ -123,7 +123,7 @@ get_template_part('template-parts/pagination', '', ['wp_query' => $wp_query]);
 
 wp_reset_query();
 wp_reset_postdata();
-if (!is_page()) {
+if (wp_doing_ajax()) {
   exit;
 }
 ?>

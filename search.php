@@ -10,44 +10,83 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
+<section class="section-hero">
+  <div class="container">
+    <div class="section-hero__row">
+      <div class="section-hero__col section-hero__col--left">
+        <h1 class="h1 section-hero__h1">
+          <?php printf( esc_html( 'Результаты поиска: %s', 'uchebochka' ), '<span>' . get_search_query() . '</span>' ); ?>
+        </h1>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
 
-		<?php if ( have_posts() ) : ?>
 
-			<header class="page-header">
-				<h1 class="page-title">
-					<?php
-					/* translators: %s: search query. */
-					printf( esc_html__( 'Search Results for: %s', 'uchebochka' ), '<span>' . get_search_query() . '</span>' );
-					?>
-				</h1>
-			</header><!-- .page-header -->
+<section class="section-materials" id="materialsSection">
+  <div class="container d-md-flex">
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
+    <?php get_template_part('template-parts/column-left'); ?>
 
-				/**
-				 * Run the loop for the search to output the results.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-search.php and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', 'search' );
+    <!-- CENTER COLUMN -->
 
-			endwhile;
+    <div class="section-materials__materials">
 
-			the_posts_navigation();
+      <!-- smart search -->
 
-		else :
+      <div class="materials">
+        <?php get_template_part('template-parts/search'); ?>
 
-			get_template_part( 'template-parts/content', 'none' );
+        <?php get_template_part('template-parts/post-counter', '', [
+          'postfix' => 'методических разработок',
+        ]); ?>
+      </div>
 
-		endif;
-		?>
+      <!-- categories -->
 
-	</main><!-- #main -->
+      <div class="categories">
+        <div class="sections-container">
+          <h2 class="mb-4">Разделы</h2>
 
+          <div class="gradient-overlay"></div>
+
+          <!-- <div class="sections-wrapper" id="sectionsWrapper">
+            <a href="#" class="section-item">История</a>
+            <a href="#" class="section-item">Экономика</a>
+            <a href="#" class="section-item">Русский язык</a>
+            <a href="#" class="section-item">ОБЖ</a>
+            <a href="#" class="section-item">Химия</a>
+            <a href="#" class="section-item">География</a>
+            <a href="#" class="section-item">Иностранные языки</a>
+            <a href="#" class="section-item">Математика</a>
+          </div> -->
+
+          <?php get_template_part('template-parts/terms-slider', '', [
+            'taxonomy' => 'metodic_category',
+            'parent_id' => 11,
+          ]); ?>
+
+          <div class="slider-container">
+            <div class="slider-track"></div>
+            <div class="slider-thumb" id="sliderThumb"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="catalog">
+        <?php ajax_filter_posts(); ?>
+      </div>
+
+    </div>
+
+    <!-- END CENTER COLUMN -->
+
+    <?php get_template_part('template-parts/column-right'); ?>
+
+    <!-- END ROW -->
+  </div>
+</section>
 <?php
-get_sidebar();
 get_footer();
+?>

@@ -3979,6 +3979,112 @@ button.clear-btn {
     background-color: #f0f0f0
 }
 
+/* Search sections */
+.v-search-result .search-section {
+    border-bottom: 1px solid #e4e4e4
+}
+
+.v-search-result .search-section:last-child {
+    border-bottom: none
+}
+
+.v-search-result .search-section__header {
+    font-weight: 700;
+    font-size: 15px;
+    padding: 10px 12px 4px;
+    color: #181818
+}
+
+.v-search-result .search-section__footer {
+    font-size: 14px;
+    padding: 8px 12px;
+    text-align: center;
+    border-top: 1px solid #e4e4e4
+}
+
+/* .v-search-result .search-section__header a {
+    color: #259de3;
+    text-decoration: none
+} */
+
+/* .v-search-result .search-section__header a:hover {
+    text-decoration: underline
+}
+
+.v-search-result .search-section__footer a {
+    color: #259de3;
+    font-weight: 600;
+    text-decoration: none
+}
+
+.v-search-result .search-section__footer a:hover {
+    text-decoration: underline
+} */
+
+.v-search-result .search-section__footer-btn {
+    background-color: #faefd9;
+    border-radius: 100px;
+    padding: 4px 18px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.v-search-result .search-section__footer-icon {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    margin-left: 22px;
+}
+
+.v-search-result .search-section__footer-span {
+    display: block;
+    flex: 0 1 auto;
+}
+
+.v-search-result .search-section--posts ul li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 12px
+}
+
+.v-search-result .search-section--posts ul li:hover {
+    background-color: #f0f0f0
+}
+
+.v-search-result .search-section--posts ul li a.search-result__material {
+    flex: 1;
+    padding: 0;
+    min-width: 0
+}
+
+.v-search-result .search-result__title {
+    color: #181818
+}
+
+.v-search-result .search-result__author {
+    color: #76767a;
+    white-space: nowrap
+}
+
+.v-search-result .search-result__section {
+    font-size: 13px;
+    color: #76767a;
+    white-space: nowrap;
+    flex-shrink: 0
+}
+
+.v-search-result .search-result__section a {
+    color: #259de3;
+    text-decoration: none
+}
+
+.v-search-result .search-result__section a:hover {
+    text-decoration: underline
+}
+
 .v-search-result ul li.v-search-result__header {
     border-bottom: 1px dashed #9ad0cb;
     color: #20746d;
