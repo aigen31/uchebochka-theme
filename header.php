@@ -93,7 +93,7 @@
 
 </head>
 
-<body <?= body_class(is_front_page() ? 'main body--legacy' : 'body--legacy') ?>>
+<body <?= body_class(is_front_page() || is_search() ? 'main body--legacy' : 'body--legacy') ?>>
 	<div class="top">
 		<header class="header-main">
 			<div class="container header-main__container">
