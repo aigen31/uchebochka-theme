@@ -194,28 +194,31 @@ $pda_services = new PDA_Services();
       </div>
 
       <?php
-      // Получаем термины текущего поста
       $current_categories = get_the_terms(get_the_ID(), 'metodic_category');
       if ($current_categories && !is_wp_error($current_categories)) {
-        $category_ids = array_map(function($cat) {
-          return $cat->term_id;
-        }, $current_categories);
+        $filtered_categories = array_filter($current_categories, function($cat) {
+          return $cat->parent === 11;
+        });
 
-        // Запрос рекомендуемых материалов
-        $recommended_query = new WP_Query([
-          'post_type' => 'metodic_post',
-          'post_status' => 'publish',
-          'posts_per_page' => 3,
-          'orderby' => 'rand',
-          'post__not_in' => [get_the_ID()], // исключаем текущий пост
-          'tax_query' => [
-            [
-              'taxonomy' => 'metodic_category',
-              'field'    => 'term_id',
-              'terms'    => $category_ids,
+        if (!empty($filtered_categories)) {
+          $category_ids = array_map(function($cat) {
+            return $cat->term_id;
+          }, $filtered_categories);
+
+          $recommended_query = new WP_Query([
+            'post_type' => 'metodic_post',
+            'post_status' => 'publish',
+            'posts_per_page' => 3,
+            'orderby' => 'rand',
+            'post__not_in' => [get_the_ID()],
+            'tax_query' => [
+              [
+                'taxonomy' => 'metodic_category',
+                'field'    => 'term_id',
+                'terms'    => $category_ids,
+              ],
             ],
-          ],
-        ]);
+          ]);
 
         if ($recommended_query->have_posts()) : ?>
           <div class="block">
@@ -306,6 +309,7 @@ $pda_services = new PDA_Services();
           <?php
           wp_reset_postdata();
         endif;
+        }
       }
       ?>
 
