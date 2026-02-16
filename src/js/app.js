@@ -1,5 +1,5 @@
 import { get_read_time } from './modules/article-time-read.js'
-import { ym_ecommerce_init, ym_make_order, ym_clear_cart } from './modules/ym-ecommerce.js';
+import { ym_ecommerce_init, ym_make_order, ym_clear_cart, fast_product_purchase } from './modules/ym-ecommerce.js';
 const $ = window.jQuery;
 $(function () {
 
@@ -66,6 +66,57 @@ $(function () {
         ym_make_order();
         $(this).off('submit');
         this.submit();
+    });
+
+    $('#instantPurchaseForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        var $form = $(this);
+        var $submitBtn = $('#instantPurchaseSubmit');
+        var $errorDiv = $('#instantPurchaseError');
+        
+        var productId = $('#instantPurchaseProductId').val();
+        var email = $('#instantPurchaseEmail').val();
+        var phone = $('#instantPurchasePhone').val();
+        
+        // Disable button and show loading
+        $submitBtn.prop('disabled', true).text('Обработка...');
+        $errorDiv.addClass('d-none').addClass('hidden');
+        
+        $.ajax({
+            method: 'POST',
+            url: uchebochka_vars.ajax_url,
+            data: {
+                action: 'instant_checkout',
+                product_id: productId,
+                email: email,
+                phone: phone,
+                nonce: uchebochka_vars.nonce
+            },
+            success: async function(response) {
+                console.log('Instant checkout response:', response);
+                
+                if (response && response.success && response.data && response.data.redirect_url) {
+                    await fast_product_purchase();
+                    console.log(window.dataLayer);
+                    // Redirect to payment
+                    debugger;
+                    window.location.href = response.data.redirect_url;
+                } else {
+                    console.error('Invalid response structure:', response);
+                    const errorMessage = (response && response.data && response.data.message) 
+                        ? response.data.message 
+                        : 'Произошла ошибка. Попробуйте снова.';
+                    $errorDiv.removeClass('d-none').removeClass('hidden').text(errorMessage);
+                    $submitBtn.prop('disabled', false).text('Оплатить');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Instant checkout error:', error);
+                $errorDiv.removeClass('d-none').removeClass('hidden').text('Ошибка соединения. Попробуйте снова.');
+                $submitBtn.prop('disabled', false).text('Оплатить');
+            }
+        });
     });
 
 

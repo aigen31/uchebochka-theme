@@ -243,6 +243,40 @@ export function ym_clear_cart(){
     });
 }
 
+export function fast_product_purchase() {
+    return new Promise((resolve) => {
+        const $ = window.jQuery;
+        const id = $('#instantPurchaseProductId').val();
+        const price = parseFloat($('.material-instant-purchase[data-product-id="' + id + '"]').data('product-price'));
+        const name = $('.material-instant-purchase[data-product-id="' + id + '"]').data('product-title');
+        const category = $('.material-instant-purchase[data-product-id="' + id + '"]').closest('.product-card').data('category');
+        if(!id) {
+            resolve();
+            return;
+        }
+        window.dataLayer.push({
+            ecommerce: {
+                currencyCode: "RUB",
+                purchase: {
+                    actionField: {
+                        id : genRandomId(),
+                    },
+                    products:[{
+                        id: id,
+                        name: name,
+                        price: price,
+                        category: category,
+                        quantity: 1,
+                        list: 'Выдача категории',
+                    }],
+                }
+            }
+        });
+        // Небольшая задержка для гарантии отправки данных в аналитику
+        setTimeout(() => resolve(), 100);
+    });
+}
+
 
 function genRandomId(prefix = 'TRX', digits = 6) {
   const max = 10 ** digits;
