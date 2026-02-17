@@ -46,7 +46,7 @@
 								<li><a href="https://disk.yandex.ru/d/C5bvbYeQVAn2KA">Пользовательское соглашение</a></li>
 								<li><a href="https://disk.yandex.ru/i/ZNwuGX5lO0I6QA">Политика конфиденциальности</a></li>
 								<li><a href="https://disk.yandex.ru/d/i3sVtjs492XWXQ">Политика персональных данных</a></li>
-								<li><a href="https://test.xn--80ablvt1a2ad.xn--p1ai/wp-content/uploads/2026/01/offer.docx">Оферта</a></li>
+								<li><a href="https://xn--80ablvt1a2ad.xn--p1ai/wp-content/uploads/2026/02/offer.docx">Оферта</a></li>
 							</ul>
 						</nav>
 
