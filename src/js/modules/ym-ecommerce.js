@@ -267,7 +267,7 @@ export function fast_product_purchase() {
                         price: price,
                         category: category,
                         quantity: 1,
-                        list: 'Выдача категории',
+                        list: 'Быстрая покупка',
                     }],
                 }
             }
