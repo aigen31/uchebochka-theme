@@ -4665,3 +4665,16 @@ body .wpsc-shortcode-container {
     color: #222222;
     text-decoration: underline;
 }
+
+.cart__warning-message {
+    background: #ffecb0;
+    color: #333333;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    border-left: 4px solid #edb918;
+    box-shadow: 0 2px 8px rgba(237, 185, 24, 0.15);
+}

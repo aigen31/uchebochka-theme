@@ -60,7 +60,7 @@ if ($is_guest) {
               $string_array_category = "";
               if ($categories && !is_wp_error($categories)) {
                 foreach ($categories as $cat) {
-                    $string_array_category.= esc_html($cat->name) . " / ";
+                  $string_array_category .= esc_html($cat->name) . " / ";
                 }
               }
           ?>
@@ -80,8 +80,7 @@ if ($is_guest) {
                   </div>
                 </div>
                 <div class="document-actions cart-item-actions">
-                  <button class="btn btn-edit cart-item-remove" data-product-id="<?php echo esc_attr($post->cart_id); ?>"
-                  >Удалить</button>
+                  <button class="btn btn-edit cart-item-remove" data-product-id="<?php echo esc_attr($post->cart_id); ?>">Удалить</button>
                 </div>
               </div>
             <?php endforeach;
@@ -135,6 +134,11 @@ if ($is_guest) {
           endif;
           ?>
         </div>
+        <?php if (!is_user_logged_in()) : ?>
+          <p class="warning-message cart__warning-message">
+            Указывайте настоящие данные! После оплаты на вашу почту будут отправлены данные для входа в Личный кабинет, откуда вы сможете скачать купленные материалы.
+          </p>
+        <?php endif; ?>
       </div>
     </div>
   </div>
