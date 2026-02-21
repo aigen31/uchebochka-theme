@@ -2342,6 +2342,18 @@ input[type="file"]+.form-group-in {
     margin-top: 20px;
 }
 
+.save-metodic-form__info {
+    background: #f9efd9;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 300;
+    color: #666666;
+    border-left: 3px solid #edb918;
+    margin: 8px 0;
+    display: inline-block;
+}
+
 .info-form {
     font-weight: 300;
     margin: 30px 0
@@ -4350,7 +4362,7 @@ section.section-materials .cart-title {
     background: linear-gradient(180deg, #fff 0%, #fbfbfb 100%);
 }
 
-.cart-empty__btn {
+.body--legacy .cart-empty__btn {
     display: inline-block;
     margin-top: 12px;
     background: var(--accent);

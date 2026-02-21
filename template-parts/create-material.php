@@ -1,5 +1,9 @@
 <!-- CENTER COLUMN -->
 
+<?php
+$max_file_size = ini_get('upload_max_filesize');
+?>
+
 <div class="section-materials__materials add-material">
   <h1>Добавление методической разработки в маркетплейс</h1>
 
@@ -7,7 +11,7 @@
     <a href="/tehnicheskaya-podderzhka"> Нажмите, чтобы попасть в чат, где можно получить помощь методиста, дизайнера или техподдержки</a>
   </div>
 
-  <form id="save-metodic-form" enctype="multipart/form-data">
+  <form id="save-metodic-form" class="save-metodic-form" enctype="multipart/form-data">
     <input type="hidden" name="material_type" value="metodic_post">
 
     <div class="form-group">
@@ -107,6 +111,7 @@
 
       <div class="form-group-in">
         <div class="subtitle">Документы (.docx, .odt)</div>
+        <div class="save-metodic-form__info">Максимальный размер файла - <?php echo $max_file_size; ?></div>
         <div class="file-upload-area" data-input-name="doc[]">
           <div class="file-upload-content">
             <div class="file-upload-icon">
@@ -122,6 +127,7 @@
 
       <div class="form-group-in">
         <div class="subtitle">Презентации (.pptx, .odp)</div>
+        <div class="save-metodic-form__info">Максимальный размер файла - <?php echo $max_file_size; ?></div>
         <div class="file-upload-area" data-input-name="ppt[]">
           <div class="file-upload-content">
             <div class="file-upload-icon">
@@ -137,6 +143,7 @@
 
       <div class="form-group-in">
         <div class="subtitle">Файлы (.pdf)</div>
+        <div class="save-metodic-form__info">Максимальный размер файла - <?php echo $max_file_size; ?></div>
         <div class="file-upload-area" data-input-name="pdf[]">
           <div class="file-upload-content">
             <div class="file-upload-icon">
