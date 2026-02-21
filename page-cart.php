@@ -134,7 +134,7 @@ if ($is_guest) {
           endif;
           ?>
         </div>
-        <?php if (!is_user_logged_in()) : ?>
+        <?php if (!is_user_logged_in() && !empty($posts)) : ?>
           <p class="warning-message cart__warning-message">
             Указывайте настоящие данные! После оплаты на вашу почту будут отправлены данные для входа в Личный кабинет, откуда вы сможете скачать купленные материалы.
           </p>
