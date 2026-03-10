@@ -89,7 +89,7 @@ $max_file_size = ini_get('upload_max_filesize');
       <h3>Обложка (миниатюра)</h3>
       <p>Добавьте обложку материала. Если макета нет, вы можете поставить на обложку
         первый лист вашего материала. Картинка для обложки должна быть квадратной,
-        рекомендуемый размер: 1800х1800 px</p>
+        рекомендуемый размер: 1080х1080 px</p>
 
       <div class="file-upload-area" data-input-name="files[]">
         <div class="file-upload-content">
@@ -97,7 +97,7 @@ $max_file_size = ini_get('upload_max_filesize');
             <i class="fas fa-cloud-upload-alt"></i>
           </div>
           <p class="file-upload-text">Нажмите для загрузки обложки или перетащите файл сюда</p>
-          <p class="file-upload-hint">Рекомендуемый размер: 1800×1800 px</p>
+          <p class="file-upload-hint">Рекомендуемый размер: 1080×1080 px</p>
         </div>
         <div class="file-names"></div>
         <input type="file" name="post_thumbnail" class="file-input-hidden" multiple accept="image/*">
